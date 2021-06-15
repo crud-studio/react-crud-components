@@ -10,4 +10,11 @@ export interface MenuAction {
     dividerBottom?: boolean;
 }
 
+export interface TabInfo {
+    id: string;
+    labelKey: string;
+    lazy?: boolean;
+    className?: string;
+}
+
 export type ButtonSize = "small" | "medium" | "large";
