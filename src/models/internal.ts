@@ -1,4 +1,4 @@
-import {ComponentType} from "react";
+import {ComponentType, ReactNode} from "react";
 
 export interface MenuAction {
     id: string;
@@ -17,4 +17,14 @@ export interface TabInfo {
     className?: string;
 }
 
+export interface NotificationInfo {
+    uuid?: string;
+    type: NotificationType;
+    message: string | ReactNode;
+    action?: ReactNode;
+    timeOut?: number;
+}
+
 export type ButtonSize = "small" | "medium" | "large";
+
+export type NotificationType = "info" | "success" | "warning" | "error";
