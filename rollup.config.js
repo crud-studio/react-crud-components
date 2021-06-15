@@ -1,3 +1,5 @@
+import commonjs from '@rollup/plugin-commonjs';
+import {nodeResolve} from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2'
 
 import pkg from './package.json'
@@ -14,7 +16,9 @@ export default {
     }
   ],
   plugins: [
-    typescript({objectHashIgnoreUnknownHack: true})
+    typescript({objectHashIgnoreUnknownHack: true}),
+    commonjs(),
+    nodeResolve()
   ],
-  external: ['@crud-studio/react-crud-core', 'lodash', 'react', 'react-dom', 'react-router-dom', 'react-use', 'type-fest', 'uuid']
+  external: ['@crud-studio/react-crud-core', '@material-ui/core', '@material-ui/icons', 'lodash', 'react', 'react-dom', 'react-intl', 'react-router-dom', 'react-use', 'type-fest', 'uuid']
 }

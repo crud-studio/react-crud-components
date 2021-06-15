@@ -9,3 +9,5 @@ export interface MenuAction {
     dividerTop?: boolean;
     dividerBottom?: boolean;
 }
+
+export type ButtonSize = "small" | "medium" | "large";
