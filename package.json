@@ -29,6 +29,7 @@
     "@crud-studio/react-crud-core": "^1.0.6",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "@lottiefiles/react-lottie-player": "^3.3.1",
     "@material-ui/core": "^5.0.0-alpha.34",
     "@material-ui/icons": "^5.0.0-alpha.34",
     "@material-ui/lab": "^5.0.0-alpha.35",
@@ -41,7 +42,8 @@
     "react-router-dom": "^5.2.0",
     "react-use": "^17.2.4",
     "type-fest": "^1.2.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",

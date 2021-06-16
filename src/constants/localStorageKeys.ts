@@ -1,0 +1,1 @@
+export const PARAM_PAGE_SIZE = "PARAM_PAGE_SIZE";

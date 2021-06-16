@@ -1,5 +1,10 @@
 import {ComponentType, ReactNode} from "react";
 
+export interface SelectOption {
+    label: string;
+    value: string;
+}
+
 export interface MenuAction {
     id: string;
     labelKey: string;
