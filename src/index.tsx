@@ -21,18 +21,22 @@ import NotificationContainer from "./components/notifications/NotificationContai
 import NotificationManager from "./components/notifications/NotificationManager";
 import {copyToClipboard} from "./helpers/ClipboardUtils";
 import componentLoader from "./helpers/ComponentLoader";
+import MenuActionItems from "./components/menus/MenuActionItems";
+import MaintenanceManager from "./managers/maintenance/MaintenanceManager";
+import {useScroll} from "./hooks/useScroll";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced, SubmitDialog};
-export {ActionsDropdownMenu, ButtonDropdownMenu};
+export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {NotificationContainer, NotificationManager};
 export {TabPanel};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 
 export {copyToClipboard, componentLoader};
+export {useScroll};
 
-export {KeyBindingManager, ModalManager, ModalsContext};
+export {KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
 
 export {MenuAction, TabInfo, ButtonSize};
 
