@@ -20,5 +20,24 @@ export default {
     commonjs(),
     nodeResolve()
   ],
-  external: ['@crud-studio/react-crud-core', '@lottiefiles/react-lottie-player', '@material-ui/core', '@material-ui/icons', 'lodash', 'react', 'react-dom', 'react-dropzone', 'react-intl', 'react-router-dom', 'react-use', 'type-fest', 'uuid', 'xlsx']
+  external: [
+    '@crud-studio/react-crud-core',
+    '@emotion/react',
+    '@emotion/styled',
+    '@lottiefiles/react-lottie-player',
+    '@material-ui/core',
+    '@material-ui/icons',
+    '@material-ui/lab',
+    'lodash',
+    'react',
+    'react-dom',
+    'react-dropzone',
+    'react-hook-form',
+    'react-intl',
+    'react-router-dom',
+    'react-use',
+    'type-fest',
+    'uuid',
+    'xlsx'
+  ]
 }

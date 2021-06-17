@@ -1,9 +1,8 @@
 import React, {FunctionComponent, Ref, useCallback, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {TextField} from "@material-ui/core";
-import {DatePicker, LocalizationProvider} from "@material-ui/lab";
+import {DatePicker} from "@material-ui/lab";
 import {useIntl} from "react-intl";
-import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 
 interface IProps {
     value?: number;
@@ -46,43 +45,41 @@ const DatePickerWrapper: FunctionComponent<IProps> = ({
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-                onChange={onChangeInternal}
-                value={selected}
-                allowSameDateSelection
-                mask={undefined}
-                renderInput={({inputProps, ...params}) => {
-                    delete inputProps?.placeholder;
-                    // delete inputProps?.readOnly;
-                    return (
-                        <TextField
-                            {...params}
-                            label=""
-                            helperText=""
-                            placeholder={placeholder || intl.formatMessage({id: "pages.select"})}
-                            inputProps={inputProps}
-                            size="small"
-                            fullWidth
-                            disabled={disabled}
-                            ref={innerRef}
-                            // InputProps={{
-                            //   ...params.InputProps,
-                            //   readOnly: true,
-                            //   endAdornment:
-                            //     !!selected && !disabled ? (
-                            //       <InputAdornment position="end">
-                            //         <IconButton aria-label="clear filter" size="small" onClick={() => onChangeInternal(null)}>
-                            //           <Clear fontSize="small" />
-                            //         </IconButton>
-                            //       </InputAdornment>
-                            //     ) : undefined,
-                            // }}
-                        />
-                    );
-                }}
-            />
-        </LocalizationProvider>
+        <DatePicker
+            onChange={onChangeInternal}
+            value={selected}
+            allowSameDateSelection
+            mask={undefined}
+            renderInput={({inputProps, ...params}) => {
+                delete inputProps?.placeholder;
+                // delete inputProps?.readOnly;
+                return (
+                    <TextField
+                        {...params}
+                        label=""
+                        helperText=""
+                        placeholder={placeholder || intl.formatMessage({id: "pages.select"})}
+                        inputProps={inputProps}
+                        size="small"
+                        fullWidth
+                        disabled={disabled}
+                        ref={innerRef}
+                        // InputProps={{
+                        //   ...params.InputProps,
+                        //   readOnly: true,
+                        //   endAdornment:
+                        //     !!selected && !disabled ? (
+                        //       <InputAdornment position="end">
+                        //         <IconButton aria-label="clear filter" size="small" onClick={() => onChangeInternal(null)}>
+                        //           <Clear fontSize="small" />
+                        //         </IconButton>
+                        //       </InputAdornment>
+                        //     ) : undefined,
+                        // }}
+                    />
+                );
+            }}
+        />
     );
 };
 export default React.memo(DatePickerWrapper);
