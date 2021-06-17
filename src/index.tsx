@@ -31,6 +31,7 @@ import { Entity, EnumInfo, EnumInfoMap } from "./models/entity";
 import EntityManager, { EntityContext } from "./entity/managers/EntityManager";
 import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
+import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -41,7 +42,7 @@ export {NotificationContainer, NotificationManager};
 export {TabPanel};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 
-export {CrudDetailsPage, CrudTablePage, EnumInfo, EnumInfoMap, Entity, EntityContext, EntityManager};
+export {CrudDetailsPage, CrudTablePage, DetailsPageHeading, EnumInfo, EnumInfoMap, Entity, EntityContext, EntityManager};
 
 export {copyToClipboard, componentLoader};
 export {useScroll};
