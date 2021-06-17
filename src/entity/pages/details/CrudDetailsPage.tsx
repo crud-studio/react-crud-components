@@ -3,13 +3,15 @@ import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
 import {Entity} from "../../../models/entity";
-import {MenuAction} from "../../../models/internal";
+import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
-import {KeyBindingManager, LoadingCenter, TabInfo, TabPanel} from "../../../../dist";
 import {EntityContext} from "../../managers/EntityManager";
 import DetailsPageHeading from "./DetailsPageHeading";
 import EntityDetailsForm from "./EntityDetailsForm";
 import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
+import KeyBindingManager from "../../../managers/KeyBindingManager";
+import LoadingCenter from "../../../components/common/LoadingCenter";
+import TabPanel from "../../../components/layouts/TabPanel";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
