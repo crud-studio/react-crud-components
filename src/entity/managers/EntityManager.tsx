@@ -6,8 +6,8 @@ import {notEmpty} from "../../helpers/ObjectUtils";
 import {useIntl} from "react-intl";
 
 interface IEntityContext {
-  getEntity: (entityName?: string) => Entity<any>; // TODO: change from any?
-  getEntityEnum: (enumName?: string) => EnumInfoMap<any>; // TODO: change from any?
+  getEntity: (entityName?: string) => Entity<any>;
+  getEntityEnum: (enumName?: string) => EnumInfoMap<any>;
   getEnumSelectOptions: (enumName?: string) => SelectOption[];
   getEnumValueSelectOption: (enumName: string, value: string) => SelectOption | null;
   getEnumValuesSelectOptions: (enumName: string, values: string[]) => SelectOption[];

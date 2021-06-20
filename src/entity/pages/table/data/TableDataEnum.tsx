@@ -13,7 +13,7 @@ const TableDataEnum = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityC
   return (
     <>
       {!!data && column.subtype && (
-        <FormattedMessage id={getEntityEnum[column.subtype]?.get(data)?.labelKey || "pages.na"} />
+        <FormattedMessage id={getEntityEnum(column.subtype)?.get(data)?.labelKey || "pages.na"} />
       )}
     </>
   );

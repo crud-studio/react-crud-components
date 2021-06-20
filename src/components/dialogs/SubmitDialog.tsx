@@ -7,13 +7,15 @@ import {ModalsContext} from "../../managers/ModalManager";
 import StatusButton from "../buttons/StatusButton";
 import ConfirmationDialog from "./ConfirmationDialog";
 
+// TODO: Change to render prop pattern
+
 interface IProps {
   modalId: string;
   modalTitleKey: string;
   setModalItem?: (item: any) => void;
   initialValue?: any;
   submitTextKey?: string;
-  SubmitForm: React.ComponentType<any>; // TODO: Improve from "any" to specific props
+  SubmitForm: React.ComponentType<any>;
   SubmitFormProps?: object;
   DialogProps?: DialogProps;
 }
