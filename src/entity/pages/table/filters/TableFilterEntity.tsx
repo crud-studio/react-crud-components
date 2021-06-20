@@ -54,7 +54,7 @@ const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}
       cache={true}
       lazy={true}
       onEntityChange={(newValue) => onFilterChange(_.isArray(newValue) ? newValue.map((v) => v.id) : [])}
-      placeholder={intl.formatMessage({ id: "pages.search"})}
+      placeholder={intl.formatMessage({id: "pages.search"})}
       multiple={true}
       disableCloseOnSelect
       size="small"

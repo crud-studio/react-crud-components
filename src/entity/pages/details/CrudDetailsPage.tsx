@@ -21,9 +21,9 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
   const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
 
   const {itemId, item, loading, updateItem, saveItem, saving, hasChanges} = useItemDetailsState<EntityRO>(
-      entity,
-      entity.client.generateEmptyEntity,
-      (id?: number) => getEntityDetailsUrl(entity, id)
+    entity,
+    entity.client.generateEmptyEntity,
+    (id?: number) => getEntityDetailsUrl(entity, id)
   );
 
   const [actions] = useState<MenuAction[]>([
@@ -49,7 +49,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     return [
       {id: "details", labelKey: "pages.details"},
       ...(!!itemId
-          ? entity.nestedEntities.map((nestedEntity) => {
+        ? entity.nestedEntities.map((nestedEntity) => {
             const nestedEntityEntity = getEntity(nestedEntity.entityName);
             return {
               id: nestedEntityEntity.name,
@@ -57,7 +57,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
               lazy: true,
             };
           })
-          : []),
+        : []),
     ];
   }, [entity, itemId]);
 
@@ -82,36 +82,36 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
   }, [itemId, entity]);
 
   return (
-      <>
-        <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
+    <>
+      <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
 
-        {loading && <LoadingCenter />}
+      {loading && <LoadingCenter />}
 
-        {item && (
-            <React.Fragment key={item.id}>
-              <DetailsPageHeading
-                  item={item}
-                  saving={saving}
-                  hasChanges={hasChanges}
-                  headingKey={entity.client.titleDetailsKey}
-                  actions={actions}
-                  actionsHandler={actionsHandler}
-                  separator={false}
-              />
+      {item && (
+        <React.Fragment key={item.id}>
+          <DetailsPageHeading
+            item={item}
+            saving={saving}
+            hasChanges={hasChanges}
+            headingKey={entity.client.titleDetailsKey}
+            actions={actions}
+            actionsHandler={actionsHandler}
+            separator={false}
+          />
 
-              <TabPanel tabs={tabs}>
-                <EntityDetailsForm entity={entity} item={item} loading={loading} updateItem={updateItem} />
+          <TabPanel tabs={tabs}>
+            <EntityDetailsForm entity={entity} item={item} loading={loading} updateItem={updateItem} />
 
-                {!!itemId &&
-                entity.nestedEntities.map((nestedEntity) => (
-                    <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />
-                ))}
+            {!!itemId &&
+              entity.nestedEntities.map((nestedEntity) => (
+                <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />
+              ))}
 
-                <div />
-              </TabPanel>
-            </React.Fragment>
-        )}
-      </>
+            <div />
+          </TabPanel>
+        </React.Fragment>
+      )}
+    </>
   );
 };
 

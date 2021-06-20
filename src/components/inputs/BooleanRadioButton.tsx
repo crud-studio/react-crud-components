@@ -11,13 +11,7 @@ interface IProps {
   group: string;
 }
 
-const BooleanRadioButton: FunctionComponent<IProps> = ({
-  value: defaultValue,
-  onChange,
-  disabled,
-  innerRef,
-  group,
-}) => {
+const BooleanRadioButton: FunctionComponent<IProps> = ({value: defaultValue, onChange, disabled, innerRef, group}) => {
   const [value, setValue] = useState<string | null>(defaultValue || null);
 
   const onChangeInternal = (newValue: string) => {

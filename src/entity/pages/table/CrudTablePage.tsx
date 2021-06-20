@@ -95,9 +95,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
         showModal(confirmDeleteModalId);
         break;
       case ActionOpenNewTab.id:
-        selectedItems.forEach((selectedItem) =>
-          window.open(getEntityDetailsUrl(entity, selectedItem.id))
-        );
+        selectedItems.forEach((selectedItem) => window.open(getEntityDetailsUrl(entity, selectedItem.id)));
         break;
       default:
         console.log("actionsHandler no handler for - action id: ", actionId);
