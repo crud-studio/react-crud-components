@@ -79,7 +79,7 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
               }}
               control={control}
               defaultValue=""
-              render={({field}: any) => {
+              render={({field}) => {
                 return (
                   <TextField
                     margin="normal"
@@ -91,15 +91,15 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
                         values={{confirm: intl.formatMessage({id: confirmTextKey})}}
                       />
                     }
-                    value={field.value}
+                    value={field?.value}
                     type="text"
                     size="small"
                     autoComplete="off"
                     autoFocus
-                    onChange={field.onChange}
+                    onChange={field?.onChange}
                     error={!!errors.confirm}
                     helperText={errors.confirm?.message}
-                    ref={field.ref}
+                    ref={field?.ref}
                     sx={{mb: 0}}
                   />
                 );

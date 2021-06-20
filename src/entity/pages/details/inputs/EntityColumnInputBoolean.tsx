@@ -21,7 +21,7 @@ const EntityColumnInputBoolean: FunctionComponent<IPropsEntityColumnInputType> =
       rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       control={methods.control}
       defaultValue={_.isNil(defaultValue) ? null : _.toString(defaultValue)}
-      render={({field}: any) => {
+      render={({field}) => {
         return (
           <BooleanRadioButton
             group={name}
@@ -29,7 +29,7 @@ const EntityColumnInputBoolean: FunctionComponent<IPropsEntityColumnInputType> =
               field?.onChange(e);
               onValueChanged(e);
             }}
-            value={field?.value}
+            value={field.value}
             disabled={disabled}
             innerRef={field?.ref}
           />

@@ -26,7 +26,7 @@ const EntityColumnInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
       rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       control={methods.control}
       defaultValue={_.isNil(defaultValue) || !column.subtype ? null : defaultValue}
-      render={({field}: any) => {
+      render={({field}) => {
         return (
           <Autocomplete
             options={options}

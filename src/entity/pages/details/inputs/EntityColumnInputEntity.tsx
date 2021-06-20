@@ -61,7 +61,7 @@ const EntityColumnInputEntity: FunctionComponent<IPropsEntityColumnInputType> = 
         rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
         control={methods.control}
         defaultValue={defaultValue || null}
-        render={({field}: any) => {
+        render={({field}) => {
           return (
             <AsyncCreatableEntitySelect
               entity={entity}

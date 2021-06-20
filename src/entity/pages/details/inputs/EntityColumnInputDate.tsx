@@ -20,7 +20,7 @@ const EntityColumnInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
       control={methods?.control}
       rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       defaultValue={defaultValue || null}
-      render={({field}: any) => {
+      render={({field}) => {
         return (
           <DatePickerWrapper
             onChange={(value) => {
