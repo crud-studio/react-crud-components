@@ -7,7 +7,6 @@ import {ButtonSize, MenuAction, SelectOption, TabInfo} from "./models/internal";
 import ConfirmationDialog from "./components/dialogs/ConfirmationDialog";
 import ConfirmationTypingDialog from "./components/dialogs/ConfirmationTypingDialog";
 import DialogTitleEnhanced from "./components/dialogs/DialogTitleEnhanced";
-import SubmitDialog from "./components/dialogs/SubmitDialog";
 import FormattedRelativeTimeNow from "./components/time/FormattedRelativeTimeNow";
 import FullTime from "./components/time/FullTime";
 import ItemEditTime from "./components/time/ItemEditTime";
@@ -35,7 +34,7 @@ import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
-export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced, SubmitDialog};
+export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {NotificationContainer, NotificationManager};
