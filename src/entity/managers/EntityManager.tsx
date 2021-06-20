@@ -1,9 +1,11 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
-import {UrlOptions} from "@crud-studio/react-crud-core";
-import {Entity, EnumInfo, EnumInfoMap} from "../../models/entity";
+import {FilterField, UrlOptions} from "@crud-studio/react-crud-core";
+import {Entity, EntityColumn, EnumInfo, EnumInfoMap} from "../../models/entity";
 import {SelectOption} from "../../models/internal";
 import {notEmpty} from "../../helpers/ObjectUtils";
 import {useIntl} from "react-intl";
+import _ from "lodash";
+import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
 interface IEntityContext {
   getEntity: (entityName?: string) => Entity<any>;
@@ -14,6 +16,10 @@ interface IEntityContext {
   getEntityTableUrl: (entity: Entity<any>, options?: UrlOptions) => string;
   getEntityCreateUrl: (entity: Entity<any>, options?: UrlOptions) => string;
   getEntityDetailsUrl: (entity: Entity<any>, id?: number, options?: UrlOptions) => string;
+  parseColumnValue: (column: EntityColumn, value: unknown) => any;
+  isColumnValueValid: (column: EntityColumn, value: unknown, required?: boolean) => boolean;
+  isColumnSearchable: (column: EntityColumn, search: string) => boolean;
+  getColumnSearchFilterField: (column: EntityColumn, search: string) => FilterField;
 }
 
 export const EntityContext = React.createContext<IEntityContext>(undefined!);
@@ -98,6 +104,34 @@ const EntityManager: FunctionComponent<IProps> = ({
     [enumMap]
   );
 
+  const parseColumnValue = useCallback(
+    (column: EntityColumn, value: unknown): any => {
+      if (_.isNil(value)) {
+        return value;
+      }
+      return entityColumnTypes[column.type].parseValue(column, value, enumMap);
+    },
+    [enumMap]
+  );
+
+  const isColumnValueValid = useCallback(
+    (column: EntityColumn, value: unknown, required: boolean = false): boolean => {
+      return (!required && _.isNil(value)) || !_.isNil(parseColumnValue(column, value));
+    },
+    [parseColumnValue]
+  );
+
+  const isColumnSearchable = useCallback(
+    (column: EntityColumn, search: string): boolean => {
+      return !!search && !!column.searchable && entityColumnTypes[column.type].isSearchable(column, search, enumMap);
+    },
+    [enumMap]
+  );
+
+  const getColumnSearchFilterField = useCallback((column: EntityColumn, search: string): FilterField => {
+    return entityColumnTypes[column.type].getSearchFilterField(column, search);
+  }, []);
+
   return (
     <EntityContext.Provider
       value={{
@@ -109,6 +143,10 @@ const EntityManager: FunctionComponent<IProps> = ({
         getEntityTableUrl,
         getEntityCreateUrl,
         getEntityDetailsUrl,
+        parseColumnValue,
+        isColumnValueValid,
+        isColumnSearchable,
+        getColumnSearchFilterField,
       }}
     >
       {children}

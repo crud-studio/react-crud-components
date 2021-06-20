@@ -13,7 +13,7 @@ import {ModalsContext} from "../../../../../managers/ModalManager";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
-import EntityUtils from "../../../../helpers/EntityUtils";
+import {EntityContext} from "../../../../managers/EntityManager";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -29,6 +29,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
   onImportSuccess,
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {parseColumnValue} = useContext(EntityContext);
 
   const [columns] = useState<EntityColumn[]>(
     entity.columns.filter((column) => column.updatable && !_.find(predefinedValues, {name: column.name}))
@@ -71,7 +72,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
       });
       _.forOwn(selectedColumns, (columnIndex: number, columnName: string) => {
         const column: EntityColumn = columnsMap[columnName];
-        const value = EntityUtils.parseColumnValue(column, _.get(itemRow, `[${columnIndex}]`));
+        const value = parseColumnValue(column, _.get(itemRow, `[${columnIndex}]`));
         _.set(item, columnName, value);
       });
       return item;

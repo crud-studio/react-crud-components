@@ -1,18 +1,20 @@
-import {useCallback, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
-import {entityColumnTypes} from "../column-types/entityColumnTypes";
+import {EntityContext} from "../managers/EntityManager";
 
-const useSearchFilterFields = (entity: Entity<any>, search: string | null | undefined): FilterField[] => {
+const useSearchFilterFields = (entity: Entity<any>, search: string | undefined): FilterField[] => {
+  const {isColumnSearchable, getColumnSearchFilterField} = useContext(EntityContext);
+
   const getFilterFields = useCallback((): FilterField[] => {
     if (search) {
       return [
         {
           operation: "Or",
           children: entity.columns
-            .filter((column) => column.searchable && entityColumnTypes[column.type].isSearchable(column, search))
-            .map((column) => entityColumnTypes[column.type].getSearchFilterField(column, search)),
+            .filter((column) => isColumnSearchable(column, search))
+            .map((column) => getColumnSearchFilterField(column, search)),
         },
       ];
     } else {

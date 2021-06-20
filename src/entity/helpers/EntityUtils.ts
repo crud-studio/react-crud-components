@@ -26,16 +26,5 @@ const EntityUtils = {
       .some((column) => _.isNil(_.get(item, column.name)))
       .value();
   },
-
-  isColumnValueValid: function (column: EntityColumn, value: unknown, required: boolean = false): boolean {
-    return (!required && _.isNil(value)) || !_.isNil(this.parseColumnValue(column, value));
-  },
-
-  parseColumnValue: function (column: EntityColumn, value: unknown): any {
-    if (_.isNil(value)) {
-      return value;
-    }
-    return entityColumnTypes[column.type].parseValue(column, value);
-  },
 };
 export default EntityUtils;

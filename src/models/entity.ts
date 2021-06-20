@@ -52,8 +52,8 @@ export interface EntityColumnTypeConfig {
   filterComponent: React.ComponentType<IPropsEntityColumnFilter>;
   dataComponent: React.ComponentType<IPropsEntityColumnData<any>>;
   getDefaultValue: (column: EntityColumn) => any;
-  parseValue: (column: EntityColumn, value: unknown) => any;
-  isSearchable: (column: EntityColumn, search: string) => boolean;
+  parseValue: (column: EntityColumn, value: unknown, enumMap: {[key: string]: EnumInfoMap<any>}) => any;
+  isSearchable: (column: EntityColumn, search: string, enumMap: {[key: string]: EnumInfoMap<any>}) => boolean;
   getSearchFilterField: (column: EntityColumn, search: string) => FilterField;
 }
 
