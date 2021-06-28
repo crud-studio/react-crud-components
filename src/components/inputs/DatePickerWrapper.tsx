@@ -50,6 +50,9 @@ const DatePickerWrapper: FunctionComponent<IProps> = ({
       value={selected}
       allowSameDateSelection
       mask={undefined}
+      clearable={!disabled}
+      disabled={disabled}
+      disableOpenPicker={disabled}
       renderInput={({inputProps, ...params}) => {
         delete inputProps?.placeholder;
         // delete inputProps?.readOnly;
