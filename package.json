@@ -10,7 +10,8 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "lint": "eslint .",
-    "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|css|md|vue)\""
+    "format": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|css|md|vue)\"",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -62,10 +63,19 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "6.0",
     "lint-staged": "^11.0.0",
+    "npm-watch": "^0.10.0",
     "prettier": "^2.3.1",
     "rollup": "^2.51.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "typescript": "^4.3.2"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "ts,tsx"
+    }
   },
   "eslintConfig": {
     "extends": [

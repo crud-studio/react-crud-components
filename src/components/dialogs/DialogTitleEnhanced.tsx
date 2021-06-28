@@ -17,9 +17,8 @@ const DialogTitleEnhanced: FunctionComponent<IProps> = ({onClose, sx, children})
           <CloseOutlined />
         </IconButton>
       ) : null}
-      <Typography component="h2" variant="h2">
-        {children}
-      </Typography>
+
+      {children}
     </DialogTitle>
   );
 };

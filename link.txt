@@ -1,0 +1,59 @@
+rm -rf ~/.config/yarn/link/*
+
+yarn link
+cd node_modules/@crud-studio/react-crud-core
+yarn link
+cd ../../../node_modules/axios
+yarn link
+cd ../../../node_modules/axios-hooks
+yarn link
+cd ../../node_modules/react
+yarn link
+cd ../../node_modules/react-dom
+yarn link
+cd ../../node_modules/react-intl
+yarn link
+cd ../../node_modules/react-router-dom
+yarn link
+cd ../../node_modules/react-router
+yarn link
+cd ../../node_modules/@material-ui/core
+yarn link
+cd ../../../node_modules/@material-ui/lab
+yarn link
+cd ../../../node_modules/@material-ui/icons
+yarn link
+cd ../../../node_modules/@material-ui/private-theming
+yarn link
+cd ../../../node_modules/@material-ui/styled-engine
+yarn link
+cd ../../../node_modules/@material-ui/system
+yarn link
+cd ../../../node_modules/@material-ui/types
+yarn link
+cd ../../../node_modules/@material-ui/unstyled
+yarn link
+cd ../../../node_modules/@material-ui/utils
+yarn link
+cd ../../../
+
+
+yarn link @crud-studio/react-crud-components
+yarn link @crud-studio/react-crud-core
+yarn link axios
+yarn link axios-hooks
+yarn link react
+yarn link react-dom
+yarn link react-intl
+yarn link react-router-dom
+yarn link react-router
+yarn link @material-ui/core
+yarn link @material-ui/lab
+yarn link @material-ui/icons
+yarn link @material-ui/private-theming
+yarn link @material-ui/styled-engine
+yarn link @material-ui/system
+yarn link @material-ui/types
+yarn link @material-ui/unstyled
+yarn link @material-ui/utils
+
