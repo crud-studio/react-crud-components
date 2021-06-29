@@ -72,4 +72,13 @@ export interface EnumInfo<T> {
 
 export type EnumInfoMap<T> = Map<T, EnumInfo<T>>;
 
-export type EntityColumnType = "Text" | "TextArea" | "Number" | "Date" | "Boolean" | "Enum" | "Entity" | "EntityList";
+export type EntityColumnType =
+  | "Text"
+  | "TextArea"
+  | "Number"
+  | "Date"
+  | "Boolean"
+  | "Enum"
+  | "EnumList"
+  | "Entity"
+  | "EntityList";

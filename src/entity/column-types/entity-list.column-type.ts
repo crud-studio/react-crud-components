@@ -5,6 +5,7 @@ import {COMMA_SEPARATED_DIGITS_REGEX, DIGITS_REGEX} from "../../constants/regex"
 import EntityColumnInputEntityList from "../pages/details/inputs/EntityColumnInputEntityList";
 import TableDataEntityList from "../pages/table/data/TableDataEntityList";
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
+import EntityUtils from "../helpers/EntityUtils";
 
 export const entityListColumnType: EntityColumnTypeConfig = {
   type: "EntityList",
@@ -24,12 +25,12 @@ export const entityListColumnType: EntityColumnTypeConfig = {
     if (_.isString(value) && !!value && COMMA_SEPARATED_DIGITS_REGEX.test(value)) {
       return value.split(",").map((v) => _.parseInt(v));
     }
-    return undefined;
+    return [];
   },
   isSearchable(column: EntityColumn, search: string): boolean {
     return !!search && DIGITS_REGEX.test(search);
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
-    return {fieldName: column.name, operation: "Equal", values: [search]};
+    return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Equal", values: [search]};
   },
 };

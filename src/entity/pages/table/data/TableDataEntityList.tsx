@@ -8,7 +8,7 @@ import {EntityColumn} from "../../../../models/entity";
 const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
 
-  const getData = useCallback((item: EntityRO, column: EntityColumn): any => {
+  const getData = useCallback((item: EntityRO, column: EntityColumn): string => {
     const displayValue = _.get(item, column.displayName || column.name);
     if (!displayValue || !_.isArray(displayValue) || _.isEmpty(displayValue)) {
       return "";
@@ -18,7 +18,7 @@ const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsE
     return displayValue.map<string>((item) => entity.client.generateLabel(item)).join(", ");
   }, []);
 
-  const [data] = useState<any>(getData(item, column));
+  const [data] = useState<string>(getData(item, column));
 
   const openEntityNewTab = useCallback(
     (e: React.MouseEvent): void => {

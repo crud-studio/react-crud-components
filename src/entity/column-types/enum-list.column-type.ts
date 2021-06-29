@@ -1,27 +1,31 @@
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig, EnumInfoMap} from "../../models/entity";
-import EntityColumnInputEnum from "../pages/details/inputs/EntityColumnInputEnum";
 import TableFilterEnum from "../pages/table/filters/TableFilterEnum";
-import TableDataEnum from "../pages/table/data/TableDataEnum";
 import EntityUtils from "../helpers/EntityUtils";
 import _ from "lodash";
+import {notEmpty} from "../../helpers/ObjectUtils";
+import EntityColumnInputEnumList from "../pages/details/inputs/EntityColumnInputEnumList";
+import TableDataEnumList from "../pages/table/data/TableDataEnumList";
 
-export const enumColumnType: EntityColumnTypeConfig = {
-  type: "Enum",
-  inputComponent: EntityColumnInputEnum,
+export const enumListColumnType: EntityColumnTypeConfig = {
+  type: "EnumList",
+  inputComponent: EntityColumnInputEnumList,
   filterComponent: TableFilterEnum,
-  dataComponent: TableDataEnum,
+  dataComponent: TableDataEnumList,
   getDefaultValue(column: EntityColumn): any {
-    return undefined;
+    return [];
   },
-  parseValue(column: EntityColumn, value: unknown, enumMap: {[key: string]: EnumInfoMap<any>}): string | undefined {
+  parseValue(column: EntityColumn, value: unknown, enumMap: {[key: string]: EnumInfoMap<any>}): string[] | undefined {
     if (!column.subtype) {
-      return undefined;
+      return [];
     }
     if (!value || !_.isString(value)) {
-      return undefined;
+      return [];
     }
-    return enumMap[column.subtype]?.get(value)?.value;
+    return value
+      .split(",")
+      .map((v) => enumMap[column.subtype || ""]?.get(v)?.value)
+      .filter(notEmpty);
   },
   isSearchable(column: EntityColumn, search: string, enumMap: {[key: string]: EnumInfoMap<any>}): boolean {
     if (!column.subtype) {

@@ -4,6 +4,7 @@ import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
 import EntityColumnInputBoolean from "../pages/details/inputs/EntityColumnInputBoolean";
 import TableFilterBoolean from "../pages/table/filters/TableFilterBoolean";
 import TableDataBoolean from "../pages/table/data/TableDataBoolean";
+import EntityUtils from "../helpers/EntityUtils";
 
 export const booleanColumnType: EntityColumnTypeConfig = {
   type: "Boolean",
@@ -32,6 +33,6 @@ export const booleanColumnType: EntityColumnTypeConfig = {
     return search === "true" || search === "false";
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
-    return {fieldName: column.name, operation: "Equal", values: [search]};
+    return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Equal", values: [search]};
   },
 };

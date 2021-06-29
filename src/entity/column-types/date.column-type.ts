@@ -5,6 +5,7 @@ import EntityColumnInputDate from "../pages/details/inputs/EntityColumnInputDate
 import TableFilterDate from "../pages/table/filters/TableFilterDate";
 import TableDataDate from "../pages/table/data/TableDataDate";
 import {DIGITS_REGEX} from "../../constants/regex";
+import EntityUtils from "../helpers/EntityUtils";
 
 export const dateColumnType: EntityColumnTypeConfig = {
   type: "Date",
@@ -27,6 +28,6 @@ export const dateColumnType: EntityColumnTypeConfig = {
     return !!search && DIGITS_REGEX.test(search);
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
-    return {fieldName: column.name, operation: "GreaterEqual", values: [search]};
+    return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "GreaterEqual", values: [search]};
   },
 };

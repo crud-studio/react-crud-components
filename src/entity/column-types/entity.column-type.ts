@@ -5,6 +5,7 @@ import EntityColumnInputEntity from "../pages/details/inputs/EntityColumnInputEn
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
 import TableDataEntity from "../pages/table/data/TableDataEntity";
 import {DIGITS_REGEX} from "../../constants/regex";
+import EntityUtils from "../helpers/EntityUtils";
 
 export const entityColumnType: EntityColumnTypeConfig = {
   type: "Entity",
@@ -27,6 +28,6 @@ export const entityColumnType: EntityColumnTypeConfig = {
     return !!search && DIGITS_REGEX.test(search);
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
-    return {fieldName: column.name, operation: "Equal", values: [search]};
+    return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Equal", values: [search]};
   },
 };

@@ -4,6 +4,7 @@ import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
 import EntityColumnInputTextArea from "../pages/details/inputs/EntityColumnInputTextArea";
 import TableFilterText from "../pages/table/filters/TableFilterText";
 import TableDataTextArea from "../pages/table/data/TableDataTextArea";
+import EntityUtils from "../helpers/EntityUtils";
 
 export const textAreaColumnType: EntityColumnTypeConfig = {
   type: "TextArea",
@@ -23,6 +24,6 @@ export const textAreaColumnType: EntityColumnTypeConfig = {
     return true;
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
-    return {fieldName: column.name, operation: "Contains", values: [search]};
+    return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Contains", values: [search]};
   },
 };
