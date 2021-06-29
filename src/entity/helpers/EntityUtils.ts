@@ -26,5 +26,9 @@ const EntityUtils = {
       .some((column) => _.isNil(_.get(item, column.name)))
       .value();
   },
+
+  getColumnFilterFieldName: function (column: EntityColumn): string {
+    return column.filterName || column.name;
+  },
 };
 export default EntityUtils;

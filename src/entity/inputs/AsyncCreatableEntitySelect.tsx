@@ -156,8 +156,26 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
     }
   );
 
+  const isIdInValue = useCallback(
+    (id: number): boolean => {
+      if (!value) {
+        return false;
+      }
+
+      if (_.isArray(value)) {
+        return !!_.find(value, (entity) => entity.id === id);
+      }
+
+      return value.id === id;
+    },
+    [value]
+  );
+
   useEffect(() => {
     if (!_.isEmpty(initialValueIdsInternal)) {
+      if (_.every(initialValueIdsInternal, (id) => isIdInValue(id))) {
+        return;
+      }
       if (initialValueSearchState.loading) {
         initialValueSearchState.cancelRequest();
       }

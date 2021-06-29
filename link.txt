@@ -5,8 +5,8 @@ cd node_modules/@crud-studio/react-crud-core
 yarn link
 cd ../../../node_modules/axios
 yarn link
-cd ../../../node_modules/axios-hooks
-yarn link
+# cd ../../node_modules/axios-hooks
+# yarn link
 cd ../../node_modules/react
 yarn link
 cd ../../node_modules/react-dom
@@ -41,7 +41,7 @@ cd ../../../
 yarn link @crud-studio/react-crud-components
 yarn link @crud-studio/react-crud-core
 yarn link axios
-yarn link axios-hooks
+# yarn link axios-hooks
 yarn link react
 yarn link react-dom
 yarn link react-intl

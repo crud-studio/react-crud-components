@@ -6,6 +6,7 @@ import {booleanColumnType} from "./boolean.column-type";
 import {dateColumnType} from "./date.column-type";
 import {enumColumnType} from "./enum.column-type";
 import {entityColumnType} from "./entity.column-type";
+import {entityListColumnType} from "./entity-list.column-type";
 
 export const entityColumnTypes: {[key: string]: EntityColumnTypeConfig} = {
   [textColumnType.type]: textColumnType,
@@ -15,4 +16,5 @@ export const entityColumnTypes: {[key: string]: EntityColumnTypeConfig} = {
   [dateColumnType.type]: dateColumnType,
   [enumColumnType.type]: enumColumnType,
   [entityColumnType.type]: entityColumnType,
+  [entityListColumnType.type]: entityListColumnType,
 };

@@ -24,6 +24,7 @@ import {DIGITS_REGEX} from "../../../constants/regex";
 import MenuActionItems from "../../../components/menus/MenuActionItems";
 import {MenuAction} from "../../../models/internal";
 import {PARAM_PAGE_SIZE} from "../../../constants/localStorageKeys";
+import ErrorTableView from "./components/ErrorTableView";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -239,6 +240,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
               <TableBody>
                 {loading && <LoadingTableView />}
                 {!loading && !error && executed && totalItemCount === 0 && <EmptyTableView />}
+                {!loading && !!error && <ErrorTableView />}
 
                 {!loading &&
                   items &&

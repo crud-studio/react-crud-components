@@ -6,14 +6,16 @@ import {FilterFieldOperation} from "@crud-studio/react-crud-core";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
 import {Clear} from "@material-ui/icons";
 import {useIntl} from "react-intl";
+import {EntityColumn} from "../../../../models/entity";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 interface IProps {
-  fieldName: string;
+  column: EntityColumn;
   inputType: string;
   operation: FilterFieldOperation;
 }
 
-const TableFilterInput: FunctionComponent<IProps> = ({fieldName, inputType, operation}) => {
+const TableFilterInput: FunctionComponent<IProps> = ({column, inputType, operation}) => {
   const intl = useIntl();
 
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
@@ -23,7 +25,7 @@ const TableFilterInput: FunctionComponent<IProps> = ({fieldName, inputType, oper
 
   useEffectOnce(() => {
     if (!!contextFilterFields?.length) {
-      const filterField = _.find(contextFilterFields, {fieldName: fieldName});
+      const filterField = _.find(contextFilterFields, {fieldName: EntityUtils.getColumnFilterFieldName(column)});
       if (filterField) {
         setValue(_.get(filterField.values, "[0]") || "");
       }
@@ -46,14 +48,14 @@ const TableFilterInput: FunctionComponent<IProps> = ({fieldName, inputType, oper
     if (filterValue) {
       updateContextFilterField(
         {
-          fieldName: fieldName,
+          fieldName: EntityUtils.getColumnFilterFieldName(column),
           operation: operation,
           values: [filterValue],
         },
         true
       );
     } else {
-      removeContextFilterField(fieldName, true);
+      removeContextFilterField(EntityUtils.getColumnFilterFieldName(column), true);
     }
   };
 

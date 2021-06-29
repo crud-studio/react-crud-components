@@ -29,8 +29,9 @@ const EntityColumnInput: FunctionComponent<IProps> = ({
     }
 
     if (inputValueChanged) {
-      let inputValueRaw = methods.getValues(getInputName());
-      let inputValue = _.isObject(inputValueRaw) ? JSON.stringify(inputValueRaw) : inputValueRaw;
+      // let inputValueRaw = methods.getValues(getInputName());
+      // let inputValue = _.isObject(inputValueRaw) ? JSON.stringify(inputValueRaw) : inputValueRaw;
+      const inputValue = methods.getValues(getInputName());
       if (onValueChanged) {
         onValueChanged(inputValue);
       }

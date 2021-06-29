@@ -5,6 +5,7 @@ import {IPropsEntityColumnData, IPropsEntityColumnFilter, IPropsEntityColumnInpu
 export interface EntityColumn {
   name: string;
   displayName?: string;
+  filterName?: string;
   type: EntityColumnType;
   subtype?: string;
   titleKey: string;
@@ -71,4 +72,4 @@ export interface EnumInfo<T> {
 
 export type EnumInfoMap<T> = Map<T, EnumInfo<T>>;
 
-export type EntityColumnType = "Text" | "TextArea" | "Number" | "Date" | "Boolean" | "Enum" | "Entity";
+export type EntityColumnType = "Text" | "TextArea" | "Number" | "Date" | "Boolean" | "Enum" | "Entity" | "EntityList";

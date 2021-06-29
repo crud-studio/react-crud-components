@@ -7,6 +7,7 @@ import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import {SelectOption} from "../../../../models/internal";
 import {EntityContext} from "../../../managers/EntityManager";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 const TableFilterEnum: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();
@@ -47,14 +48,14 @@ const TableFilterEnum: FunctionComponent<IPropsEntityColumnFilter> = ({column}) 
     if (filterValue && !_.isEmpty(filterValue)) {
       updateContextFilterField(
         {
-          fieldName: column.name,
+          fieldName: EntityUtils.getColumnFilterFieldName(column),
           operation: "In",
           values: filterValue.map((option) => option.value),
         },
         debounced
       );
     } else {
-      removeContextFilterField(column.name, debounced);
+      removeContextFilterField(EntityUtils.getColumnFilterFieldName(column), debounced);
     }
   };
 

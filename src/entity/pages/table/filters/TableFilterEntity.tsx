@@ -7,6 +7,7 @@ import {Entity} from "../../../../models/entity";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {useIntl} from "react-intl";
 import {EntityContext} from "../../../managers/EntityManager";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();
@@ -20,7 +21,7 @@ const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}
 
   useEffectOnce(() => {
     if (!!contextFilterFields?.length) {
-      const filterField = _.find(contextFilterFields, {fieldName: column.name});
+      const filterField = _.find(contextFilterFields, {fieldName: EntityUtils.getColumnFilterFieldName(column)});
       if (filterField?.values) {
         setInitialValueIds(filterField.values);
       }
@@ -35,14 +36,14 @@ const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}
     if (filterValue && !_.isEmpty(filterValue)) {
       updateContextFilterField(
         {
-          fieldName: column.name,
+          fieldName: EntityUtils.getColumnFilterFieldName(column),
           operation: "In",
           values: filterValue,
         },
         debounced
       );
     } else {
-      removeContextFilterField(column.name, debounced);
+      removeContextFilterField(EntityUtils.getColumnFilterFieldName(column), debounced);
     }
   };
 

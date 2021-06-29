@@ -3,6 +3,7 @@ import _ from "lodash";
 import {URL_PARAM_FILTERS, urlValuesSeparator} from "../../constants/urlKeys";
 import {FilterField, useDebounceFn, useUrlState} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
+import EntityUtils from "../helpers/EntityUtils";
 
 interface IFiltersContext {
   contextFilterFields: FilterField[];
@@ -38,7 +39,7 @@ const FilterManager: FunctionComponent<IProps> = ({entity, onContextFilterFields
           (filterField) =>
             !!filterField.operation &&
             !!filterField.values?.length &&
-            entity.columns.some((column) => column.name === filterField.fieldName)
+            entity.columns.some((column) => EntityUtils.getColumnFilterFieldName(column) === filterField.fieldName)
         );
     },
     (state) => {
