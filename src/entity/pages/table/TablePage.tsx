@@ -17,7 +17,7 @@ import {
   useCrudSearch,
   useUrlState,
 } from "@crud-studio/react-crud-core";
-import {Menu, Paper, Table, TableBody, TableContainer} from "@material-ui/core";
+import {Box, Menu, Paper, Table, TableBody, TableContainer} from "@material-ui/core";
 import {PopoverPosition} from "@material-ui/core/Popover/Popover";
 import {Entity, EntityColumn} from "../../../models/entity";
 import {DIGITS_REGEX} from "../../../constants/regex";
@@ -27,6 +27,7 @@ import {PARAM_PAGE_SIZE} from "../../../constants/localStorageKeys";
 import ErrorTableView from "./components/ErrorTableView";
 import VirtualTable from "../../../components/layouts/VirtualTable";
 import {ListChildComponentProps} from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 import {useScrollSync} from "../../../hooks/useScrollSync";
 import TableAccessibilityHeaderRowView from "./components/TableAccessibilityHeaderRowView";
 
@@ -224,79 +225,85 @@ const TablePage = <EntityRO extends BaseJpaRO>({
   return (
     <FilterManager entity={entity} onContextFilterFieldsUpdated={onContextFilterFieldsUpdated}>
       <OrderByManager entity={entity} onContextOrdersUpdated={onContextOrdersUpdated}>
-        <TablePageHeading
-          compact={compact}
-          heading={entity.client.titleKey}
-          currentPage={currentPage}
-          totalPageCount={totalPageCount}
-          onChangePage={onChangePage}
-          onChangePageSize={changePageSize}
-          selectedPageSize={pageSize}
-          totalItemCount={totalItemCount}
-          startIndex={startIndex}
-          endIndex={endIndex}
-          buttons={buttons}
-          buttonsHandler={buttonsHandler}
-          dropdownActions={actions}
-          dropdownActionsHandler={onDropdownMenuClick}
-        />
+        <Box sx={{height: "100%", display: "flex", flexDirection: "column"}}>
+          <TablePageHeading
+            compact={compact}
+            heading={entity.client.titleKey}
+            currentPage={currentPage}
+            totalPageCount={totalPageCount}
+            onChangePage={onChangePage}
+            onChangePageSize={changePageSize}
+            selectedPageSize={pageSize}
+            totalItemCount={totalItemCount}
+            startIndex={startIndex}
+            endIndex={endIndex}
+            buttons={buttons}
+            buttonsHandler={buttonsHandler}
+            dropdownActions={actions}
+            dropdownActionsHandler={onDropdownMenuClick}
+          />
 
-        <Paper sx={{position: "relative"}}>
-          <TableContainer sx={{overflowY: "scroll", overflowX: "hidden"}} ref={tableHeaderRef}>
-            <Table size="small">
-              <TableHeaderRowView
-                columns={columns}
-                itemsLength={items?.length || 0}
-                selectedItemsLength={selectedItemIds?.length || 0}
-                handleChangeSelectAll={handleChangeSelectAll}
-              />
+          <Paper sx={{position: "relative", display: "flex", flexDirection: "column", flexGrow: 1}}>
+            <TableContainer sx={{overflowY: "scroll", overflowX: "hidden"}} ref={tableHeaderRef}>
+              <Table size="small">
+                <TableHeaderRowView
+                  columns={columns}
+                  itemsLength={items?.length || 0}
+                  selectedItemsLength={selectedItemIds?.length || 0}
+                  handleChangeSelectAll={handleChangeSelectAll}
+                />
 
-              <TableBody>
-                {loading && <LoadingTableView />}
-                {!loading && !error && executed && totalItemCount === 0 && <EmptyTableView />}
-                {!loading && !!error && <ErrorTableView />}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                <TableBody>
+                  {loading && <LoadingTableView />}
+                  {!loading && !error && executed && totalItemCount === 0 && <EmptyTableView />}
+                  {!loading && !!error && <ErrorTableView />}
+                </TableBody>
+              </Table>
+            </TableContainer>
 
-          <TableContainer>
-            <VirtualTable
-              height={300}
-              width="100%"
-              itemData={{
-                items: items,
-                columns: columns,
-                selectedItemIds: selectedItemIds,
-                onClickItem: onClickItemInternal,
-                onCheckItem: onCheckItem,
-                onContextMenuItem: onContextMenuItem,
-              }}
-              itemCount={items?.length || 0}
-              itemSize={55}
-              itemKey={(index, data) => data.items[index].id}
-              row={Row}
-              header={<TableAccessibilityHeaderRowView columns={columns} />}
-              scrollRef={tableBodyRef}
-            />
-          </TableContainer>
-        </Paper>
+            <TableContainer sx={{flexGrow: 1}}>
+              <AutoSizer disableWidth={true}>
+                {({height}) => (
+                  <VirtualTable
+                    height={height}
+                    width="100%"
+                    itemData={{
+                      items: items,
+                      columns: columns,
+                      selectedItemIds: selectedItemIds,
+                      onClickItem: onClickItemInternal,
+                      onCheckItem: onCheckItem,
+                      onContextMenuItem: onContextMenuItem,
+                    }}
+                    itemCount={items?.length || 0}
+                    itemSize={55}
+                    itemKey={(index, data) => data.items[index].id}
+                    row={Row}
+                    header={<TableAccessibilityHeaderRowView columns={columns} />}
+                    scrollRef={tableBodyRef}
+                  />
+                )}
+              </AutoSizer>
+            </TableContainer>
+          </Paper>
 
-        <Menu
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          anchorReference="anchorPosition"
-          anchorPosition={contextMenuPosition}
-          open={!!contextMenuPosition}
-          onContextMenu={(e) => {
-            e.preventDefault();
-            onContextMenuClose();
-          }}
-          onClose={onContextMenuClose}
-        >
-          <MenuActionItems actions={actions} onActionClick={onContextMenuActionClick} />
-        </Menu>
+          <Menu
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            anchorReference="anchorPosition"
+            anchorPosition={contextMenuPosition}
+            open={!!contextMenuPosition}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              onContextMenuClose();
+            }}
+            onClose={onContextMenuClose}
+          >
+            <MenuActionItems actions={actions} onActionClick={onContextMenuActionClick} />
+          </Menu>
+        </Box>
       </OrderByManager>
     </FilterManager>
   );

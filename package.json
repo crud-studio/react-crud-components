@@ -28,6 +28,7 @@
     "copy-to-clipboard": "^3.3.1",
     "mousetrap": "^1.6.5",
     "react-merge-refs": "^1.1.0",
+    "react-virtualized-auto-sizer": "^1.0.5",
     "react-window": "^1.8.6"
   },
   "peerDependencies": {
@@ -58,6 +59,7 @@
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.3",
     "@types/uuid": "^8.3.0",
     "babel-core": "^6.26.3",
