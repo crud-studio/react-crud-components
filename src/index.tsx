@@ -31,6 +31,7 @@ import EntityManager, {EntityContext} from "./entity/managers/EntityManager";
 import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
 import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
+import {useScrollSync} from "./hooks/useScrollSync";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -53,7 +54,7 @@ export {
 };
 
 export {copyToClipboard, componentLoader};
-export {useScroll};
+export {useScroll, useScrollSync};
 
 export {KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
 

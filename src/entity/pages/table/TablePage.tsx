@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import _ from "lodash";
 import {useUpdateEffect} from "react-use";
 import {URL_PARAM_PAGE} from "../../../constants/urlKeys";
@@ -17,7 +17,7 @@ import {
   useCrudSearch,
   useUrlState,
 } from "@crud-studio/react-crud-core";
-import {Menu, Pagination, Paper, Table, TableBody, TableContainer} from "@material-ui/core";
+import {Menu, Paper, Table, TableBody, TableContainer} from "@material-ui/core";
 import {PopoverPosition} from "@material-ui/core/Popover/Popover";
 import {Entity, EntityColumn} from "../../../models/entity";
 import {DIGITS_REGEX} from "../../../constants/regex";
@@ -25,6 +25,10 @@ import MenuActionItems from "../../../components/menus/MenuActionItems";
 import {MenuAction} from "../../../models/internal";
 import {PARAM_PAGE_SIZE} from "../../../constants/localStorageKeys";
 import ErrorTableView from "./components/ErrorTableView";
+import VirtualTable from "../../../components/layouts/VirtualTable";
+import {ListChildComponentProps} from "react-window";
+import {useScrollSync} from "../../../hooks/useScrollSync";
+import TableAccessibilityHeaderRowView from "./components/TableAccessibilityHeaderRowView";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -204,6 +208,16 @@ const TablePage = <EntityRO extends BaseJpaRO>({
     actionsHandler(selectedItems, actionId);
   };
 
+  const tableHeaderRef = useRef<any>();
+  const tableBodyRef = useRef<any>();
+
+  useScrollSync([tableHeaderRef, tableBodyRef], {
+    horizontal: true,
+    vertical: false,
+    proportional: false,
+    throttleWaitTime: 25,
+  });
+
   const startIndex = Math.min((currentPage - 1) * pageSize + 1, totalItemCount);
   const endIndex = Math.min(currentPage * pageSize, totalItemCount);
 
@@ -228,7 +242,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
         />
 
         <Paper sx={{position: "relative"}}>
-          <TableContainer>
+          <TableContainer sx={{overflowY: "scroll", overflowX: "hidden"}} ref={tableHeaderRef}>
             <Table size="small">
               <TableHeaderRowView
                 columns={columns}
@@ -241,36 +255,31 @@ const TablePage = <EntityRO extends BaseJpaRO>({
                 {loading && <LoadingTableView />}
                 {!loading && !error && executed && totalItemCount === 0 && <EmptyTableView />}
                 {!loading && !!error && <ErrorTableView />}
-
-                {!loading &&
-                  items &&
-                  items.map((item) => {
-                    return (
-                      <TableRowView
-                        columns={columns}
-                        item={item}
-                        isSelect={selectedItemIds.includes(item.id)}
-                        onClickItem={onClickItemInternal}
-                        onCheckItem={onCheckItem}
-                        onContextMenuItem={onContextMenuItem}
-                        key={item.id}
-                      />
-                    );
-                  })}
               </TableBody>
             </Table>
           </TableContainer>
-        </Paper>
 
-        <Pagination
-          page={currentPage}
-          count={totalPageCount}
-          size="large"
-          showFirstButton
-          showLastButton
-          onChange={(event, page) => onChangePage(page)}
-          sx={{mt: 3}}
-        />
+          <TableContainer>
+            <VirtualTable
+              height={300}
+              width="100%"
+              itemData={{
+                items: items,
+                columns: columns,
+                selectedItemIds: selectedItemIds,
+                onClickItem: onClickItemInternal,
+                onCheckItem: onCheckItem,
+                onContextMenuItem: onContextMenuItem,
+              }}
+              itemCount={items?.length || 0}
+              itemSize={55}
+              itemKey={(index, data) => data.items[index].id}
+              row={Row}
+              header={<TableAccessibilityHeaderRowView columns={columns} />}
+              scrollRef={tableBodyRef}
+            />
+          </TableContainer>
+        </Paper>
 
         <Menu
           transformOrigin={{
@@ -292,4 +301,19 @@ const TablePage = <EntityRO extends BaseJpaRO>({
     </FilterManager>
   );
 };
+
+function Row({index, data}: ListChildComponentProps) {
+  const item = data.items[index];
+  return (
+    <TableRowView
+      columns={data.columns}
+      item={item}
+      isSelect={data.selectedItemIds.includes(item.id)}
+      onClickItem={data.onClickItem}
+      onCheckItem={data.onCheckItem}
+      onContextMenuItem={data.onContextMenuItem}
+    />
+  );
+}
+
 export default TablePage;

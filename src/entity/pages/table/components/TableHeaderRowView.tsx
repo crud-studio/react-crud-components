@@ -6,7 +6,7 @@ import {OrderByContext} from "../../../managers/OrderByManager";
 import TableHeaderColumnView from "./TableHeaderColumnView";
 import {Checkbox, IconButton, TableCell, TableHead, TableRow, Tooltip} from "@material-ui/core";
 import {CloseOutlined} from "@material-ui/icons";
-import {tableCellWidth} from "../../../../constants/defaultValues";
+import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import {FormattedMessage} from "react-intl";
 
@@ -40,7 +40,7 @@ const TableHeaderRowView: FunctionComponent<IProps> = ({
             handleChangeSelectAll(true);
             event.stopPropagation();
           }}
-          sx={{width: "1px"}}
+          sx={{width: "1px", minWidth: tableCheckboxCellWidth, maxWidth: tableCheckboxCellWidth}}
         >
           <Checkbox
             checked={itemsLength > 0 && selectedItemsLength >= itemsLength}
@@ -52,7 +52,11 @@ const TableHeaderRowView: FunctionComponent<IProps> = ({
         })}
       </TableRow>
       <TableRow className="table-filters">
-        <TableCell align="center" onClick={clearFiltersAndOrder} sx={{width: "1px"}}>
+        <TableCell
+          align="center"
+          onClick={clearFiltersAndOrder}
+          sx={{width: "1px", minWidth: tableCheckboxCellWidth, maxWidth: tableCheckboxCellWidth}}
+        >
           <Tooltip title={<FormattedMessage id="pages.clear-filters" />}>
             <IconButton component="span" size="small" aria-label="clear filters">
               <CloseOutlined />

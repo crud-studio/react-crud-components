@@ -2,7 +2,7 @@ import React from "react";
 import TableData from "../data/TableData";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Checkbox, TableCell, TableRow} from "@material-ui/core";
-import {tableCellWidth} from "../../../../constants/defaultValues";
+import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import _ from "lodash";
 import {EntityColumn} from "../../../../models/entity";
 
@@ -37,7 +37,7 @@ const TableRowView = <EntityRO extends BaseJpaRO>({
           onCheckItem(event, item);
           event.stopPropagation();
         }}
-        sx={{width: "1px"}}
+        sx={{width: "1px", minWidth: tableCheckboxCellWidth, maxWidth: tableCheckboxCellWidth}}
       >
         <Checkbox checked={isSelect} />
       </TableCell>
