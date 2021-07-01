@@ -1,5 +1,5 @@
 import {RefObject, useEffect, useMemo, useRef} from "react";
-import throttle from "lodash/throttle";
+import _ from "lodash";
 
 export type Options = {
   horizontal?: boolean;
@@ -71,7 +71,7 @@ export const useScrollSync: ScrollSync = (refs, options) => {
       });
     };
 
-    const scrollEvent = throttle(handleScroll, scrollSyncOptions.throttleWaitTime);
+    const scrollEvent = _.throttle(handleScroll, scrollSyncOptions.throttleWaitTime);
 
     throttleScrollRef.current = scrollEvent;
 

@@ -6,14 +6,25 @@ import {Badge, Box, Tab, Tabs} from "@material-ui/core";
 import {FormattedMessage} from "react-intl";
 import {TabInfo} from "../../models/internal";
 import {DIGITS_REGEX} from "../../constants/regex";
+import {SxProps} from "@material-ui/system";
+import {Theme} from "@material-ui/core/styles";
 
 interface IProps extends PropsWithChildren<any> {
   tabs: TabInfo[];
   tabsCount?: {[index: string]: number};
   saveActiveTab?: boolean;
+  sx?: SxProps<Theme>;
+  sxTabContainer?: SxProps<Theme>;
 }
 
-const TabPanel: FunctionComponent<IProps> = ({tabs, tabsCount, saveActiveTab = true, children}: IProps) => {
+const TabPanel: FunctionComponent<IProps> = ({
+  tabs,
+  tabsCount,
+  saveActiveTab = true,
+  sx,
+  sxTabContainer,
+  children,
+}: IProps) => {
   const [activeTab, setActiveTab] = useUrlState<number>(
     URL_PARAM_TAB,
     0,
@@ -35,7 +46,7 @@ const TabPanel: FunctionComponent<IProps> = ({tabs, tabsCount, saveActiveTab = t
   };
 
   return (
-    <Box sx={{width: "100%"}}>
+    <Box sx={{width: "100%", ...sx}}>
       <Box sx={{borderBottom: 1, borderColor: "divider"}}>
         <Tabs value={activeTab} onChange={toggleTab}>
           {tabs.map((tab) => {
@@ -61,7 +72,7 @@ const TabPanel: FunctionComponent<IProps> = ({tabs, tabsCount, saveActiveTab = t
           const tab: TabInfo = _.get(tabs, index);
           const tabLoaded: boolean = !tab || !tab.lazy || activeTab === index || loadedTabs.includes(index);
           return (
-            <Box sx={{display: activeTab === index ? "block" : "none"}} key={index}>
+            <Box sx={{display: activeTab === index ? "block" : "none", ...sxTabContainer}} key={index}>
               {tabLoaded && child}
             </Box>
           );

@@ -12,6 +12,7 @@ import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
 import KeyBindingManager from "../../../managers/KeyBindingManager";
 import LoadingCenter from "../../../components/common/LoadingCenter";
 import TabPanel from "../../../components/layouts/TabPanel";
+import {Box} from "@material-ui/core";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -88,7 +89,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
       {loading && <LoadingCenter />}
 
       {item && (
-        <React.Fragment key={item.id}>
+        <Box sx={{height: "100%", display: "flex", flexDirection: "column"}} key={item.id}>
           <DetailsPageHeading
             item={item}
             saving={saving}
@@ -99,7 +100,11 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
             separator={false}
           />
 
-          <TabPanel tabs={tabs}>
+          <TabPanel
+            tabs={tabs}
+            sx={{flexGrow: 1, display: "flex", flexDirection: "column"}}
+            sxTabContainer={{flexGrow: 1}}
+          >
             <EntityDetailsForm entity={entity} item={item} loading={loading} updateItem={updateItem} />
 
             {!!itemId &&
@@ -109,7 +114,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
 
             <div />
           </TabPanel>
-        </React.Fragment>
+        </Box>
       )}
     </>
   );
