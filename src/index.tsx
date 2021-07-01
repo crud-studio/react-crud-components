@@ -32,6 +32,8 @@ import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
 import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
 import {useScrollSync} from "./hooks/useScrollSync";
+import GrantsManager from "./managers/grants/GrantsManager";
+import useHasGrant from "./managers/grants/hooks/useHasGrant";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -56,7 +58,7 @@ export {
 export {copyToClipboard, componentLoader};
 export {useScroll, useScrollSync};
 
-export {KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
+export {GrantsManager, useHasGrant, KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
 
 export {SelectOption, MenuAction, TabInfo, ButtonSize};
 
