@@ -26,14 +26,24 @@ import {useScroll} from "./hooks/useScroll";
 import BooleanRadioButton from "./components/inputs/BooleanRadioButton";
 import FileDropzone from "./components/inputs/FileDropzone";
 import DatePickerWrapper from "./components/inputs/DatePickerWrapper";
-import {Entity, EnumInfo, EnumInfoMap} from "./models/entity";
+import {
+  Entity,
+  EntityActionConfig,
+  EntityActionType,
+  EntityColumn,
+  EntityColumnType,
+  EnumInfo,
+  EnumInfoMap,
+  NestedEntity,
+} from "./models/entity";
 import EntityManager, {EntityContext} from "./entity/managers/EntityManager";
 import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
 import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
 import {useScrollSync} from "./hooks/useScrollSync";
-import GrantsManager from "./managers/grants/GrantsManager";
+import GrantsManager, {GrantContext} from "./managers/grants/GrantsManager";
 import useHasGrant from "./managers/grants/hooks/useHasGrant";
+import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -51,14 +61,20 @@ export {
   EnumInfo,
   EnumInfoMap,
   Entity,
-  EntityContext,
+  EntityColumn,
+  NestedEntity,
+  EntityActionConfig,
+  EntityActionType,
+  EntityColumnType,
   EntityManager,
+  EntityContext,
+  useHasEntityActionType,
 };
 
 export {copyToClipboard, componentLoader};
 export {useScroll, useScrollSync};
 
-export {GrantsManager, useHasGrant, KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
+export {GrantsManager, GrantContext, useHasGrant, KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
 
 export {SelectOption, MenuAction, TabInfo, ButtonSize};
 

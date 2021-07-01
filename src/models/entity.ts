@@ -30,12 +30,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     defaultOrders: OrderDTO[];
     customFilterFields?: FilterField[];
   };
-  actions: {
-    create: boolean;
-    read: boolean;
-    update: boolean;
-    delete: boolean;
-  };
+  actions: Map<EntityActionType, EntityActionConfig>;
   columns: EntityColumn[];
   nestedEntities: NestedEntity[];
   client: {
@@ -65,6 +60,11 @@ export interface NestedEntity {
   hiddenColumns?: string[];
 }
 
+export interface EntityActionConfig {
+  active: boolean;
+  grant?: string;
+}
+
 export interface EnumInfo<T> {
   value: T;
   labelKey: string;
@@ -82,3 +82,5 @@ export type EntityColumnType =
   | "EnumList"
   | "Entity"
   | "EntityList";
+
+export type EntityActionType = "CREATE" | "READ" | "UPDATE" | "DELETE";

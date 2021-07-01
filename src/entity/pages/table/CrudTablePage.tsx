@@ -14,6 +14,7 @@ import NotificationManager from "../../../components/notifications/NotificationM
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {EntityContext} from "../../managers/EntityManager";
 import {ActionCreate, ActionDelete, ActionImport, ActionOpenNewTab, ActionUpdate} from "../../../data/menuActions";
+import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -36,12 +37,16 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [importManyModalId] = useState<string>(_.uniqueId("importMany_"));
 
+  const hasEntityActionCreate = useHasEntityActionType(entity, "CREATE");
+  const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
+  const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
+
   const [refreshItems, setRefreshItems] = useState<number>(0);
   const [selectedItems, setSelectedItems] = useState<EntityRO[]>([]);
 
   const [buttons] = useState<MenuAction[]>([
-    ...(entity.actions.create ? [ActionCreate] : []),
-    ...(entity.actions.create ? [ActionImport] : []),
+    ...(hasEntityActionCreate ? [ActionCreate] : []),
+    ...(hasEntityActionCreate ? [ActionImport] : []),
   ]);
 
   const buttonsHandler = (buttonId: string): void => {
@@ -71,12 +76,12 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   ]);
 
   const [updateMany] = useState<boolean>(
-    entity.actions.update && _.some(entity.columns, (column) => column.updatableMany)
+    hasEntityActionUpdate && _.some(entity.columns, (column) => column.updatableMany)
   );
 
   const actions = [
     ...(updateMany ? [ActionUpdate] : []),
-    ...(entity.actions.delete ? [ActionDelete] : []),
+    ...(hasEntityActionDelete ? [ActionDelete] : []),
     ActionOpenNewTab,
   ];
 

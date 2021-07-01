@@ -1,7 +1,8 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
 
 interface IGrantContext {
-  hasGrant: (grant: string) => boolean;
+  grants: string[];
+  hasGrant: (grant?: string) => boolean;
 }
 
 export const GrantContext = React.createContext<IGrantContext>(undefined!);
@@ -12,8 +13,8 @@ interface IProps extends PropsWithChildren<any> {
 
 const GrantsManager: FunctionComponent<IProps> = ({grants, children}) => {
   const hasGrant = useCallback(
-    (grant: string): boolean => {
-      return grants.includes(grant);
+    (grant?: string): boolean => {
+      return !grant || grants.includes(grant);
     },
     [grants]
   );
@@ -21,6 +22,7 @@ const GrantsManager: FunctionComponent<IProps> = ({grants, children}) => {
   return (
     <GrantContext.Provider
       value={{
+        grants,
         hasGrant,
       }}
     >

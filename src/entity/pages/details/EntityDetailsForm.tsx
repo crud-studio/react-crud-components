@@ -10,6 +10,7 @@ import {Entity} from "../../../models/entity";
 import CardTitle from "../../../components/common/CardTitle";
 import StatusButton from "../../../components/buttons/StatusButton";
 import EntityUtils from "../../helpers/EntityUtils";
+import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -22,6 +23,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
   const methods = useForm();
 
   const [itemData, setItemData] = useState<PartialDeep<EntityRO>>({} as PartialDeep<EntityRO>);
+  const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
 
   const onValueChanged = (value: any, columnName: string): void => {
     setItemData((itemData) => {
@@ -60,7 +62,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
                 <EntityColumnComponent
                   column={column}
                   defaultValue={EntityUtils.getItemColumnDefaultValue(column, item)}
-                  disabled={!entity.actions.update || !column.updatable}
+                  disabled={!hasEntityActionUpdate || !column.updatable}
                   onValueChanged={(value) => {
                     onValueChanged(value, column.name);
                   }}
@@ -69,7 +71,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
                 />
               ))}
 
-            {entity.actions.update && (
+            {hasEntityActionUpdate && (
               <div>
                 <StatusButton color="primary" type="submit" loading={loading}>
                   {item.id > 0 ? <FormattedMessage id="pages.update" /> : <FormattedMessage id="pages.create" />}

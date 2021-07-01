@@ -13,6 +13,7 @@ import KeyBindingManager from "../../../managers/KeyBindingManager";
 import LoadingCenter from "../../../components/common/LoadingCenter";
 import TabPanel from "../../../components/layouts/TabPanel";
 import {Box} from "@material-ui/core";
+import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -21,6 +22,9 @@ interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
 const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<EntityRO>) => {
   const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
 
+  const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
+  const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
+
   const {itemId, item, loading, updateItem, saveItem, saving, hasChanges} = useItemDetailsState<EntityRO>(
     entity,
     entity.client.generateEmptyEntity,
@@ -28,8 +32,8 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
   );
 
   const [actions] = useState<MenuAction[]>([
-    // ...(entity.actions.update ? [{...ActionSave, visible: true}] : []),
-    ...(entity.actions.delete ? [ActionDelete] : []),
+    ...(hasEntityActionUpdate ? [{...ActionSave, visible: true}] : []),
+    ...(hasEntityActionDelete ? [ActionDelete] : []),
   ]);
 
   const actionsHandler = (id: string): void => {
