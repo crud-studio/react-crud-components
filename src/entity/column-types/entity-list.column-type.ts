@@ -2,10 +2,10 @@ import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
 import {COMMA_SEPARATED_DIGITS_REGEX, DIGITS_REGEX} from "../../constants/regex";
-import EntityFieldInputEntityList from "../pages/details/inputs/EntityFieldInputEntityList";
 import TableDataEntityList from "../pages/table/data/TableDataEntityList";
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
 import EntityUtils from "../helpers/EntityUtils";
+import EntityFieldInputEntityList from "../inputs/field/inputs/EntityFieldInputEntityList";
 
 export const entityListColumnType: EntityColumnTypeConfig = {
   type: "EntityList",

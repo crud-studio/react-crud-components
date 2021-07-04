@@ -1,15 +1,15 @@
 import React, {useCallback, useState} from "react";
 import {useDebounce, useUnmount} from "react-use";
 import {useFormContext} from "react-hook-form";
-import EntityColumnInput from "../../../details/EntityColumnInput";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {FormControl, FormHelperText, IconButton, TableCell, TableRow} from "@material-ui/core";
+import {FormControl, IconButton, TableCell, TableRow} from "@material-ui/core";
 import {ClearOutlined} from "@material-ui/icons";
-import EntityColumnComponentError from "../../../details/EntityColumnComponentError";
 import {EntityColumn} from "../../../../../models/entity";
 import EntityUtils from "../../../../helpers/EntityUtils";
+import EntityFieldInput from "../../../../inputs/field/EntityFieldInput";
+import EntityFieldComponentError from "../../../../inputs/field/EntityFieldComponentError";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   columns: EntityColumn[];
@@ -61,8 +61,8 @@ const ImportDataTableRow = <EntityRO extends BaseJpaRO>({columns, item, updateIt
         return (
           <TableCell key={inputName}>
             <FormControl size="small" variant="outlined" error={hasError} sx={{display: "block"}}>
-              <EntityColumnInput
-                column={column}
+              <EntityFieldInput
+                entityField={column}
                 name={inputName}
                 defaultValue={EntityUtils.getItemColumnDefaultValue(column, item)}
                 onValueChanged={(value) => {
@@ -71,7 +71,7 @@ const ImportDataTableRow = <EntityRO extends BaseJpaRO>({columns, item, updateIt
                 }}
               />
 
-              <EntityColumnComponentError error={error?.message} />
+              <EntityFieldComponentError error={error?.message} />
             </FormControl>
           </TableCell>
         );

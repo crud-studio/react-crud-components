@@ -1,11 +1,11 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
-import EntityFieldInputEntity from "../pages/details/inputs/EntityFieldInputEntity";
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
 import TableDataEntity from "../pages/table/data/TableDataEntity";
 import {DIGITS_REGEX} from "../../constants/regex";
 import EntityUtils from "../helpers/EntityUtils";
+import EntityFieldInputEntity from "../inputs/field/inputs/EntityFieldInputEntity";
 
 export const entityColumnType: EntityColumnTypeConfig = {
   type: "Entity",

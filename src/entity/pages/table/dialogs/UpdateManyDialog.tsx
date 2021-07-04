@@ -6,14 +6,14 @@ import {useUpdateEffect} from "react-use";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
 import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent} from "@material-ui/core";
-import EntityFieldComponent from "../../details/EntityFieldComponent";
-import EntityFieldComponentLabel from "../../details/EntityFieldComponentLabel";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import {ModalsContext} from "../../../../managers/ModalManager";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
+import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
+import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
