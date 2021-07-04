@@ -21,7 +21,10 @@ export const enumColumnType: EntityColumnTypeConfig = {
     if (!value || !_.isString(value)) {
       return undefined;
     }
-    return enumMap[column.subtype]?.get(value)?.value;
+    if (!enumMap[column.subtype]?.get(value)) {
+      return undefined;
+    }
+    return value;
   },
   isSearchable(column: EntityColumn, search: string, enumMap: {[key: string]: EnumInfoMap<any>}): boolean {
     if (!column.subtype) {

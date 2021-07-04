@@ -3,7 +3,6 @@ import {EntityColumn, EntityColumnTypeConfig, EnumInfoMap} from "../../models/en
 import TableFilterEnum from "../pages/table/filters/TableFilterEnum";
 import EntityUtils from "../helpers/EntityUtils";
 import _ from "lodash";
-import {notEmpty} from "../../helpers/ObjectUtils";
 import TableDataEnumList from "../pages/table/data/TableDataEnumList";
 import EntityFieldInputEnumList from "../inputs/field/inputs/EntityFieldInputEnumList";
 
@@ -22,10 +21,7 @@ export const enumListColumnType: EntityColumnTypeConfig = {
     if (!value || !_.isString(value)) {
       return [];
     }
-    return value
-      .split(",")
-      .map((v) => enumMap[column.subtype || ""]?.get(v)?.value)
-      .filter(notEmpty);
+    return value.split(",").filter((v) => !!enumMap[column.subtype || ""]?.get(v));
   },
   isSearchable(column: EntityColumn, search: string, enumMap: {[key: string]: EnumInfoMap<any>}): boolean {
     if (!column.subtype) {

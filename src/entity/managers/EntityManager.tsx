@@ -2,7 +2,6 @@ import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
 import {FilterField, UrlOptions} from "@crud-studio/react-crud-core";
 import {Entity, EntityColumn, EnumInfo, EnumInfoMap} from "../../models/entity";
 import {SelectOption} from "../../models/internal";
-import {notEmpty} from "../../helpers/ObjectUtils";
 import {useIntl} from "react-intl";
 import _ from "lodash";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
@@ -56,10 +55,10 @@ const EntityManager: FunctionComponent<IProps> = ({
     [entityMap]
   );
 
-  const getEnumSelectOption = useCallback((enumInfo: EnumInfo<any>): SelectOption => {
+  const getEnumSelectOption = useCallback((value: string, enumInfo?: EnumInfo<any>): SelectOption => {
     return {
-      value: enumInfo.value,
-      label: intl.formatMessage({id: enumInfo.labelKey}),
+      value: value,
+      label: !!enumInfo?.labelKey ? intl.formatMessage({id: enumInfo.labelKey}) : value,
     };
   }, []);
 
@@ -73,7 +72,7 @@ const EntityManager: FunctionComponent<IProps> = ({
       if (!enumInfoMap) {
         return [];
       }
-      return Array.from(enumInfoMap).map(([, enumInfo]) => getEnumSelectOption(enumInfo));
+      return Array.from(enumInfoMap).map(([value, enumInfo]) => getEnumSelectOption(value, enumInfo));
     },
     [enumMap]
   );
@@ -85,7 +84,7 @@ const EntityManager: FunctionComponent<IProps> = ({
         return null;
       }
       const enumInfo = enumInfoMap.get(value);
-      return enumInfo ? getEnumSelectOption(enumInfo) : null;
+      return enumInfo ? getEnumSelectOption(value, enumInfo) : null;
     },
     [enumMap]
   );
@@ -96,10 +95,7 @@ const EntityManager: FunctionComponent<IProps> = ({
       if (!enumInfoMap) {
         return [];
       }
-      return values
-        .map((value) => enumInfoMap.get(value))
-        .filter(notEmpty)
-        .map((enumInfo) => getEnumSelectOption(enumInfo));
+      return values.map((value) => getEnumSelectOption(value, enumInfoMap.get(value)));
     },
     [enumMap]
   );

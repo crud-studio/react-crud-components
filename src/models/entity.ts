@@ -82,12 +82,11 @@ export interface EntityCustomActionConfig {
   grant?: string;
 }
 
-export interface EnumInfo<T> {
-  value: T;
+export interface EnumInfo {
   labelKey: string;
 }
 
-export type EnumInfoMap<T> = Map<T, EnumInfo<T>>;
+export type EnumInfoMap<T> = Map<T, EnumInfo>;
 
 export type EntityColumnType =
   | "Text"
