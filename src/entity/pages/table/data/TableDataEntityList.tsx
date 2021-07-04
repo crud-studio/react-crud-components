@@ -4,12 +4,13 @@ import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityContext} from "../../../managers/EntityManager";
 import {EntityColumn} from "../../../../models/entity";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
 
   const getData = useCallback((item: EntityRO, column: EntityColumn): string => {
-    const displayValue = _.get(item, column.displayName || column.name);
+    const displayValue = _.get(item, EntityUtils.getColumnDisplayFieldName(column));
     if (!displayValue || !_.isArray(displayValue) || _.isEmpty(displayValue)) {
       return "";
     }

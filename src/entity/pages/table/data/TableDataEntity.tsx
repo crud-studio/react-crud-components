@@ -3,11 +3,12 @@ import _ from "lodash";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityContext} from "../../../managers/EntityManager";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 const TableDataEntity = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
 
-  const [data] = useState<any>(_.get(item, column.displayName || column.name));
+  const [data] = useState<any>(_.get(item, EntityUtils.getColumnDisplayFieldName(column)));
 
   const openEntityNewTab = useCallback(
     (e: React.MouseEvent): void => {
