@@ -5,8 +5,8 @@ import {IPropsEntityColumnInputType} from "../../../../models/props";
 import BooleanRadioButton from "../../../../components/inputs/BooleanRadioButton";
 import {useIntl} from "react-intl";
 
-const EntityColumnInputBoolean: FunctionComponent<IPropsEntityColumnInputType> = ({
-  column,
+const EntityFieldInputBoolean: FunctionComponent<IPropsEntityColumnInputType> = ({
+  entityField,
   name,
   disabled,
   defaultValue,
@@ -18,7 +18,7 @@ const EntityColumnInputBoolean: FunctionComponent<IPropsEntityColumnInputType> =
   return (
     <Controller
       name={name}
-      rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       control={methods.control}
       defaultValue={_.isNil(defaultValue) ? null : _.toString(defaultValue)}
       render={({field}) => {
@@ -38,4 +38,4 @@ const EntityColumnInputBoolean: FunctionComponent<IPropsEntityColumnInputType> =
     />
   );
 };
-export default EntityColumnInputBoolean;
+export default EntityFieldInputBoolean;

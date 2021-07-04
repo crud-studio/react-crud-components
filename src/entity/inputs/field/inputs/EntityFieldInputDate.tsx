@@ -4,8 +4,8 @@ import {IPropsEntityColumnInputType} from "../../../../models/props";
 import DatePickerWrapper from "../../../../components/inputs/DatePickerWrapper";
 import {useIntl} from "react-intl";
 
-const EntityColumnInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
-  column,
+const EntityFieldInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
+  entityField,
   name,
   disabled,
   defaultValue,
@@ -18,7 +18,7 @@ const EntityColumnInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
     <Controller
       name={name}
       control={methods?.control}
-      rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       defaultValue={defaultValue || null}
       render={({field}) => {
         return (
@@ -36,4 +36,4 @@ const EntityColumnInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
     />
   );
 };
-export default EntityColumnInputDate;
+export default EntityFieldInputDate;

@@ -1,16 +1,16 @@
 import React, {useState} from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {FormattedMessage} from "react-intl";
-import EntityColumnComponent from "./EntityColumnComponent";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Card, CardContent} from "@material-ui/core";
-import {Entity} from "../../../models/entity";
-import CardTitle from "../../../components/common/CardTitle";
-import StatusButton from "../../../components/buttons/StatusButton";
-import EntityUtils from "../../helpers/EntityUtils";
-import useHasEntityActionType from "../../hooks/useHasEntityActionType";
+import {Entity} from "../../../../models/entity";
+import CardTitle from "../../../../components/common/CardTitle";
+import StatusButton from "../../../../components/buttons/StatusButton";
+import EntityUtils from "../../../helpers/EntityUtils";
+import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
+import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -59,8 +59,8 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
             {entity.columns
               .filter((column) => item.id > 0 || column.updatable)
               .map((column) => (
-                <EntityColumnComponent
-                  column={column}
+                <EntityFieldComponent
+                  entityField={column}
                   defaultValue={EntityUtils.getItemColumnDefaultValue(column, item)}
                   disabled={!hasEntityActionUpdate || !column.updatable}
                   onValueChanged={(value) => {

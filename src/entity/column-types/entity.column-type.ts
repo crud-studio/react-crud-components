@@ -1,7 +1,7 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
-import EntityColumnInputEntity from "../pages/details/inputs/EntityColumnInputEntity";
+import EntityFieldInputEntity from "../pages/details/inputs/EntityFieldInputEntity";
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
 import TableDataEntity from "../pages/table/data/TableDataEntity";
 import {DIGITS_REGEX} from "../../constants/regex";
@@ -9,7 +9,7 @@ import EntityUtils from "../helpers/EntityUtils";
 
 export const entityColumnType: EntityColumnTypeConfig = {
   type: "Entity",
-  inputComponent: EntityColumnInputEntity,
+  inputComponent: EntityFieldInputEntity,
   filterComponent: TableFilterEntity,
   dataComponent: TableDataEntity,
   getDefaultValue(column: EntityColumn): any {

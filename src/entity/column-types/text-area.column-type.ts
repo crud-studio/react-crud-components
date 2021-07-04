@@ -1,14 +1,14 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
-import EntityColumnInputTextArea from "../pages/details/inputs/EntityColumnInputTextArea";
+import EntityFieldInputTextArea from "../pages/details/inputs/EntityFieldInputTextArea";
 import TableFilterText from "../pages/table/filters/TableFilterText";
 import TableDataTextArea from "../pages/table/data/TableDataTextArea";
 import EntityUtils from "../helpers/EntityUtils";
 
 export const textAreaColumnType: EntityColumnTypeConfig = {
   type: "TextArea",
-  inputComponent: EntityColumnInputTextArea,
+  inputComponent: EntityFieldInputTextArea,
   filterComponent: TableFilterText,
   dataComponent: TableDataTextArea,
   getDefaultValue(column: EntityColumn): string {

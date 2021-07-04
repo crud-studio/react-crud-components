@@ -11,8 +11,8 @@ import {Entity} from "../../../../models/entity";
 import {EntityContext} from "../../../managers/EntityManager";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 
-const EntityColumnInputEntityList: FunctionComponent<IPropsEntityColumnInputType> = ({
-  column,
+const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType> = ({
+  entityField,
   name,
   disabled,
   defaultValue,
@@ -22,7 +22,7 @@ const EntityColumnInputEntityList: FunctionComponent<IPropsEntityColumnInputType
   const methods = useFormContext();
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
 
-  const [entity] = useState<Entity<any>>(getEntity(column.subtype));
+  const [entity] = useState<Entity<any>>(getEntity(entityField.subtype));
   const [value, setValue] = useState<number[]>(defaultValue);
 
   const getValueIds = useCallback((value: BaseJpaRO | BaseJpaRO[] | null): number[] => {
@@ -58,7 +58,7 @@ const EntityColumnInputEntityList: FunctionComponent<IPropsEntityColumnInputType
     <Box sx={{display: "flex", flexDirection: "row"}}>
       <Controller
         name={name}
-        rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+        rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
         control={methods.control}
         defaultValue={defaultValue || null}
         render={({field}) => {
@@ -80,7 +80,7 @@ const EntityColumnInputEntityList: FunctionComponent<IPropsEntityColumnInputType
               isOptionEqualToValue={(option, value) => option.id === value.id}
               innerRef={field?.ref}
               disabled={disabled}
-              disableClearable={disabled || column.required}
+              disableClearable={disabled || entityField.required}
               sx={{flexGrow: 1}}
             />
           );
@@ -92,4 +92,4 @@ const EntityColumnInputEntityList: FunctionComponent<IPropsEntityColumnInputType
     </Box>
   );
 };
-export default EntityColumnInputEntityList;
+export default EntityFieldInputEntityList;

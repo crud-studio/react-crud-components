@@ -4,12 +4,12 @@ import TableFilterEnum from "../pages/table/filters/TableFilterEnum";
 import EntityUtils from "../helpers/EntityUtils";
 import _ from "lodash";
 import {notEmpty} from "../../helpers/ObjectUtils";
-import EntityColumnInputEnumList from "../pages/details/inputs/EntityColumnInputEnumList";
+import EntityFieldInputEnumList from "../pages/details/inputs/EntityFieldInputEnumList";
 import TableDataEnumList from "../pages/table/data/TableDataEnumList";
 
 export const enumListColumnType: EntityColumnTypeConfig = {
   type: "EnumList",
-  inputComponent: EntityColumnInputEnumList,
+  inputComponent: EntityFieldInputEnumList,
   filterComponent: TableFilterEnum,
   dataComponent: TableDataEnumList,
   getDefaultValue(column: EntityColumn): any {

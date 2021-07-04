@@ -1,14 +1,14 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
-import EntityColumnInputBoolean from "../pages/details/inputs/EntityColumnInputBoolean";
+import EntityFieldInputBoolean from "../pages/details/inputs/EntityFieldInputBoolean";
 import TableFilterBoolean from "../pages/table/filters/TableFilterBoolean";
 import TableDataBoolean from "../pages/table/data/TableDataBoolean";
 import EntityUtils from "../helpers/EntityUtils";
 
 export const booleanColumnType: EntityColumnTypeConfig = {
   type: "Boolean",
-  inputComponent: EntityColumnInputBoolean,
+  inputComponent: EntityFieldInputBoolean,
   filterComponent: TableFilterBoolean,
   dataComponent: TableDataBoolean,
   getDefaultValue(column: EntityColumn): boolean {

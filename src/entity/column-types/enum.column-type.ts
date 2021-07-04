@@ -1,6 +1,6 @@
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig, EnumInfoMap} from "../../models/entity";
-import EntityColumnInputEnum from "../pages/details/inputs/EntityColumnInputEnum";
+import EntityFieldInputEnum from "../pages/details/inputs/EntityFieldInputEnum";
 import TableFilterEnum from "../pages/table/filters/TableFilterEnum";
 import TableDataEnum from "../pages/table/data/TableDataEnum";
 import EntityUtils from "../helpers/EntityUtils";
@@ -8,7 +8,7 @@ import _ from "lodash";
 
 export const enumColumnType: EntityColumnTypeConfig = {
   type: "Enum",
-  inputComponent: EntityColumnInputEnum,
+  inputComponent: EntityFieldInputEnum,
   filterComponent: TableFilterEnum,
   dataComponent: TableDataEnum,
   getDefaultValue(column: EntityColumn): any {

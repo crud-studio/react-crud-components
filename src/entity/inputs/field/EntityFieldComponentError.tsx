@@ -6,7 +6,7 @@ interface IProps {
   error?: string;
 }
 
-const EntityColumnComponentError: FunctionComponent<IProps> = ({error}) => {
+const EntityFieldComponentError: FunctionComponent<IProps> = ({error}) => {
   return (
     <>
       {error && (
@@ -51,4 +51,4 @@ const EntityColumnComponentError: FunctionComponent<IProps> = ({error}) => {
     </>
   );
 };
-export default EntityColumnComponentError;
+export default EntityFieldComponentError;

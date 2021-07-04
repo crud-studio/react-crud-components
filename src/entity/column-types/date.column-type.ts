@@ -1,7 +1,7 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
-import EntityColumnInputDate from "../pages/details/inputs/EntityColumnInputDate";
+import EntityFieldInputDate from "../pages/details/inputs/EntityFieldInputDate";
 import TableFilterDate from "../pages/table/filters/TableFilterDate";
 import TableDataDate from "../pages/table/data/TableDataDate";
 import {DIGITS_REGEX} from "../../constants/regex";
@@ -9,7 +9,7 @@ import EntityUtils from "../helpers/EntityUtils";
 
 export const dateColumnType: EntityColumnTypeConfig = {
   type: "Date",
-  inputComponent: EntityColumnInputDate,
+  inputComponent: EntityFieldInputDate,
   filterComponent: TableFilterDate,
   dataComponent: TableDataDate,
   getDefaultValue(column: EntityColumn): number {

@@ -4,8 +4,8 @@ import {OutlinedInput} from "@material-ui/core";
 import {useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 
-const EntityColumnInputNumber: FunctionComponent<IPropsEntityColumnInputType> = ({
-  column,
+const EntityFieldInputNumber: FunctionComponent<IPropsEntityColumnInputType> = ({
+  entityField,
   name,
   disabled,
   defaultValue,
@@ -17,7 +17,7 @@ const EntityColumnInputNumber: FunctionComponent<IPropsEntityColumnInputType> = 
   return (
     <Controller
       name={name}
-      rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       control={methods.control}
       defaultValue={defaultValue || null}
       render={({field}) => {
@@ -43,4 +43,4 @@ const EntityColumnInputNumber: FunctionComponent<IPropsEntityColumnInputType> = 
     />
   );
 };
-export default EntityColumnInputNumber;
+export default EntityFieldInputNumber;

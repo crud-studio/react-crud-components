@@ -1,5 +1,5 @@
 import {Ref} from "react";
-import {Entity, EntityColumn} from "./entity";
+import {Entity, EntityColumn, EntityField} from "./entity";
 import {AutocompleteProps} from "@material-ui/core";
 import {FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 
@@ -24,7 +24,7 @@ export interface IPropsEntitySelect<EntityRO> extends Partial<AutocompleteProps<
 }
 
 export interface IPropsEntityColumnInputType {
-  column: EntityColumn;
+  entityField: EntityField;
   name: string;
   disabled?: boolean;
   defaultValue?: any;

@@ -7,13 +7,13 @@ import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
 import {EntityContext} from "../../managers/EntityManager";
 import DetailsPageHeading from "./DetailsPageHeading";
-import EntityDetailsForm from "./EntityDetailsForm";
 import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
 import KeyBindingManager from "../../../managers/KeyBindingManager";
 import LoadingCenter from "../../../components/common/LoadingCenter";
 import TabPanel from "../../../components/layouts/TabPanel";
 import {Box} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
+import EntityDetailsForm from "./components/EntityDetailsForm";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;

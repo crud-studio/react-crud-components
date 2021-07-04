@@ -2,19 +2,22 @@ import React from "react";
 import {BaseEntity, FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData, IPropsEntityColumnFilter, IPropsEntityColumnInputType} from "./props";
 
-export interface EntityColumn {
+export interface EntityField {
   name: string;
-  displayName?: string;
-  filterName?: string;
   type: EntityColumnType;
   subtype?: string;
   titleKey: string;
+  required?: boolean;
+}
+
+export interface EntityColumn extends EntityField {
+  displayName?: string;
+  filterName?: string;
   sortable?: boolean;
   filterable?: boolean;
   updatable?: boolean;
   updatableMany?: boolean;
   searchable?: boolean;
-  required?: boolean;
 }
 
 export interface EntityPredefinedValue {

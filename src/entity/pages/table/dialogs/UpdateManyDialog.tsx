@@ -6,8 +6,8 @@ import {useUpdateEffect} from "react-use";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
 import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent} from "@material-ui/core";
-import EntityColumnComponent from "../../details/EntityColumnComponent";
-import EntityColumnComponentLabel from "../../details/EntityColumnComponentLabel";
+import EntityFieldComponent from "../../details/EntityFieldComponent";
+import EntityFieldComponentLabel from "../../details/EntityFieldComponentLabel";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import {ModalsContext} from "../../../../managers/ModalManager";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
@@ -140,7 +140,7 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
               .map((column) => (
                 <Box sx={{display: "flex", flexDirection: "row", mb: 2}} key={column.name}>
                   <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <EntityColumnComponentLabel>&nbsp;</EntityColumnComponentLabel>
+                    <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
                     <Box
                       sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
                       onClick={(event) => {
@@ -158,8 +158,8 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
                   </Box>
 
                   <Box sx={{flexGrow: 1}}>
-                    <EntityColumnComponent
-                      column={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
+                    <EntityFieldComponent
+                      entityField={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
                       defaultValue={_.get(itemData, column.name)}
                       onValueChanged={(value) => {
                         onValueChanged(value, column.name);

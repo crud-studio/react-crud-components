@@ -1,25 +1,24 @@
 import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import {useFormContext} from "react-hook-form";
-import _ from "lodash";
-import {EntityColumn, EntityColumnTypeConfig} from "../../../models/entity";
+import {EntityColumnTypeConfig, EntityField} from "../../../models/entity";
 import {entityColumnTypes} from "../../column-types/entityColumnTypes";
 
 interface IProps {
-  column: EntityColumn;
+  entityField: EntityField;
   name?: string;
   disabled?: boolean;
   defaultValue?: any;
   onValueChanged?: (value: any) => void;
 }
 
-const EntityColumnInput: FunctionComponent<IProps> = ({
-  column,
+const EntityFieldInput: FunctionComponent<IProps> = ({
+  entityField,
   name,
   disabled = false,
   defaultValue,
   onValueChanged,
 }) => {
-  const [inputConfig] = useState<EntityColumnTypeConfig>(entityColumnTypes[column.type]);
+  const [inputConfig] = useState<EntityColumnTypeConfig>(entityColumnTypes[entityField.type]);
   const [inputValueChanged, setInputValueChanged] = useState<number>(0);
   const methods = useFormContext();
 
@@ -39,8 +38,8 @@ const EntityColumnInput: FunctionComponent<IProps> = ({
   }, [inputValueChanged]);
 
   const getInputName = useCallback((): string => {
-    return name || column.name;
-  }, [name, column]);
+    return name || entityField.name;
+  }, [name, entityField]);
 
   const onInputValueChanged = useCallback((): void => {
     setInputValueChanged((inputValueChanged) => inputValueChanged + 1);
@@ -48,7 +47,7 @@ const EntityColumnInput: FunctionComponent<IProps> = ({
 
   return (
     <inputConfig.inputComponent
-      column={column}
+      entityField={entityField}
       name={getInputName()}
       disabled={disabled}
       defaultValue={defaultValue}
@@ -56,4 +55,4 @@ const EntityColumnInput: FunctionComponent<IProps> = ({
     />
   );
 };
-export default EntityColumnInput;
+export default EntityFieldInput;

@@ -7,8 +7,8 @@ import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {SelectOption} from "../../../../models/internal";
 import {EntityContext} from "../../../managers/EntityManager";
 
-const EntityColumnInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
-  column,
+const EntityFieldInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
+  entityField,
   name,
   disabled,
   defaultValue,
@@ -18,14 +18,14 @@ const EntityColumnInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
   const methods = useFormContext();
   const {getEnumSelectOptions, getEnumValueSelectOption} = useContext(EntityContext);
 
-  const [options] = useState<SelectOption[]>(getEnumSelectOptions(column.subtype));
+  const [options] = useState<SelectOption[]>(getEnumSelectOptions(entityField.subtype));
 
   return (
     <Controller
       name={name}
-      rules={{required: column.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
       control={methods.control}
-      defaultValue={_.isNil(defaultValue) || !column.subtype ? null : defaultValue}
+      defaultValue={_.isNil(defaultValue) || !entityField.subtype ? null : defaultValue}
       render={({field}) => {
         return (
           <Autocomplete
@@ -40,7 +40,9 @@ const EntityColumnInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
               onValueChanged(enumValue);
             }}
             defaultValue={
-              _.isNil(defaultValue) || !column.subtype ? null : getEnumValueSelectOption(column.subtype, defaultValue)
+              _.isNil(defaultValue) || !entityField.subtype
+                ? null
+                : getEnumValueSelectOption(entityField.subtype, defaultValue)
             }
             size="small"
             multiple={false}
@@ -49,11 +51,11 @@ const EntityColumnInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
             isOptionEqualToValue={(option, value) => option.value === value.value}
             ref={field?.ref}
             disabled={disabled}
-            disableClearable={disabled || column.required}
+            disableClearable={disabled || entityField.required}
           />
         );
       }}
     />
   );
 };
-export default EntityColumnInputEnum;
+export default EntityFieldInputEnum;
