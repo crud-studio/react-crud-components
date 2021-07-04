@@ -1,6 +1,7 @@
 import React from "react";
 import {BaseEntity, FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData, IPropsEntityColumnFilter, IPropsEntityColumnInputType} from "./props";
+import {MenuAction} from "./internal";
 
 export interface EntityField {
   name: string;
@@ -42,6 +43,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     icon: React.ComponentType;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
+    customActions?: EntityCustomActionConfig[];
   };
 }
 
@@ -68,6 +70,18 @@ export interface EntityActionConfig {
   grant?: string;
 }
 
+export interface EntityCustomActionConfig {
+  menuAction: MenuAction;
+  api: {
+    path: string;
+    method: "GET" | "POST" | "PUT" | "DELETE";
+    dataLocation: "URL" | "BODY";
+  };
+  fields: EntityField[];
+  resultBehavior: EntityCustomActionResultBehavior;
+  grant?: string;
+}
+
 export interface EnumInfo<T> {
   value: T;
   labelKey: string;
@@ -87,3 +101,5 @@ export type EntityColumnType =
   | "EntityList";
 
 export type EntityActionType = "CREATE" | "READ" | "UPDATE" | "DELETE";
+
+export type EntityCustomActionResultBehavior = "None" | "UpdateEntityFromResult" | "RefreshEntity" | "LeaveEntity";

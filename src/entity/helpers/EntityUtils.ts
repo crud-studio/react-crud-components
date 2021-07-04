@@ -1,21 +1,21 @@
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {Entity, EntityColumn} from "../../models/entity";
+import {Entity, EntityColumn, EntityField} from "../../models/entity";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
 const EntityUtils = {
-  getColumnDefaultValue: function (column: EntityColumn): any {
-    return entityColumnTypes[column.type].getDefaultValue(column);
+  getFieldDefaultValue: function (entityField: EntityField): any {
+    return entityColumnTypes[entityField.type].getDefaultValue(entityField);
   },
 
-  getItemColumnDefaultValue: function (column: EntityColumn, item: any): any {
-    return _.get(item, column.name);
+  getItemFieldDefaultValue: function (entityField: EntityField, item: any): any {
+    return _.get(item, entityField.name);
   },
 
-  getItemsColumnDefaultValue: function (column: EntityColumn, items: any[]): any {
-    const defaultValue = _.get(items, `[0].${column.name}`);
-    if (_.some(items, (item) => !_.isEqual(defaultValue, _.get(item, column.name)))) {
-      return this.getColumnDefaultValue(column);
+  getItemsFieldDefaultValue: function (entityField: EntityField, items: any[]): any {
+    const defaultValue = _.get(items, `[0].${entityField.name}`);
+    if (_.some(items, (item) => !_.isEqual(defaultValue, _.get(item, entityField.name)))) {
+      return this.getFieldDefaultValue(entityField);
     }
     return defaultValue;
   },

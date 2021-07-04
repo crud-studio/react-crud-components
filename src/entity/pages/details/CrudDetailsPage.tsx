@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
-import {Entity} from "../../../models/entity";
+import {Entity, EntityCustomActionConfig} from "../../../models/entity";
 import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
 import {EntityContext} from "../../managers/EntityManager";
@@ -14,27 +14,50 @@ import TabPanel from "../../../components/layouts/TabPanel";
 import {Box} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityDetailsForm from "./components/EntityDetailsForm";
+import {GrantContext} from "../../../managers/grants/GrantsManager";
+import _ from "lodash";
+import {ModalsContext} from "../../../managers/ModalManager";
+import EntityCustomActionDialog from "./dialogs/EntityCustomActionDialog";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
 }
 
 const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<EntityRO>) => {
-  const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
+  const {showModal, getModalKey} = useContext(ModalsContext);
+  const [customActionModalId] = useState<string>(_.uniqueId("customAction_"));
 
-  const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
+  const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
+
   const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
 
-  const {itemId, item, loading, updateItem, saveItem, saving, hasChanges} = useItemDetailsState<EntityRO>(
-    entity,
-    entity.client.generateEmptyEntity,
-    (id?: number) => getEntityDetailsUrl(entity, id)
-  );
+  const {itemId, item, loading, setItem, refreshItem, updateItem, saveItem, saving, hasChanges} =
+    useItemDetailsState<EntityRO>(entity, entity.client.generateEmptyEntity, (id?: number) =>
+      getEntityDetailsUrl(entity, id)
+    );
+
+  const [selectedCustomAction, setSelectedCustomAction] = useState<EntityCustomActionConfig | undefined>(undefined);
 
   const [actions] = useState<MenuAction[]>([
-    ...(hasEntityActionUpdate ? [{...ActionSave, visible: true}] : []),
-    ...(hasEntityActionDelete ? [ActionDelete] : []),
+    ...(!!itemId && hasEntityActionDelete ? [ActionDelete] : []),
+    ...((!!itemId &&
+      entity.client.customActions
+        ?.filter((customAction) => hasGrant(customAction.grant))
+        ?.map<MenuAction>((customAction) => customAction.menuAction)) ||
+      []),
   ]);
+
+  const customActionHandler = useCallback(
+    (id: string): void => {
+      const customAction = _.find(entity.client.customActions, (customAction) => customAction.menuAction.id === id);
+      if (customAction) {
+        setSelectedCustomAction(customAction);
+        showModal(customActionModalId);
+      }
+    },
+    [entity]
+  );
 
   const actionsHandler = (id: string): void => {
     switch (id) {
@@ -45,7 +68,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
         deleteItem();
         break;
       default:
-        console.log("actionsHandler no handler for - id: ", id);
+        customActionHandler(id);
         break;
     }
   };
@@ -90,6 +113,18 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     <>
       <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
 
+      {!!selectedCustomAction && item && (
+        <EntityCustomActionDialog
+          modalId={customActionModalId}
+          entity={entity}
+          item={item}
+          customAction={selectedCustomAction}
+          setItem={setItem}
+          refreshItem={refreshItem}
+          key={getModalKey(customActionModalId)}
+        />
+      )}
+
       {loading && <LoadingCenter />}
 
       {item && (
@@ -109,7 +144,13 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
             sx={{flexGrow: 1, display: "flex", flexDirection: "column"}}
             sxTabContainer={{flexGrow: 1}}
           >
-            <EntityDetailsForm entity={entity} item={item} loading={loading} updateItem={updateItem} />
+            <EntityDetailsForm
+              entity={entity}
+              item={item}
+              loading={loading}
+              updateItem={updateItem}
+              key={item.uniqueKey}
+            />
 
             {!!itemId &&
               entity.nestedEntities.map((nestedEntity) => (

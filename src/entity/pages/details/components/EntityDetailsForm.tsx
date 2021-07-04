@@ -61,7 +61,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
               .map((column) => (
                 <EntityFieldComponent
                   entityField={column}
-                  defaultValue={EntityUtils.getItemColumnDefaultValue(column, item)}
+                  defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
                   disabled={!hasEntityActionUpdate || !column.updatable}
                   onValueChanged={(value) => {
                     onValueChanged(value, column.name);

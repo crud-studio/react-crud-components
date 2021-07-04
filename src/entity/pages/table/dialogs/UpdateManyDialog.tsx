@@ -34,7 +34,7 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
     entity.columns
       .filter((column) => column.updatableMany)
       .forEach((column) => {
-        _.set(itemData, column.name, EntityUtils.getItemsColumnDefaultValue(column, items));
+        _.set(itemData, column.name, EntityUtils.getItemsFieldDefaultValue(column, items));
       });
     return itemData;
   };

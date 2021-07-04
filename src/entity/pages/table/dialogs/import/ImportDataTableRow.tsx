@@ -64,7 +64,7 @@ const ImportDataTableRow = <EntityRO extends BaseJpaRO>({columns, item, updateIt
               <EntityFieldInput
                 entityField={column}
                 name={inputName}
-                defaultValue={EntityUtils.getItemColumnDefaultValue(column, item)}
+                defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
                 onValueChanged={(value) => {
                   const newValue = _.set({}, column.name, value) as PartialDeep<EntityRO>;
                   updateItemInternal(newValue);
