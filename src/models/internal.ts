@@ -8,6 +8,7 @@ export interface SelectOption {
 export interface MenuAction {
   id: string;
   labelKey: string;
+  descriptionKey?: string;
   icon: ComponentType;
   keyBinding?: string;
   visible?: boolean;

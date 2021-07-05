@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
@@ -37,16 +37,24 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
       getEntityDetailsUrl(entity, id)
     );
 
-  const [selectedCustomAction, setSelectedCustomAction] = useState<EntityCustomActionConfig | undefined>(undefined);
+  const [selectedCustomAction, setSelectedCustomAction] = useState<EntityCustomActionConfig<EntityRO> | undefined>(
+    undefined
+  );
 
-  const [actions] = useState<MenuAction[]>([
-    ...(!!itemId && hasEntityActionDelete ? [ActionDelete] : []),
-    ...((!!itemId &&
-      entity.client.customActions
-        ?.filter((customAction) => hasGrant(customAction.grant))
-        ?.map<MenuAction>((customAction) => customAction.menuAction)) ||
-      []),
-  ]);
+  const actions = useMemo<MenuAction[]>(
+    () => [
+      ...(!!itemId && hasEntityActionDelete ? [ActionDelete] : []),
+      ...((!!itemId &&
+        item &&
+        entity.client.customActions
+          ?.filter(
+            (customAction) => hasGrant(customAction.grant) && (!customAction.isActive || customAction.isActive(item))
+          )
+          ?.map<MenuAction>((customAction) => customAction.menuAction)) ||
+        []),
+    ],
+    [itemId, item, entity]
+  );
 
   const customActionHandler = useCallback(
     (id: string): void => {

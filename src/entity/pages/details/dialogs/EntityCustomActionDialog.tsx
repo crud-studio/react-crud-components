@@ -4,7 +4,7 @@ import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Button, Dialog, DialogActions, DialogContent} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
 import {Entity, EntityCustomActionConfig} from "../../../../models/entity";
 import {ModalsContext} from "../../../../managers/ModalManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
@@ -20,7 +20,7 @@ interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   modalId: string;
   entity: Entity<EntityRO>;
   item: EntityRO;
-  customAction: EntityCustomActionConfig;
+  customAction: EntityCustomActionConfig<EntityRO>;
   setItem: (item: EntityRO & {uniqueKey?: string}) => void;
   refreshItem: () => void;
 }
@@ -99,6 +99,11 @@ const EntityCustomActionDialog = <EntityRO extends BaseJpaRO>({
         <FormattedMessage id={customAction.menuAction.labelKey} />
       </DialogTitleEnhanced>
       <DialogContent>
+        {customAction.menuAction.descriptionKey && (
+          <Typography component="p" variant="h4" sx={{mb: 2}}>
+            <FormattedMessage id={customAction.menuAction.descriptionKey} />
+          </Typography>
+        )}
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             {customAction.fields.map((entityField) => (

@@ -43,7 +43,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     icon: React.ComponentType;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
-    customActions?: EntityCustomActionConfig[];
+    customActions?: EntityCustomActionConfig<EntityRO>[];
   };
 }
 
@@ -70,7 +70,7 @@ export interface EntityActionConfig {
   grant?: string;
 }
 
-export interface EntityCustomActionConfig {
+export interface EntityCustomActionConfig<EntityRO> {
   menuAction: MenuAction;
   api: {
     path: string;
@@ -80,6 +80,7 @@ export interface EntityCustomActionConfig {
   fields: EntityField[];
   resultBehavior: EntityCustomActionResultBehavior;
   grant?: string;
+  isActive?: (item: EntityRO) => boolean;
 }
 
 export interface EnumInfo {
