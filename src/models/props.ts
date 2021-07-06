@@ -2,6 +2,7 @@ import {Ref} from "react";
 import {Entity, EntityColumn, EntityComponentActionConfig, EntityField} from "./entity";
 import {AutocompleteProps} from "@material-ui/core";
 import {FilterField, OrderDTO} from "@crud-studio/react-crud-core";
+import {PartialDeep} from "type-fest";
 
 export interface IPropsEntitySelect<EntityRO> extends Partial<AutocompleteProps<EntityRO, any, any, false>> {
   id?: string;
@@ -38,6 +39,14 @@ export interface IPropsEntityColumnFilter {
 export interface IPropsEntityColumnData<EntityRO> {
   column: EntityColumn;
   item: EntityRO;
+}
+
+export interface IPropsEntityCustomTab<EntityRO> {
+  entity: Entity<EntityRO>;
+  item: EntityRO;
+  setItem: (item: EntityRO & {uniqueKey?: string}) => void;
+  refreshItem: () => void;
+  updateItem: (itemData: PartialDeep<EntityRO>, debounced: boolean) => void;
 }
 
 export interface IPropsEntityComponentAction<EntityRO> {

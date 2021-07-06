@@ -2,7 +2,13 @@ import React, {useCallback, useContext, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
-import {Entity, EntityComponentActionConfig, EntityGenericActionConfig} from "../../../models/entity";
+import {
+  Entity,
+  EntityComponentActionConfig,
+  EntityCustomTabConfig,
+  EntityGenericActionConfig,
+  NestedEntity,
+} from "../../../models/entity";
 import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
 import {EntityContext} from "../../managers/EntityManager";
@@ -47,24 +53,28 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     EntityComponentActionConfig<EntityRO> | undefined
   >(undefined);
 
+  const customActions = useMemo<(EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[]>(
+    () =>
+      (!!itemId &&
+        item &&
+        entity.client.customActions?.filter(
+          (customAction) => hasGrant(customAction.grant) && (!customAction.isActive || customAction.isActive(item))
+        )) ||
+      [],
+    [itemId, item, entity]
+  );
+
   const actions = useMemo<MenuAction[]>(
     () => [
       ...(!!itemId && hasEntityActionDelete ? [ActionDelete] : []),
-      ...((!!itemId &&
-        item &&
-        entity.client.customActions
-          ?.filter(
-            (customAction) => hasGrant(customAction.grant) && (!customAction.isActive || customAction.isActive(item))
-          )
-          ?.map<MenuAction>((customAction) => customAction.menuAction)) ||
-        []),
+      ...customActions.map<MenuAction>((customAction) => customAction.menuAction),
     ],
-    [itemId, item, entity]
+    [itemId, hasEntityActionDelete, customActions]
   );
 
   const customActionHandler = useCallback(
     (id: string): void => {
-      const customAction = _.find(entity.client.customActions, (customAction) => customAction.menuAction.id === id);
+      const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
         if (EntityUtils.isEntityGenericActionConfig(customAction)) {
           setSelectedGenericAction(customAction);
@@ -92,27 +102,41 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     }
   };
 
-  const getItemTabs = useCallback((): TabInfo[] => {
-    return [
+  const nestedEntities = useMemo<NestedEntity[]>(
+    () => (!!itemId && entity.nestedEntities.filter((nestedEntity) => hasGrant(nestedEntity.grant))) || [],
+    [itemId, entity]
+  );
+
+  const customTabs = useMemo<EntityCustomTabConfig<EntityRO>[]>(
+    () =>
+      (!!itemId &&
+        item &&
+        entity.client.customTabs?.filter(
+          (customTab) => hasGrant(customTab.grant) && (!customTab.isActive || customTab.isActive(item))
+        )) ||
+      [],
+    [itemId, item, entity]
+  );
+
+  const tabs = useMemo<TabInfo[]>(
+    () => [
       {id: "details", labelKey: "pages.details"},
-      ...(!!itemId
-        ? entity.nestedEntities.map((nestedEntity) => {
-            const nestedEntityEntity = getEntity(nestedEntity.entityName);
-            return {
-              id: nestedEntityEntity.name,
-              labelKey: nestedEntityEntity.client.titleKey,
-              lazy: true,
-            };
-          })
-        : []),
-    ];
-  }, [entity, itemId]);
-
-  const [tabs, setTabs] = useState<TabInfo[]>(getItemTabs());
-
-  useUpdateEffect(() => {
-    setTabs(getItemTabs());
-  }, [itemId]);
+      ...nestedEntities.map((nestedEntity) => {
+        const nestedEntityEntity = getEntity(nestedEntity.entityName);
+        return {
+          id: nestedEntityEntity.name,
+          labelKey: nestedEntityEntity.client.titleKey,
+          lazy: true,
+        };
+      }),
+      ...customTabs.map<TabInfo>((customTab) => ({
+        id: customTab.id,
+        labelKey: customTab.labelKey,
+        lazy: true,
+      })),
+    ],
+    [itemId, entity, customTabs]
+  );
 
   const deleteState = useCrudDelete(entity, itemId);
 
@@ -182,11 +206,20 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
               key={item.uniqueKey}
             />
 
-            {!!itemId &&
-              entity.nestedEntities.map((nestedEntity) => (
-                <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />
-              ))}
+            {nestedEntities.map((nestedEntity) => (
+              <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />
+            ))}
 
+            {customTabs.map((tabConfig) => (
+              <tabConfig.component
+                entity={entity}
+                item={item}
+                setItem={setItem}
+                refreshItem={refreshItem}
+                updateItem={updateItem}
+                key={tabConfig.id}
+              />
+            ))}
             <div />
           </TabPanel>
         </Box>

@@ -5,6 +5,7 @@ import {
   IPropsEntityColumnFilter,
   IPropsEntityColumnInputType,
   IPropsEntityComponentAction,
+  IPropsEntityCustomTab,
 } from "./props";
 import {MenuAction} from "./internal";
 
@@ -48,6 +49,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     icon: React.ComponentType;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
+    customTabs?: EntityCustomTabConfig<EntityRO>[];
     customActions?: (EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[];
   };
 }
@@ -68,11 +70,20 @@ export interface NestedEntity {
   idColumnName: string;
   additionalColumns?: {name: string; value: any}[];
   hiddenColumns?: string[];
+  grant?: string;
 }
 
 export interface EntityActionConfig {
   active: boolean;
   grant?: string;
+}
+
+export interface EntityCustomTabConfig<EntityRO> {
+  id: string;
+  labelKey: string;
+  component: ComponentType<IPropsEntityCustomTab<EntityRO>>;
+  grant?: string;
+  isActive?: (item: EntityRO) => boolean;
 }
 
 export interface EntityCustomActionConfig<EntityRO> {
