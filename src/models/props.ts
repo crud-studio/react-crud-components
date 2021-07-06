@@ -1,5 +1,5 @@
 import {Ref} from "react";
-import {Entity, EntityColumn, EntityField} from "./entity";
+import {Entity, EntityColumn, EntityComponentActionConfig, EntityField} from "./entity";
 import {AutocompleteProps} from "@material-ui/core";
 import {FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 
@@ -38,4 +38,13 @@ export interface IPropsEntityColumnFilter {
 export interface IPropsEntityColumnData<EntityRO> {
   column: EntityColumn;
   item: EntityRO;
+}
+
+export interface IPropsEntityComponentAction<EntityRO> {
+  entity: Entity<EntityRO>;
+  item: EntityRO;
+  customAction: EntityComponentActionConfig<EntityRO>;
+  setItem: (item: EntityRO & {uniqueKey?: string}) => void;
+  refreshItem: () => void;
+  finishAction: () => void;
 }

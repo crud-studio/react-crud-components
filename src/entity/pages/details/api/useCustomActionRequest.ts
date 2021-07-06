@@ -1,11 +1,11 @@
 import {GenericRequestState, useGenericRequest} from "@crud-studio/react-crud-core";
-import {Entity, EntityCustomActionConfig} from "../../../../models/entity";
+import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
 import _ from "lodash";
 import {useCallback} from "react";
 
 function useCustomActionRequest(
   entity: Entity<any>,
-  customAction: EntityCustomActionConfig,
+  customAction: EntityGenericActionConfig<any>,
   itemId: number,
   data: object
 ): GenericRequestState<any> {

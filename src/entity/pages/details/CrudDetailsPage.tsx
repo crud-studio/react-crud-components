@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
-import {Entity, EntityCustomActionConfig} from "../../../models/entity";
+import {Entity, EntityComponentActionConfig, EntityGenericActionConfig} from "../../../models/entity";
 import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
 import {EntityContext} from "../../managers/EntityManager";
@@ -17,7 +17,9 @@ import EntityDetailsForm from "./components/EntityDetailsForm";
 import {GrantContext} from "../../../managers/grants/GrantsManager";
 import _ from "lodash";
 import {ModalsContext} from "../../../managers/ModalManager";
-import EntityCustomActionDialog from "./dialogs/EntityCustomActionDialog";
+import EntityGenericActionDialog from "./dialogs/EntityGenericActionDialog";
+import EntityUtils from "../../helpers/EntityUtils";
+import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -25,7 +27,8 @@ interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
 
 const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<EntityRO>) => {
   const {showModal, getModalKey} = useContext(ModalsContext);
-  const [customActionModalId] = useState<string>(_.uniqueId("customAction_"));
+  const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
+  const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 
   const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
   const {hasGrant} = useContext(GrantContext);
@@ -37,9 +40,12 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
       getEntityDetailsUrl(entity, id)
     );
 
-  const [selectedCustomAction, setSelectedCustomAction] = useState<EntityCustomActionConfig<EntityRO> | undefined>(
+  const [selectedGenericAction, setSelectedGenericAction] = useState<EntityGenericActionConfig<EntityRO> | undefined>(
     undefined
   );
+  const [selectedComponentAction, setSelectedComponentAction] = useState<
+    EntityComponentActionConfig<EntityRO> | undefined
+  >(undefined);
 
   const actions = useMemo<MenuAction[]>(
     () => [
@@ -60,8 +66,13 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     (id: string): void => {
       const customAction = _.find(entity.client.customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
-        setSelectedCustomAction(customAction);
-        showModal(customActionModalId);
+        if (EntityUtils.isEntityGenericActionConfig(customAction)) {
+          setSelectedGenericAction(customAction);
+          showModal(genericActionModalId);
+        } else if (EntityUtils.isEntityComponentActionConfig(customAction)) {
+          setSelectedComponentAction(customAction);
+          showModal(componentActionModalId);
+        }
       }
     },
     [entity]
@@ -121,15 +132,26 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     <>
       <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
 
-      {!!selectedCustomAction && item && (
-        <EntityCustomActionDialog
-          modalId={customActionModalId}
+      {!!selectedGenericAction && item && (
+        <EntityGenericActionDialog
+          modalId={genericActionModalId}
           entity={entity}
           item={item}
-          customAction={selectedCustomAction}
+          customAction={selectedGenericAction}
           setItem={setItem}
           refreshItem={refreshItem}
-          key={getModalKey(customActionModalId)}
+          key={getModalKey(genericActionModalId)}
+        />
+      )}
+      {!!selectedComponentAction && item && (
+        <EntityComponentActionDialog
+          modalId={componentActionModalId}
+          entity={entity}
+          item={item}
+          customAction={selectedComponentAction}
+          setItem={setItem}
+          refreshItem={refreshItem}
+          key={getModalKey(genericActionModalId)}
         />
       )}
 

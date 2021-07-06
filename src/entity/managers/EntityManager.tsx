@@ -55,7 +55,7 @@ const EntityManager: FunctionComponent<IProps> = ({
     [entityMap]
   );
 
-  const getEnumSelectOption = useCallback((value: string, enumInfo?: EnumInfo<any>): SelectOption => {
+  const getEnumSelectOption = useCallback((value: string, enumInfo?: EnumInfo): SelectOption => {
     return {
       value: value,
       label: !!enumInfo?.labelKey ? intl.formatMessage({id: enumInfo.labelKey}) : value,

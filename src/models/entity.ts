@@ -1,6 +1,11 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {BaseEntity, FilterField, OrderDTO} from "@crud-studio/react-crud-core";
-import {IPropsEntityColumnData, IPropsEntityColumnFilter, IPropsEntityColumnInputType} from "./props";
+import {
+  IPropsEntityColumnData,
+  IPropsEntityColumnFilter,
+  IPropsEntityColumnInputType,
+  IPropsEntityComponentAction,
+} from "./props";
 import {MenuAction} from "./internal";
 
 export interface EntityField {
@@ -43,7 +48,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     icon: React.ComponentType;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
-    customActions?: EntityCustomActionConfig<EntityRO>[];
+    customActions?: (EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[];
   };
 }
 
@@ -72,6 +77,11 @@ export interface EntityActionConfig {
 
 export interface EntityCustomActionConfig<EntityRO> {
   menuAction: MenuAction;
+  grant?: string;
+  isActive?: (item: EntityRO) => boolean;
+}
+
+export interface EntityGenericActionConfig<EntityRO> extends EntityCustomActionConfig<EntityRO> {
   api: {
     path: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -79,8 +89,10 @@ export interface EntityCustomActionConfig<EntityRO> {
   };
   fields: EntityField[];
   resultBehavior: EntityCustomActionResultBehavior;
-  grant?: string;
-  isActive?: (item: EntityRO) => boolean;
+}
+
+export interface EntityComponentActionConfig<EntityRO> extends EntityCustomActionConfig<EntityRO> {
+  component: ComponentType<IPropsEntityComponentAction<EntityRO>>;
 }
 
 export interface EnumInfo {

@@ -1,6 +1,12 @@
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {Entity, EntityColumn, EntityField} from "../../models/entity";
+import {
+  Entity,
+  EntityColumn,
+  EntityComponentActionConfig,
+  EntityField,
+  EntityGenericActionConfig,
+} from "../../models/entity";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
 const EntityUtils = {
@@ -33,6 +39,18 @@ const EntityUtils = {
 
   getColumnDisplayFieldName: function (column: EntityColumn): string {
     return column.displayName || column.name;
+  },
+
+  isEntityGenericActionConfig: function (
+    actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
+  ): actionConfig is EntityGenericActionConfig<any> {
+    return "api" in actionConfig;
+  },
+
+  isEntityComponentActionConfig: function (
+    actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
+  ): actionConfig is EntityComponentActionConfig<any> {
+    return "component" in actionConfig;
   },
 };
 export default EntityUtils;

@@ -5,7 +5,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
-import {Entity, EntityCustomActionConfig} from "../../../../models/entity";
+import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
 import {ModalsContext} from "../../../../managers/ModalManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import StatusButton from "../../../../components/buttons/StatusButton";
@@ -16,16 +16,16 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {EntityContext} from "../../../managers/EntityManager";
 import {v4 as uuidv4} from "uuid";
 
-interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
+interface IProps<EntityRO> extends RouteComponentProps {
   modalId: string;
-  entity: Entity<EntityRO>;
+  entity: Entity<any>;
   item: EntityRO;
-  customAction: EntityCustomActionConfig<EntityRO>;
+  customAction: EntityGenericActionConfig<EntityRO>;
   setItem: (item: EntityRO & {uniqueKey?: string}) => void;
   refreshItem: () => void;
 }
 
-const EntityCustomActionDialog = <EntityRO extends BaseJpaRO>({
+const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
   modalId,
   entity,
   item,
@@ -131,4 +131,4 @@ const EntityCustomActionDialog = <EntityRO extends BaseJpaRO>({
     </Dialog>
   );
 };
-export default withRouter(EntityCustomActionDialog);
+export default withRouter(EntityGenericActionDialog);

@@ -32,7 +32,9 @@ import {
   EntityActionType,
   EntityColumn,
   EntityColumnType,
+  EntityComponentActionConfig,
   EntityField,
+  EntityGenericActionConfig,
   EnumInfo,
   EnumInfoMap,
   NestedEntity,
@@ -45,6 +47,7 @@ import {useScrollSync} from "./hooks/useScrollSync";
 import GrantsManager, {GrantContext} from "./managers/grants/GrantsManager";
 import useHasGrant from "./managers/grants/hooks/useHasGrant";
 import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
+import {IPropsEntityComponentAction, IPropsEntitySelect} from "./models/props";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -66,12 +69,15 @@ export {
   EntityField,
   NestedEntity,
   EntityActionConfig,
+  EntityGenericActionConfig,
+  EntityComponentActionConfig,
   EntityActionType,
   EntityColumnType,
   EntityManager,
   EntityContext,
   useHasEntityActionType,
 };
+export {IPropsEntityComponentAction, IPropsEntitySelect};
 
 export {copyToClipboard, componentLoader};
 export {useScroll, useScrollSync};
