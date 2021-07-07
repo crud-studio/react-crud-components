@@ -5,6 +5,7 @@ import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityContext} from "../../../managers/EntityManager";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
+import {Link} from "@material-ui/core";
 
 const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
@@ -39,9 +40,9 @@ const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsE
   return (
     <>
       {!!data && (
-        <a className="text-primary text-decoration-underline" onClick={openEntityNewTab}>
+        <Link color="secondary" onClick={openEntityNewTab}>
           {data}
-        </a>
+        </Link>
       )}
     </>
   );

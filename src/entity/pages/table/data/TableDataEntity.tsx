@@ -4,6 +4,7 @@ import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityContext} from "../../../managers/EntityManager";
 import EntityUtils from "../../../helpers/EntityUtils";
+import {Link} from "@material-ui/core";
 
 const TableDataEntity = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
@@ -28,9 +29,9 @@ const TableDataEntity = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntit
   return (
     <>
       {!!data && (
-        <a className="text-primary text-decoration-underline" onClick={openEntityNewTab}>
+        <Link color="secondary" onClick={openEntityNewTab}>
           {data}
-        </a>
+        </Link>
       )}
     </>
   );
