@@ -4,8 +4,10 @@ import {
   Entity,
   EntityColumn,
   EntityComponentActionConfig,
+  EntityComponentActionConfigMany,
   EntityField,
   EntityGenericActionConfig,
+  EntityGenericActionConfigMany,
 } from "../../models/entity";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
@@ -50,6 +52,18 @@ const EntityUtils = {
   isEntityComponentActionConfig: function (
     actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
   ): actionConfig is EntityComponentActionConfig<any> {
+    return "component" in actionConfig;
+  },
+
+  isEntityGenericActionConfigMany: function (
+    actionConfig: EntityGenericActionConfigMany<any> | EntityComponentActionConfigMany<any>
+  ): actionConfig is EntityGenericActionConfigMany<any> {
+    return "api" in actionConfig;
+  },
+
+  isEntityComponentActionConfigMany: function (
+    actionConfig: EntityGenericActionConfigMany<any> | EntityComponentActionConfigMany<any>
+  ): actionConfig is EntityComponentActionConfigMany<any> {
     return "component" in actionConfig;
   },
 };

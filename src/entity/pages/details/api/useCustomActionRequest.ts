@@ -1,17 +1,19 @@
 import {GenericRequestState, useGenericRequest} from "@crud-studio/react-crud-core";
-import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
+import {Entity, EntityGenericActionApiConfig} from "../../../../models/entity";
 import _ from "lodash";
 import {useCallback} from "react";
 
 function useCustomActionRequest(
   entity: Entity<any>,
-  customAction: EntityGenericActionConfig<any>,
-  itemId: number,
+  actionApiConfig: EntityGenericActionApiConfig,
+  itemIds: number | number[],
   data: object
 ): GenericRequestState<any> {
   const getUrl = useCallback((): string => {
-    let url = `${entity.api.path}${customAction.api.path.replace("{id}", _.toString(itemId))}`;
-    if (customAction.api.dataLocation === "URL") {
+    const ids: string = _.isArray(itemIds) ? itemIds.join(",") : _.toString(itemIds);
+    let url = `${entity.api.path}${actionApiConfig.path.replace("{id}", ids).replace("{ids}", ids)}`;
+
+    if (actionApiConfig.dataLocation === "URL") {
       const params = Object.keys(data)
         .filter((key) => data[key] !== null)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
@@ -22,23 +24,23 @@ function useCustomActionRequest(
       }
     }
     return url;
-  }, [entity, customAction, data]);
+  }, [entity, actionApiConfig, data]);
 
   const getData = useCallback((): any => {
-    return customAction.api.dataLocation === "BODY" ? data : undefined;
-  }, [customAction, data]);
+    return actionApiConfig.dataLocation === "BODY" ? data : undefined;
+  }, [actionApiConfig, data]);
 
   return useGenericRequest<any>(
     {
       url: getUrl(),
-      method: customAction.api.method,
+      method: actionApiConfig.method,
       data: getData(),
     },
     {
       manual: true,
       cache: false,
       cacheName: entity.api.cacheName,
-      clearCache: customAction.resultBehavior !== "None",
+      clearCache: actionApiConfig.clearCache,
       throttle: false,
     }
   );

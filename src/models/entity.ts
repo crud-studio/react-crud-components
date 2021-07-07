@@ -5,6 +5,7 @@ import {
   IPropsEntityColumnFilter,
   IPropsEntityColumnInputType,
   IPropsEntityComponentAction,
+  IPropsEntityComponentActionMany,
   IPropsEntityCustomTab,
 } from "./props";
 import {MenuAction} from "./internal";
@@ -51,6 +52,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     generateLabel: (item: EntityRO) => string;
     customTabs?: EntityCustomTabConfig<EntityRO>[];
     customActions?: (EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[];
+    customActionsMany?: (EntityGenericActionConfigMany<EntityRO> | EntityComponentActionConfigMany<EntityRO>)[];
   };
 }
 
@@ -92,18 +94,31 @@ export interface EntityCustomActionConfig<EntityRO> {
   isActive?: (item: EntityRO) => boolean;
 }
 
+export interface EntityGenericActionApiConfig {
+  path: string;
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  dataLocation: "URL" | "BODY";
+  clearCache?: boolean;
+}
+
 export interface EntityGenericActionConfig<EntityRO> extends EntityCustomActionConfig<EntityRO> {
-  api: {
-    path: string;
-    method: "GET" | "POST" | "PUT" | "DELETE";
-    dataLocation: "URL" | "BODY";
-  };
+  api: EntityGenericActionApiConfig;
   fields: EntityField[];
-  resultBehavior: EntityCustomActionResultBehavior;
+  resultBehavior: "None" | "UpdateEntityFromResult" | "RefreshEntity" | "LeaveEntity";
 }
 
 export interface EntityComponentActionConfig<EntityRO> extends EntityCustomActionConfig<EntityRO> {
   component: ComponentType<IPropsEntityComponentAction<EntityRO>>;
+}
+
+export interface EntityGenericActionConfigMany<EntityRO>
+  extends Omit<EntityGenericActionConfig<EntityRO>, "isActive" | "resultBehavior"> {
+  resultBehavior: "None" | "RefreshEntity";
+}
+
+export interface EntityComponentActionConfigMany<EntityRO>
+  extends Omit<EntityCustomActionConfig<EntityRO>, "isActive"> {
+  component: ComponentType<IPropsEntityComponentActionMany<EntityRO>>;
 }
 
 export interface EnumInfo {
@@ -125,5 +140,3 @@ export type EntityColumnType =
   | "Email";
 
 export type EntityActionType = "CREATE" | "READ" | "UPDATE" | "DELETE";
-
-export type EntityCustomActionResultBehavior = "None" | "UpdateEntityFromResult" | "RefreshEntity" | "LeaveEntity";

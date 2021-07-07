@@ -88,8 +88,8 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     [customActions]
   );
 
-  const actionsHandler = (id: string): void => {
-    switch (id) {
+  const actionsHandler = (actionId: string): void => {
+    switch (actionId) {
       case ActionSave.id:
         saveItem();
         break;
@@ -97,7 +97,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
         deleteItem();
         break;
       default:
-        customActionHandler(id);
+        customActionHandler(actionId);
         break;
     }
   };

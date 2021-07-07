@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useMemo, useState} from "react";
 import _ from "lodash";
 import {FormattedMessage} from "react-intl";
 import {useUpdateEffect} from "react-use";
@@ -7,7 +7,12 @@ import ImportManyDialog from "./dialogs/import/ImportManyDialog";
 import TablePage from "./TablePage";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, FilterField, UpdatePackUtils, useCrudDeleteMany} from "@crud-studio/react-crud-core";
-import {Entity, EntityPredefinedValue} from "../../../models/entity";
+import {
+  Entity,
+  EntityComponentActionConfigMany,
+  EntityGenericActionConfigMany,
+  EntityPredefinedValue,
+} from "../../../models/entity";
 import {ModalsContext} from "../../../managers/ModalManager";
 import {MenuAction} from "../../../models/internal";
 import NotificationManager from "../../../components/notifications/NotificationManager";
@@ -15,6 +20,10 @@ import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {EntityContext} from "../../managers/EntityManager";
 import {ActionCreate, ActionDelete, ActionImport, ActionOpenNewTab, ActionUpdate} from "../../../data/menuActions";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
+import {GrantContext} from "../../../managers/grants/GrantsManager";
+import EntityUtils from "../../helpers/EntityUtils";
+import EntityComponentActionManyDialog from "./dialogs/EntityComponentActionManyDialog";
+import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDialog";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -31,17 +40,24 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   history,
 }: IProps<EntityRO>) => {
   const {getEntityCreateUrl, getEntityDetailsUrl} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
 
   const {showModal, getModalKey} = useContext(ModalsContext);
   const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));
   const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [importManyModalId] = useState<string>(_.uniqueId("importMany_"));
+  const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
+  const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 
   const hasEntityActionCreate = useHasEntityActionType(entity, "CREATE");
   const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
   const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
 
-  const [refreshItems, setRefreshItems] = useState<number>(0);
+  const [refreshItemsState, setRefreshItemsState] = useState<number>(0);
+  const refreshItems = useCallback((): void => {
+    setRefreshItemsState((refreshItemsState) => refreshItemsState + 1);
+  }, [setRefreshItemsState]);
+
   const [selectedItems, setSelectedItems] = useState<EntityRO[]>([]);
 
   const [buttons] = useState<MenuAction[]>([
@@ -79,11 +95,42 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
     hasEntityActionUpdate && _.some(entity.columns, (column) => column.updatableMany)
   );
 
-  const actions = [
-    ...(updateMany ? [ActionUpdate] : []),
-    ...(hasEntityActionDelete ? [ActionDelete] : []),
-    ActionOpenNewTab,
-  ];
+  const [selectedGenericAction, setSelectedGenericAction] = useState<
+    EntityGenericActionConfigMany<EntityRO> | undefined
+  >(undefined);
+  const [selectedComponentAction, setSelectedComponentAction] = useState<
+    EntityComponentActionConfigMany<EntityRO> | undefined
+  >(undefined);
+
+  const customActions = useMemo<
+    (EntityGenericActionConfigMany<EntityRO> | EntityComponentActionConfigMany<EntityRO>)[]
+  >(() => entity.client.customActionsMany?.filter((customAction) => hasGrant(customAction.grant)) || [], [entity]);
+
+  const actions = useMemo<MenuAction[]>(
+    () => [
+      ...(updateMany ? [ActionUpdate] : []),
+      ...(hasEntityActionDelete ? [ActionDelete] : []),
+      ActionOpenNewTab,
+      ...customActions.map<MenuAction>((customAction) => customAction.menuAction),
+    ],
+    [updateMany, hasEntityActionDelete, customActions]
+  );
+
+  const customActionHandler = useCallback(
+    (id: string): void => {
+      const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
+      if (customAction) {
+        if (EntityUtils.isEntityGenericActionConfigMany(customAction)) {
+          setSelectedGenericAction(customAction);
+          showModal(genericActionModalId);
+        } else if (EntityUtils.isEntityComponentActionConfigMany(customAction)) {
+          setSelectedComponentAction(customAction);
+          showModal(componentActionModalId);
+        }
+      }
+    },
+    [customActions]
+  );
 
   const actionsHandler = (selectedItems: EntityRO[], actionId: string): void => {
     if (!selectedItems || !selectedItems.length) {
@@ -103,7 +150,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
         selectedItems.forEach((selectedItem) => window.open(getEntityDetailsUrl(entity, selectedItem.id)));
         break;
       default:
-        console.log("actionsHandler no handler for - action id: ", actionId);
+        customActionHandler(actionId);
         break;
     }
   };
@@ -138,7 +185,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
 
   useUpdateEffect(() => {
     if (deleteState?.successful?.length) {
-      setRefreshItems((refreshItems) => refreshItems + 1);
+      refreshItems();
     }
     if (deleteState?.failed?.length) {
       if (deleteState?.successful?.length) {
@@ -166,7 +213,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
         modalId={updateManyModalId}
         entity={entity}
         items={selectedItems}
-        onUpdateSuccess={() => setRefreshItems((refreshItems) => refreshItems + 1)}
+        onUpdateSuccess={refreshItems}
         key={getModalKey(updateManyModalId)}
       />
       <ConfirmationDialog
@@ -180,15 +227,35 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
         modalId={importManyModalId}
         entity={entity}
         predefinedValues={predefinedValues || []}
-        onImportSuccess={() => setRefreshItems((refreshItems) => refreshItems + 1)}
+        onImportSuccess={refreshItems}
         key={getModalKey(importManyModalId)}
       />
+      {!!selectedGenericAction && (
+        <EntityGenericActionManyDialog
+          modalId={genericActionModalId}
+          entity={entity}
+          items={selectedItems}
+          customAction={selectedGenericAction}
+          refreshItems={refreshItems}
+          key={getModalKey(genericActionModalId)}
+        />
+      )}
+      {!!selectedComponentAction && (
+        <EntityComponentActionManyDialog
+          modalId={componentActionModalId}
+          entity={entity}
+          items={selectedItems}
+          customAction={selectedComponentAction}
+          refreshItems={refreshItems}
+          key={getModalKey(genericActionModalId)}
+        />
+      )}
 
       <TablePage
         entity={entity}
         filterFields={filterFields}
         hiddenColumns={aggregatedHiddenColumns}
-        refreshItems={refreshItems}
+        refreshItems={refreshItemsState}
         compact={compact}
         buttons={buttons}
         buttonsHandler={buttonsHandler}

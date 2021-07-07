@@ -33,9 +33,12 @@ import {
   EntityColumn,
   EntityColumnType,
   EntityComponentActionConfig,
+  EntityComponentActionConfigMany,
   EntityCustomTabConfig,
   EntityField,
+  EntityGenericActionApiConfig,
   EntityGenericActionConfig,
+  EntityGenericActionConfigMany,
   EnumInfo,
   EnumInfoMap,
   NestedEntity,
@@ -48,7 +51,12 @@ import {useScrollSync} from "./hooks/useScrollSync";
 import GrantsManager, {GrantContext} from "./managers/grants/GrantsManager";
 import useHasGrant from "./managers/grants/hooks/useHasGrant";
 import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
-import {IPropsEntityComponentAction, IPropsEntityCustomTab, IPropsEntitySelect} from "./models/props";
+import {
+  IPropsEntityComponentAction,
+  IPropsEntityComponentActionMany,
+  IPropsEntityCustomTab,
+  IPropsEntitySelect,
+} from "./models/props";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -71,15 +79,18 @@ export {
   NestedEntity,
   EntityActionConfig,
   EntityCustomTabConfig,
+  EntityGenericActionApiConfig,
   EntityGenericActionConfig,
   EntityComponentActionConfig,
+  EntityGenericActionConfigMany,
+  EntityComponentActionConfigMany,
   EntityActionType,
   EntityColumnType,
   EntityManager,
   EntityContext,
   useHasEntityActionType,
 };
-export {IPropsEntityCustomTab, IPropsEntityComponentAction, IPropsEntitySelect};
+export {IPropsEntityCustomTab, IPropsEntityComponentAction, IPropsEntityComponentActionMany, IPropsEntitySelect};
 
 export {copyToClipboard, componentLoader};
 export {useScroll, useScrollSync};

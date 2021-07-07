@@ -1,5 +1,11 @@
 import {Ref} from "react";
-import {Entity, EntityColumn, EntityComponentActionConfig, EntityField} from "./entity";
+import {
+  Entity,
+  EntityColumn,
+  EntityComponentActionConfig,
+  EntityComponentActionConfigMany,
+  EntityField,
+} from "./entity";
 import {AutocompleteProps} from "@material-ui/core";
 import {FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 import {PartialDeep} from "type-fest";
@@ -55,5 +61,13 @@ export interface IPropsEntityComponentAction<EntityRO> {
   customAction: EntityComponentActionConfig<EntityRO>;
   setItem: (item: EntityRO & {uniqueKey?: string}) => void;
   refreshItem: () => void;
+  finishAction: () => void;
+}
+
+export interface IPropsEntityComponentActionMany<EntityRO> {
+  entity: Entity<EntityRO>;
+  items: EntityRO[];
+  customAction: EntityComponentActionConfigMany<EntityRO>;
+  refreshItems: () => void;
   finishAction: () => void;
 }

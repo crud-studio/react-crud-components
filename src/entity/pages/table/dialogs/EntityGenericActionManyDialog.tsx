@@ -1,48 +1,41 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useMemo, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
-import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
+import {Entity, EntityGenericActionConfigMany} from "../../../../models/entity";
 import {ModalsContext} from "../../../../managers/ModalManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
-import useCustomActionRequest from "../api/useCustomActionRequest";
-import {RouteComponentProps, withRouter} from "react-router-dom";
-import {EntityContext} from "../../../managers/EntityManager";
-import {v4 as uuidv4} from "uuid";
+import useCustomActionRequest from "../../details/api/useCustomActionRequest";
 
-interface IProps<EntityRO> extends RouteComponentProps {
+interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
   entity: Entity<any>;
-  item: EntityRO;
-  customAction: EntityGenericActionConfig<EntityRO>;
-  setItem: (item: EntityRO & {uniqueKey?: string}) => void;
-  refreshItem: () => void;
+  items: EntityRO[];
+  customAction: EntityGenericActionConfigMany<EntityRO>;
+  refreshItems: () => void;
 }
 
-const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
+const EntityGenericActionManyDialog = <EntityRO extends BaseJpaRO>({
   modalId,
   entity,
-  item,
+  items,
   customAction,
-  setItem,
-  refreshItem,
-  ...rest
+  refreshItems,
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
-  const {getEntityTableUrl} = useContext(EntityContext);
 
   const methods = useForm();
 
   const getDefaultActionData = (): object => {
     let actionData: object = {};
     customAction.fields?.forEach((entityField) => {
-      _.set(actionData, entityField.name, EntityUtils.getItemFieldDefaultValue(entityField, item));
+      _.set(actionData, entityField.name, EntityUtils.getItemsFieldDefaultValue(entityField, items));
     });
     return actionData;
   };
@@ -64,21 +57,16 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
     [setActionData]
   );
 
-  const actionState = useCustomActionRequest(entity, customAction.api, item.id, actionData);
+  const itemIds = useMemo<number[]>(() => items.map<number>((item) => item.id), [items]);
+  const actionState = useCustomActionRequest(entity, customAction.api, itemIds, actionData);
 
   useUpdateEffect(() => {
     if (actionState.result) {
       hideModal(modalId);
 
       switch (customAction.resultBehavior) {
-        case "UpdateEntityFromResult":
-          setItem(_.merge({uniqueKey: uuidv4()}, actionState.result));
-          break;
         case "RefreshEntity":
-          refreshItem();
-          break;
-        case "LeaveEntity":
-          rest.history.push(getEntityTableUrl(entity));
+          refreshItems();
           break;
         case "None":
         default:
@@ -131,4 +119,4 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
     </Dialog>
   );
 };
-export default withRouter(EntityGenericActionDialog);
+export default EntityGenericActionManyDialog;
