@@ -85,7 +85,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
         }
       }
     },
-    [entity]
+    [customActions]
   );
 
   const actionsHandler = (id: string): void => {
@@ -135,7 +135,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
         lazy: true,
       })),
     ],
-    [itemId, entity, customTabs]
+    [nestedEntities, customTabs]
   );
 
   const deleteState = useCrudDelete(entity, itemId);
