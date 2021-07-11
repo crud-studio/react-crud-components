@@ -3,9 +3,11 @@ import {useUpdateEffect} from "react-use";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
 import {EntityContext} from "../managers/EntityManager";
+import {GrantContext} from "../../managers/grants/GrantsManager";
 
 const useSearchFilterFields = (entity: Entity<any>, search: string | undefined): FilterField[] => {
-  const {isColumnSearchable, getColumnSearchFilterField} = useContext(EntityContext);
+  const {isColumnSearchable, getColumnSearchFilterField, getColumnGrant} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
 
   const getFilterFields = useCallback((): FilterField[] => {
     if (search) {
@@ -13,7 +15,7 @@ const useSearchFilterFields = (entity: Entity<any>, search: string | undefined):
         {
           operation: "Or",
           children: entity.columns
-            .filter((column) => isColumnSearchable(column, search))
+            .filter((column) => isColumnSearchable(column, search) && hasGrant(getColumnGrant(column)))
             .map((column) => getColumnSearchFilterField(column, search)),
         },
       ];

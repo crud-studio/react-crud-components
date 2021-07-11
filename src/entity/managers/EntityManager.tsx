@@ -19,6 +19,7 @@ interface IEntityContext {
   isColumnValueValid: (column: EntityColumn, value: unknown, required?: boolean) => boolean;
   isColumnSearchable: (column: EntityColumn, search: string) => boolean;
   getColumnSearchFilterField: (column: EntityColumn, search: string) => FilterField;
+  getColumnGrant: (column: EntityColumn) => string | undefined;
 }
 
 export const EntityContext = React.createContext<IEntityContext>(undefined!);
@@ -128,6 +129,13 @@ const EntityManager: FunctionComponent<IProps> = ({
     return entityColumnTypes[column.type].getSearchFilterField(column, search);
   }, []);
 
+  const getColumnGrant = useCallback(
+    (column: EntityColumn): string | undefined => {
+      return entityColumnTypes[column.type].getGrant(column, entityMap);
+    },
+    [enumMap]
+  );
+
   return (
     <EntityContext.Provider
       value={{
@@ -143,6 +151,7 @@ const EntityManager: FunctionComponent<IProps> = ({
         isColumnValueValid,
         isColumnSearchable,
         getColumnSearchFilterField,
+        getColumnGrant,
       }}
     >
       {children}

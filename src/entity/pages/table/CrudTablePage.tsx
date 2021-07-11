@@ -39,7 +39,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   compact = false,
   history,
 }: IProps<EntityRO>) => {
-  const {getEntityCreateUrl, getEntityDetailsUrl} = useContext(EntityContext);
+  const {getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useContext(EntityContext);
   const {hasGrant} = useContext(GrantContext);
 
   const {showModal, getModalKey} = useContext(ModalsContext);
@@ -89,10 +89,12 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   const [aggregatedHiddenColumns] = useState<string[]>([
     ...(hiddenColumns || []),
     ...(predefinedValues?.map<string>((predefinedValue) => predefinedValue.name) || []),
+    ...entity.columns.filter((column) => !hasGrant(getColumnGrant(column))).map<string>((column) => column.name),
   ]);
 
   const [updateMany] = useState<boolean>(
-    hasEntityActionUpdate && _.some(entity.columns, (column) => column.updatableMany)
+    hasEntityActionUpdate &&
+      _.some(entity.columns, (column) => column.updatableMany && hasGrant(getColumnGrant(column)))
   );
 
   const [selectedGenericAction, setSelectedGenericAction] = useState<

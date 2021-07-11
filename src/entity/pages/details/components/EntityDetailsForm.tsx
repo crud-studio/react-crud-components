@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Card, CardContent} from "@material-ui/core";
-import {Entity} from "../../../../models/entity";
+import {Entity, EntityColumn} from "../../../../models/entity";
 import CardTitle from "../../../../components/common/CardTitle";
 import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
+import {EntityContext} from "../../../managers/EntityManager";
+import {GrantContext} from "../../../../managers/grants/GrantsManager";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -20,10 +22,18 @@ interface IProps<EntityRO extends BaseJpaRO> {
 }
 
 const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, updateItem}: IProps<EntityRO>) => {
+  const {getColumnGrant} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
+
   const methods = useForm();
 
   const [itemData, setItemData] = useState<PartialDeep<EntityRO>>({} as PartialDeep<EntityRO>);
   const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
+
+  const entityColumns = useMemo<EntityColumn[]>(
+    () => entity.columns.filter((column) => (item.id > 0 || column.updatable) && hasGrant(getColumnGrant(column))),
+    [entity, item.id]
+  );
 
   const onValueChanged = (value: any, columnName: string): void => {
     setItemData((itemData) => {
@@ -56,20 +66,18 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
 
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            {entity.columns
-              .filter((column) => item.id > 0 || column.updatable)
-              .map((column) => (
-                <EntityFieldComponent
-                  entityField={column}
-                  defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
-                  disabled={!hasEntityActionUpdate || !column.updatable}
-                  onValueChanged={(value) => {
-                    onValueChanged(value, column.name);
-                  }}
-                  sx={{mb: 2}}
-                  key={column.name}
-                />
-              ))}
+            {entityColumns.map((column) => (
+              <EntityFieldComponent
+                entityField={column}
+                defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
+                disabled={!hasEntityActionUpdate || !column.updatable}
+                onValueChanged={(value) => {
+                  onValueChanged(value, column.name);
+                }}
+                sx={{mb: 2}}
+                key={column.name}
+              />
+            ))}
 
             {hasEntityActionUpdate && (
               <div>

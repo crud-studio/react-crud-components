@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useMemo, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
@@ -14,6 +14,8 @@ import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
+import {EntityContext} from "../../../managers/EntityManager";
+import {GrantContext} from "../../../../managers/grants/GrantsManager";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -24,18 +26,23 @@ interface IProps<EntityRO extends BaseJpaRO> {
 
 const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, onUpdateSuccess}: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {getColumnGrant} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
 
   const methods = useForm();
 
   const [columnNamesToUpdate, setColumnNamesToUpdate] = useState<string[]>([]);
 
+  const entityColumns = useMemo<EntityColumn[]>(
+    () => entity.columns.filter((column) => column.updatableMany && hasGrant(getColumnGrant(column))),
+    [entity]
+  );
+
   const getDefaultItemData = (): PartialDeep<EntityRO> => {
     let itemData: PartialDeep<EntityRO> = {} as PartialDeep<EntityRO>;
-    entity.columns
-      .filter((column) => column.updatableMany)
-      .forEach((column) => {
-        _.set(itemData, column.name, EntityUtils.getItemsFieldDefaultValue(column, items));
-      });
+    entityColumns.forEach((column) => {
+      _.set(itemData, column.name, EntityUtils.getItemsFieldDefaultValue(column, items));
+    });
     return itemData;
   };
 
@@ -110,7 +117,7 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
     }
 
     let updateData: PartialDeep<EntityRO> = {} as PartialDeep<EntityRO>;
-    entity.columns
+    entityColumns
       .filter((column) => columnNamesToUpdate.includes(column.name))
       .forEach((column) => {
         _.set(updateData, column.name, _.get(itemData, column.name));
@@ -135,39 +142,37 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
       <DialogContent>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            {entity.columns
-              .filter((column) => column.updatableMany)
-              .map((column) => (
-                <Box sx={{display: "flex", flexDirection: "row", mb: 2}} key={column.name}>
-                  <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
-                    <Box
-                      sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
-                      onClick={(event) => {
-                        onColumnCheck(column);
-                        event.stopPropagation();
-                      }}
-                    >
-                      <Checkbox
-                        checked={columnNamesToUpdate.includes(column.name)}
-                        size="small"
-                        onChange={() => {}}
-                        sx={{mr: 1}}
-                      />
-                    </Box>
-                  </Box>
-
-                  <Box sx={{flexGrow: 1}}>
-                    <EntityFieldComponent
-                      entityField={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
-                      defaultValue={_.get(itemData, column.name)}
-                      onValueChanged={(value) => {
-                        onValueChanged(value, column.name);
-                      }}
+            {entityColumns.map((column) => (
+              <Box sx={{display: "flex", flexDirection: "row", mb: 2}} key={column.name}>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                  <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
+                  <Box
+                    sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
+                    onClick={(event) => {
+                      onColumnCheck(column);
+                      event.stopPropagation();
+                    }}
+                  >
+                    <Checkbox
+                      checked={columnNamesToUpdate.includes(column.name)}
+                      size="small"
+                      onChange={() => {}}
+                      sx={{mr: 1}}
                     />
                   </Box>
                 </Box>
-              ))}
+
+                <Box sx={{flexGrow: 1}}>
+                  <EntityFieldComponent
+                    entityField={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
+                    defaultValue={_.get(itemData, column.name)}
+                    onValueChanged={(value) => {
+                      onValueChanged(value, column.name);
+                    }}
+                  />
+                </Box>
+              </Box>
+            ))}
           </form>
         </FormProvider>
       </DialogContent>

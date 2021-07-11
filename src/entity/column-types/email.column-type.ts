@@ -28,4 +28,7 @@ export const emailColumnType: EntityColumnTypeConfig = {
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
     return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Contains", values: [search]};
   },
+  getGrant(column: EntityColumn): string | undefined {
+    return undefined;
+  },
 };

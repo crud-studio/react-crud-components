@@ -14,6 +14,7 @@ import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
 import {EntityContext} from "../../../../managers/EntityManager";
+import {GrantContext} from "../../../../../managers/grants/GrantsManager";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -29,10 +30,13 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
   onImportSuccess,
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
-  const {parseColumnValue} = useContext(EntityContext);
+  const {parseColumnValue, getColumnGrant} = useContext(EntityContext);
+  const {hasGrant} = useContext(GrantContext);
 
-  const [columns] = useState<EntityColumn[]>(
-    entity.columns.filter((column) => column.updatable && !_.find(predefinedValues, {name: column.name}))
+  const [entityColumns] = useState<EntityColumn[]>(
+    entity.columns.filter(
+      (column) => column.updatable && !_.find(predefinedValues, {name: column.name}) && hasGrant(getColumnGrant(column))
+    )
   );
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [fileData, setFileData] = useState<unknown[] | undefined>(undefined);
@@ -59,7 +63,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
       return undefined;
     }
 
-    const columnsMap: {[key: string]: EntityColumn} = _.keyBy(entity.columns, "name");
+    const columnsMap: {[key: string]: EntityColumn} = _.keyBy(entityColumns, "name");
 
     return _.slice(fileData, 1, maxRows + 1).map<PartialDeep<EntityRO>>((itemRow: unknown) => {
       let item: any = {
@@ -125,7 +129,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
 
       {currentStep === 2 && (
         <ImportColumnSelectionWizard
-          columns={columns}
+          columns={entityColumns}
           fileData={fileData || []}
           maxRows={maxImportRows}
           onWizardCompleted={onColumnsSelected}
@@ -135,7 +139,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
       {currentStep === 3 && (
         <ImportDataViewer
           entity={entity}
-          columns={columns}
+          columns={entityColumns}
           items={items || []}
           onItemsVerified={onItemsVerified}
           onCancel={onCancel}

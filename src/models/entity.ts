@@ -65,6 +65,7 @@ export interface EntityColumnTypeConfig {
   parseValue: (column: EntityColumn, value: unknown, enumMap: {[key: string]: EnumInfoMap<any>}) => any;
   isSearchable: (column: EntityColumn, search: string, enumMap: {[key: string]: EnumInfoMap<any>}) => boolean;
   getSearchFilterField: (column: EntityColumn, search: string) => FilterField;
+  getGrant: (column: EntityColumn, entityMap: {[key: string]: Entity<any>}) => string | undefined;
 }
 
 export interface NestedEntity {

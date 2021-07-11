@@ -1,6 +1,6 @@
 import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
-import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
+import {Entity, EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
 import {COMMA_SEPARATED_DIGITS_REGEX, DIGITS_REGEX} from "../../constants/regex";
 import TableDataEntityList from "../pages/table/data/TableDataEntityList";
 import TableFilterEntity from "../pages/table/filters/TableFilterEntity";
@@ -32,5 +32,12 @@ export const entityListColumnType: EntityColumnTypeConfig = {
   },
   getSearchFilterField(column: EntityColumn, search: string): FilterField {
     return {fieldName: EntityUtils.getColumnFilterFieldName(column), operation: "Equal", values: [search]};
+  },
+  getGrant(column: EntityColumn, entityMap: {[key: string]: Entity<any>}): string | undefined {
+    const columnEntity = entityMap[column.subtype || ""];
+    if (columnEntity) {
+      return EntityUtils.getEntityActionGrant(columnEntity, "READ");
+    }
+    return undefined;
   },
 };
