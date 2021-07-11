@@ -1,6 +1,6 @@
 {
   "name": "@crud-studio/react-crud-components",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "CRUD Studio core components for react apps.",
   "main": "dist/index.js",
   "files": [
