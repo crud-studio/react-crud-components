@@ -1,14 +1,6 @@
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {
-  Entity,
-  EntityColumn,
-  EntityComponentActionConfig,
-  EntityComponentActionConfigMany,
-  EntityField,
-  EntityGenericActionConfig,
-  EntityGenericActionConfigMany,
-} from "../../models/entity";
+import {Entity, EntityActionType, EntityColumn, EntityField} from "../../models/entity";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
 const EntityUtils = {
@@ -43,28 +35,8 @@ const EntityUtils = {
     return column.displayName || column.name;
   },
 
-  isEntityGenericActionConfig: function (
-    actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
-  ): actionConfig is EntityGenericActionConfig<any> {
-    return "api" in actionConfig;
-  },
-
-  isEntityComponentActionConfig: function (
-    actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
-  ): actionConfig is EntityComponentActionConfig<any> {
-    return "component" in actionConfig;
-  },
-
-  isEntityGenericActionConfigMany: function (
-    actionConfig: EntityGenericActionConfigMany<any> | EntityComponentActionConfigMany<any>
-  ): actionConfig is EntityGenericActionConfigMany<any> {
-    return "api" in actionConfig;
-  },
-
-  isEntityComponentActionConfigMany: function (
-    actionConfig: EntityGenericActionConfigMany<any> | EntityComponentActionConfigMany<any>
-  ): actionConfig is EntityComponentActionConfigMany<any> {
-    return "component" in actionConfig;
+  getEntityActionGrant: function (entity: Entity<any>, entityActionType: EntityActionType): string | undefined {
+    return entity.actions.get(entityActionType)?.grant;
   },
 };
 export default EntityUtils;

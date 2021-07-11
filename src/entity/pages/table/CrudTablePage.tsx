@@ -21,9 +21,9 @@ import {EntityContext} from "../../managers/EntityManager";
 import {ActionCreate, ActionDelete, ActionImport, ActionOpenNewTab, ActionUpdate} from "../../../data/menuActions";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import {GrantContext} from "../../../managers/grants/GrantsManager";
-import EntityUtils from "../../helpers/EntityUtils";
 import EntityComponentActionManyDialog from "./dialogs/EntityComponentActionManyDialog";
 import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDialog";
+import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -120,10 +120,10 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
     (id: string): void => {
       const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
-        if (EntityUtils.isEntityGenericActionConfigMany(customAction)) {
+        if (EntityCustomActionUtils.isEntityGenericActionConfigMany(customAction)) {
           setSelectedGenericAction(customAction);
           showModal(genericActionModalId);
-        } else if (EntityUtils.isEntityComponentActionConfigMany(customAction)) {
+        } else if (EntityCustomActionUtils.isEntityComponentActionConfigMany(customAction)) {
           setSelectedComponentAction(customAction);
           showModal(componentActionModalId);
         }

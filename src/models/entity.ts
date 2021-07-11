@@ -72,7 +72,6 @@ export interface NestedEntity {
   idColumnName: string;
   additionalColumns?: {name: string; value: any}[];
   hiddenColumns?: string[];
-  grant?: string;
 }
 
 export interface EntityActionConfig {

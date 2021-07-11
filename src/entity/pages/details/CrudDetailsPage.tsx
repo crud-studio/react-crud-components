@@ -24,8 +24,9 @@ import {GrantContext} from "../../../managers/grants/GrantsManager";
 import _ from "lodash";
 import {ModalsContext} from "../../../managers/ModalManager";
 import EntityGenericActionDialog from "./dialogs/EntityGenericActionDialog";
-import EntityUtils from "../../helpers/EntityUtils";
 import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
+import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
+import EntityUtils from "../../helpers/EntityUtils";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -76,10 +77,10 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
     (id: string): void => {
       const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
-        if (EntityUtils.isEntityGenericActionConfig(customAction)) {
+        if (EntityCustomActionUtils.isEntityGenericActionConfig(customAction)) {
           setSelectedGenericAction(customAction);
           showModal(genericActionModalId);
-        } else if (EntityUtils.isEntityComponentActionConfig(customAction)) {
+        } else if (EntityCustomActionUtils.isEntityComponentActionConfig(customAction)) {
           setSelectedComponentAction(customAction);
           showModal(componentActionModalId);
         }
@@ -103,7 +104,14 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
   };
 
   const nestedEntities = useMemo<NestedEntity[]>(
-    () => (!!itemId && entity.nestedEntities.filter((nestedEntity) => hasGrant(nestedEntity.grant))) || [],
+    () =>
+      (!!itemId &&
+        entity.nestedEntities.filter((nestedEntity) => {
+          const nestedEntityEntity = getEntity(nestedEntity.entityName);
+          const grant = EntityUtils.getEntityActionGrant(nestedEntityEntity, "READ");
+          return hasGrant(grant);
+        })) ||
+      [],
     [itemId, entity]
   );
 
