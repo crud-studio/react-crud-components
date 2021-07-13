@@ -29,7 +29,7 @@ const TableDataEmail = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntity
   return (
     <>
       {!!data && (
-        <Link color="secondary" onClick={sendEmail}>
+        <Link color="primary" underline="hover" onClick={sendEmail}>
           {data}
         </Link>
       )}

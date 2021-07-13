@@ -16,11 +16,11 @@ const MenuActionItems: FunctionComponent<IProps> = ({actions, onActionClick}) =>
           <React.Fragment key={action.id}>
             {action.dividerTop && <Divider sx={{my: 0.5}} />}
 
-            <MenuItem onClick={() => onActionClick(action.id)}>
+            <MenuItem onClick={() => onActionClick(action.id)} sx={{typography: "body2"}}>
               <ListItemIcon>
-                <action.icon />
+                <action.icon fontSize="small" />
               </ListItemIcon>
-              <ListItemText primary={<FormattedMessage id={action.labelKey} />} />
+              <ListItemText primary={<FormattedMessage id={action.labelKey} />} disableTypography />
             </MenuItem>
 
             {action.dividerBottom && <Divider sx={{my: 0.5}} />}

@@ -29,7 +29,7 @@ const TableDataEntity = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntit
   return (
     <>
       {!!data && (
-        <Link color="secondary" onClick={openEntityNewTab}>
+        <Link color="primary" underline="hover" onClick={openEntityNewTab}>
           {data}
         </Link>
       )}

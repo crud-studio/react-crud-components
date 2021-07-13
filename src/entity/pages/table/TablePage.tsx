@@ -17,7 +17,7 @@ import {
   useCrudSearch,
   useUrlState,
 } from "@crud-studio/react-crud-core";
-import {Box, Menu, Paper, Table, TableBody, TableContainer} from "@material-ui/core";
+import {Box, Card, Menu, Table, TableBody, TableContainer} from "@material-ui/core";
 import {PopoverPosition} from "@material-ui/core/Popover/Popover";
 import {Entity, EntityColumn} from "../../../models/entity";
 import {DIGITS_REGEX} from "../../../constants/regex";
@@ -243,7 +243,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
             dropdownActionsHandler={onDropdownMenuClick}
           />
 
-          <Paper sx={{position: "relative", display: "flex", flexDirection: "column", flexGrow: 1}}>
+          <Card sx={{position: "relative", display: "flex", flexDirection: "column", flexGrow: 1}}>
             <TableContainer sx={{overflowY: "scroll", overflowX: "hidden"}} ref={tableHeaderRef}>
               <Table size="small">
                 <TableHeaderRowView
@@ -276,7 +276,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
                       onContextMenuItem: onContextMenuItem,
                     }}
                     itemCount={items?.length || 0}
-                    itemSize={55}
+                    itemSize={52}
                     itemKey={(index, data) => data.items[index].id}
                     row={Row}
                     header={<TableAccessibilityHeaderRowView columns={columns} />}
@@ -285,7 +285,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
                 )}
               </AutoSizer>
             </TableContainer>
-          </Paper>
+          </Card>
 
           <Menu
             transformOrigin={{

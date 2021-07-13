@@ -1,4 +1,5 @@
 import {ComponentType, ReactNode} from "react";
+import {SvgIconProps} from "@material-ui/core";
 
 export interface SelectOption {
   label: string;
@@ -9,7 +10,7 @@ export interface MenuAction {
   id: string;
   labelKey: string;
   descriptionKey?: string;
-  icon: ComponentType;
+  icon: ComponentType<SvgIconProps>;
   keyBinding?: string;
   visible?: boolean;
   dividerTop?: boolean;

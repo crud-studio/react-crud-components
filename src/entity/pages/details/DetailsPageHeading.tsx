@@ -29,7 +29,7 @@ const DetailsPageHeading: FunctionComponent<IProps> = ({
   children,
 }) => {
   return (
-    <Box sx={{display: "flex", flexDirection: "row", alignItems: "start", mb: 4}}>
+    <Box sx={{display: "flex", flexDirection: "row", alignItems: "start", mb: 3}}>
       <Box sx={{flexGrow: 1, overflow: "hidden", pr: 1}}>
         <Typography component="h1" variant="h4" noWrap sx={{display: {xs: "block", md: "inline-flex"}, mr: 1}}>
           <FormattedMessage id={headingKey} />

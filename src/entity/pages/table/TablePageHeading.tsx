@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import PageSize from "./components/PageSize";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Box, Button, Divider, Pagination, Typography} from "@material-ui/core";
+import {Box, Button, Pagination, Typography} from "@material-ui/core";
 import {MenuAction} from "../../../models/internal";
 import ActionsDropdownMenu from "../../../components/menus/ActionsDropdownMenu";
 import ButtonDropdownMenu from "../../../components/menus/ButtonDropdownMenu";
@@ -118,7 +118,7 @@ const TablePageHeading = <EntityRO extends BaseJpaRO>({
   );
 
   return (
-    <Box sx={compact ? {pb: 1, pt: 1} : {pb: 3}}>
+    <Box sx={compact ? {mb: 2, mt: 2} : {mb: 4}}>
       <Box
         sx={
           compact
@@ -128,12 +128,12 @@ const TablePageHeading = <EntityRO extends BaseJpaRO>({
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
-                mb: 1,
+                mb: 2,
               }
         }
       >
         {!compact && (
-          <Typography component="h1" variant="h1">
+          <Typography component="h1" variant="h4">
             <FormattedMessage id={heading} />
           </Typography>
         )}
@@ -153,6 +153,8 @@ const TablePageHeading = <EntityRO extends BaseJpaRO>({
           page={currentPage}
           count={totalPageCount}
           size="small"
+          variant="outlined"
+          shape="rounded"
           showFirstButton
           showLastButton
           onChange={(event, page) => onChangePage(page)}
@@ -167,8 +169,6 @@ const TablePageHeading = <EntityRO extends BaseJpaRO>({
           onChangePageSize={onChangePageSize}
         />
       </Box>
-
-      {!compact && <Divider sx={{mt: 1}} />}
     </Box>
   );
 };

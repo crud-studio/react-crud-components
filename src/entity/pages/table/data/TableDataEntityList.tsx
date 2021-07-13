@@ -40,7 +40,7 @@ const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsE
   return (
     <>
       {!!data && (
-        <Link color="secondary" onClick={openEntityNewTab}>
+        <Link color="primary" underline="hover" onClick={openEntityNewTab}>
           {data}
         </Link>
       )}
