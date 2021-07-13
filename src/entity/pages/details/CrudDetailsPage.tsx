@@ -198,7 +198,6 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
             headingKey={entity.client.titleDetailsKey}
             actions={actions}
             actionsHandler={actionsHandler}
-            separator={false}
           />
 
           <TabPanel

@@ -26,24 +26,29 @@ const ItemEditTime: FunctionComponent<IProps> = ({item, saving, hasChanges}) => 
   }, [item]);
 
   return (
-    <Typography component="div" variant="body2" noWrap sx={{display: {xs: "block", md: "inline"}}}>
+    <Typography
+      component="div"
+      variant="body2"
+      noWrap
+      sx={{display: {xs: "block", md: "inline"}, color: "text.disabled"}}
+    >
       {!saving && (
         <>
           {hasChanges && (
             <>
-              <PendingOutlined fontSize="small" sx={{mb: -0.5, mr: 0.5}} />
+              <PendingOutlined fontSize="small" color="disabled" sx={{mb: -0.5, mr: 0.5}} />
               <FormattedMessage id="pages.pending-changes" />
             </>
           )}
 
           {lastUpdateTime && !hasChanges && (
             <>
-              <DoneOutlined fontSize="small" sx={{mb: -0.5, mr: 0.5}} />
+              <DoneOutlined fontSize="small" color="disabled" sx={{mb: -0.5, mr: 0.5}} />
               <FormattedMessage id="pages.saved" />
 
               <Tooltip title={<FormattedMessage id="pages.last-edit" />}>
                 <span>
-                  <EditOutlined fontSize="small" sx={{mb: -0.5, mr: 0.5, ml: 1}} />
+                  <EditOutlined fontSize="small" color="disabled" sx={{mb: -0.5, mr: 0.5, ml: 1}} />
                   <FormattedRelativeTimeNow value={lastUpdateTime} />
                 </span>
               </Tooltip>
@@ -54,7 +59,7 @@ const ItemEditTime: FunctionComponent<IProps> = ({item, saving, hasChanges}) => 
 
       {saving && (
         <>
-          <SaveAltOutlined fontSize="small" sx={{mb: -0.5, mr: 0.5}} />
+          <SaveAltOutlined fontSize="small" color="disabled" sx={{mb: -0.5, mr: 0.5}} />
           <FormattedMessage id="pages.saving" />
         </>
       )}

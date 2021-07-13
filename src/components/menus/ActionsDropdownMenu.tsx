@@ -29,7 +29,7 @@ const ActionsDropdownMenu: FunctionComponent<IProps> = ({dropdownActions, action
 
   return (
     <>
-      <Button size={size} onClick={handleMenu} endIcon={<KeyboardArrowDown />}>
+      <Button size={size} variant="contained" onClick={handleMenu} endIcon={<KeyboardArrowDown />}>
         <FormattedMessage id="pages.actions" />
       </Button>
       <Menu

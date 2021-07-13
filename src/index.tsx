@@ -57,6 +57,7 @@ import {
   IPropsEntityCustomTab,
   IPropsEntitySelect,
 } from "./models/props";
+import InputUtils from "./helpers/InputUtils";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -92,7 +93,7 @@ export {
 };
 export {IPropsEntityCustomTab, IPropsEntityComponentAction, IPropsEntityComponentActionMany, IPropsEntitySelect};
 
-export {copyToClipboard, componentLoader};
+export {copyToClipboard, componentLoader, InputUtils};
 export {useScroll, useScrollSync};
 
 export {GrantsManager, GrantContext, useHasGrant, KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};

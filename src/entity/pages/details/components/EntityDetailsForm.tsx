@@ -4,15 +4,14 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Card, CardContent} from "@material-ui/core";
+import {Card, CardContent, CardHeader, Stack} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
-import CardTitle from "../../../../components/common/CardTitle";
-import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import {EntityContext} from "../../../managers/EntityManager";
 import {GrantContext} from "../../../../managers/grants/GrantsManager";
+import {LoadingButton} from "@material-ui/lab";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -58,34 +57,32 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
   });
 
   return (
-    <Card sx={{mt: 3}}>
+    <Card sx={{mt: 5}}>
+      <CardHeader title={<FormattedMessage id="pages.details" />} />
       <CardContent>
-        <CardTitle>
-          <FormattedMessage id="pages.details" />
-        </CardTitle>
-
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            {entityColumns.map((column) => (
-              <EntityFieldComponent
-                entityField={column}
-                defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
-                disabled={!hasEntityActionUpdate || !column.updatable}
-                onValueChanged={(value) => {
-                  onValueChanged(value, column.name);
-                }}
-                sx={{mb: 2}}
-                key={column.name}
-              />
-            ))}
+            <Stack spacing={2}>
+              {entityColumns.map((column) => (
+                <EntityFieldComponent
+                  entityField={column}
+                  defaultValue={EntityUtils.getItemFieldDefaultValue(column, item)}
+                  disabled={!hasEntityActionUpdate || !column.updatable}
+                  onValueChanged={(value) => {
+                    onValueChanged(value, column.name);
+                  }}
+                  key={column.name}
+                />
+              ))}
 
-            {hasEntityActionUpdate && (
-              <div>
-                <StatusButton color="primary" type="submit" loading={loading}>
-                  {item.id > 0 ? <FormattedMessage id="pages.update" /> : <FormattedMessage id="pages.create" />}
-                </StatusButton>
-              </div>
-            )}
+              {hasEntityActionUpdate && (
+                <div>
+                  <LoadingButton variant="contained" color="primary" type="submit" size="large" loading={loading}>
+                    {item.id > 0 ? <FormattedMessage id="pages.update" /> : <FormattedMessage id="pages.create" />}
+                  </LoadingButton>
+                </div>
+              )}
+            </Stack>
           </form>
         </FormProvider>
       </CardContent>

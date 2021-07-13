@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {FormattedMessage} from "react-intl";
-import {Box, Divider, Typography} from "@material-ui/core";
+import {Box, Typography} from "@material-ui/core";
 import {MenuAction} from "../../../models/internal";
 import ItemEditTime from "../../../components/time/ItemEditTime";
 import ActionsDropdownMenu from "../../../components/menus/ActionsDropdownMenu";
@@ -15,7 +15,6 @@ interface IProps {
   actions?: MenuAction[];
   actionsHandler?: (id: string) => void;
   actionLoading?: boolean;
-  separator?: boolean;
 }
 
 const DetailsPageHeading: FunctionComponent<IProps> = ({
@@ -27,42 +26,42 @@ const DetailsPageHeading: FunctionComponent<IProps> = ({
   actions,
   actionsHandler,
   actionLoading,
-  separator = true,
   children,
 }) => {
   return (
-    <Box>
-      <Box sx={{display: "flex", flexDirection: "row", alignItems: "start"}}>
-        <Box sx={{flexGrow: 1, overflow: "hidden", pr: 1}}>
-          <Typography component="h1" variant="h1" noWrap sx={{display: {xs: "block", md: "inline-flex"}, mr: 1}}>
-            <FormattedMessage id={headingKey} />
+    <Box sx={{display: "flex", flexDirection: "row", alignItems: "start", mb: 4}}>
+      <Box sx={{flexGrow: 1, overflow: "hidden", pr: 1}}>
+        <Typography component="h1" variant="h4" noWrap sx={{display: {xs: "block", md: "inline-flex"}, mr: 1}}>
+          <FormattedMessage id={headingKey} />
+        </Typography>
+
+        {headingSubKey && (
+          <Typography
+            component="h2"
+            variant="h5"
+            noWrap
+            sx={{display: {xs: "block", md: "inline-flex", color: "text.disabled"}, mr: 1}}
+          >
+            <FormattedMessage id={headingSubKey} />
           </Typography>
-
-          {headingSubKey && (
-            <Typography component="h2" variant="h3" noWrap sx={{display: {xs: "block", md: "inline-flex"}, mr: 1}}>
-              <FormattedMessage id={headingSubKey} />
-            </Typography>
-          )}
-
-          {item && <ItemEditTime item={item} saving={saving} hasChanges={hasChanges} />}
-        </Box>
-
-        {(children || (actions && actions.length > 0)) && (
-          <div>
-            {children}
-
-            {actions && actions.length > 0 && !actions[0].visible && actionsHandler && (
-              <ActionsDropdownMenu dropdownActions={actions} actionsHandler={actionsHandler} />
-            )}
-
-            {actions && actions.length > 0 && actions[0].visible && actionsHandler && (
-              <ButtonDropdownMenu dropdownActions={actions} actionsHandler={actionsHandler} loading={actionLoading} />
-            )}
-          </div>
         )}
+
+        {item && <ItemEditTime item={item} saving={saving} hasChanges={hasChanges} />}
       </Box>
 
-      {separator && <Divider sx={{mt: 1, mb: 3}} />}
+      {(children || (actions && actions.length > 0)) && (
+        <div>
+          {children}
+
+          {actions && actions.length > 0 && !actions[0].visible && actionsHandler && (
+            <ActionsDropdownMenu dropdownActions={actions} actionsHandler={actionsHandler} />
+          )}
+
+          {actions && actions.length > 0 && actions[0].visible && actionsHandler && (
+            <ButtonDropdownMenu dropdownActions={actions} actionsHandler={actionsHandler} loading={actionLoading} />
+          )}
+        </div>
+      )}
     </Box>
   );
 };
