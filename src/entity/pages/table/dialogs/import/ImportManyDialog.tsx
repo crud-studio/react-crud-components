@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useState} from "react";
 import ImportDataUploadView from "./ImportDataUploadView";
 import ImportDataViewer from "./ImportDataViewer";
 import {FormattedMessage} from "react-intl";
@@ -9,12 +9,12 @@ import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@material-ui/core";
 import ImportFileUpload from "./ImportFileUpload";
-import {ModalsContext} from "../../../../../managers/ModalManager";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
 import useGrants from "../../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../../hooks/useEntity";
+import useModals from "../../../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -29,7 +29,7 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
   predefinedValues,
   onImportSuccess,
 }: IProps<EntityRO>) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {parseColumnValue, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import _ from "lodash";
 import {FormattedMessage} from "react-intl";
 import {useUpdateEffect} from "react-use";
@@ -13,7 +13,6 @@ import {
   EntityGenericActionConfigMany,
   EntityPredefinedValue,
 } from "../../../models/entity";
-import {ModalsContext} from "../../../managers/ModalManager";
 import {MenuAction} from "../../../models/internal";
 import NotificationManager from "../../../components/notifications/NotificationManager";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
@@ -24,6 +23,7 @@ import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDial
 import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
 import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
+import useModals from "../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -42,7 +42,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   const {getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
 
-  const {showModal, getModalKey} = useContext(ModalsContext);
+  const {showModal, getModalKey} = useModals();
   const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));
   const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [importManyModalId] = useState<string>(_.uniqueId("importMany_"));

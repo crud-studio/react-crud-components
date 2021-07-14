@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
@@ -20,13 +20,13 @@ import {Box} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityDetailsForm from "./components/EntityDetailsForm";
 import _ from "lodash";
-import {ModalsContext} from "../../../managers/ModalManager";
 import EntityGenericActionDialog from "./dialogs/EntityGenericActionDialog";
 import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
 import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
 import EntityUtils from "../../helpers/EntityUtils";
 import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
+import useModals from "../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -34,7 +34,7 @@ interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
 }
 
 const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, history}: IProps<EntityRO>) => {
-  const {showModal, getModalKey} = useContext(ModalsContext);
+  const {showModal, getModalKey} = useModals();
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
   const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 

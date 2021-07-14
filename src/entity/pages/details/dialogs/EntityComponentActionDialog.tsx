@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
+import React from "react";
 import {FormattedMessage} from "react-intl";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@material-ui/core";
 import {Entity, EntityComponentActionConfig} from "../../../../models/entity";
-import {ModalsContext} from "../../../../managers/ModalManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
+import useModals from "../../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO> {
   modalId: string;
@@ -23,7 +23,7 @@ const EntityComponentActionDialog = <EntityRO extends BaseJpaRO>({
   setItem,
   refreshItem,
 }: IProps<EntityRO>) => {
-  const {isModalOpen, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModalWrapper} = useModals();
 
   return (
     <Dialog open={isModalOpen(modalId)} onClose={hideModalWrapper(modalId)} fullWidth maxWidth="md">

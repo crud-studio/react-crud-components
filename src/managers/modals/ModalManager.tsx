@@ -1,7 +1,7 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback, useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
 
-interface IModalsContext {
+export interface IModalsContext {
   hasOpenModal: boolean;
   modalOpenIds: string[];
   isModalOpen: (modalId: string) => boolean;

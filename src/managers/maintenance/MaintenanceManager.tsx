@@ -1,11 +1,11 @@
-import React, {FunctionComponent, useContext, useEffect, useState} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import _ from "lodash";
 import {useUpdateEffect} from "react-use";
-import {ModalsContext} from "../ModalManager";
 import useNetworkStatus from "./hooks/useNetworkStatus";
 import useSystemStatus from "./hooks/useSystemStatus";
 import NetworkDialog from "./dialogs/NetworkDialog";
 import MaintenanceDialog from "./dialogs/MaintenanceDialog";
+import useModals from "../modals/hooks/useModals";
 
 interface IProps {
   networkStatusUrl: string;
@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const MaintenanceManager: FunctionComponent<IProps> = ({networkStatusUrl, supportEmail}) => {
-  const {showModal, hideModal} = useContext(ModalsContext);
+  const {showModal, hideModal} = useModals();
   const [networkModalId] = useState<string>(_.uniqueId("network_"));
   const [maintenanceModalId] = useState<string>(_.uniqueId("maintenance_"));
 

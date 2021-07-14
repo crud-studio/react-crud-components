@@ -1,8 +1,8 @@
 import {FormattedMessage} from "react-intl";
-import React, {FunctionComponent, useContext} from "react";
+import React, {FunctionComponent} from "react";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
-import {ModalsContext} from "../../ModalManager";
 import DialogTitleEnhanced from "../../../components/dialogs/DialogTitleEnhanced";
+import useModals from "../../modals/hooks/useModals";
 
 interface IProps {
   modalId: string;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const NetworkDialog: FunctionComponent<IProps> = ({modalId, supportEmail}) => {
-  const {isModalOpen, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModalWrapper} = useModals();
 
   return (
     <>

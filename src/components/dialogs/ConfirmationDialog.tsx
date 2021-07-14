@@ -1,8 +1,8 @@
 import {FormattedMessage} from "react-intl";
-import React, {FunctionComponent, useContext} from "react";
+import React, {FunctionComponent} from "react";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
-import {ModalsContext} from "../../managers/ModalManager";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
+import useModals from "../../managers/modals/hooks/useModals";
 
 interface IProps {
   modalId: string;
@@ -23,7 +23,7 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
   continueTextKey = null,
   onConfirm,
 }) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
 
   const confirm = (): void => {
     hideModal(modalId);

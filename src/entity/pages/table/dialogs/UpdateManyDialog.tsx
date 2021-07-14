@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
@@ -7,7 +7,6 @@ import {PartialDeep} from "type-fest";
 import {BaseJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
 import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
-import {ModalsContext} from "../../../../managers/ModalManager";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import StatusButton from "../../../../components/buttons/StatusButton";
@@ -16,6 +15,7 @@ import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
 import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
+import useModals from "../../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -25,7 +25,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
 }
 
 const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, onUpdateSuccess}: IProps<EntityRO>) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
 

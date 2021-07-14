@@ -2,7 +2,6 @@ import StatusButton from "./components/buttons/StatusButton";
 import ActionsDropdownMenu from "./components/menus/ActionsDropdownMenu";
 import ButtonDropdownMenu from "./components/menus/ButtonDropdownMenu";
 import KeyBindingManager from "./managers/KeyBindingManager";
-import ModalManager, {ModalsContext} from "./managers/ModalManager";
 import ConfirmationDialog from "./components/dialogs/ConfirmationDialog";
 import ConfirmationTypingDialog from "./components/dialogs/ConfirmationTypingDialog";
 import DialogTitleEnhanced from "./components/dialogs/DialogTitleEnhanced";
@@ -36,6 +35,8 @@ import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
 import InputUtils from "./helpers/InputUtils";
 import useGrants from "./managers/grants/hooks/useGrants";
 import useEntity from "./entity/hooks/useEntity";
+import useModals from "./managers/modals/hooks/useModals";
+import ModalManager, {ModalsContext} from "./managers/modals/ModalManager";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -71,6 +72,7 @@ export {
   MaintenanceManager,
   ModalManager,
   ModalsContext,
+  useModals,
 };
 
 export {EMAIL_REGEX, WEBSITE_REGEX, TELEPHONE_PREFIX_REGEX, NO_EMOJIS_REGEX, DIGITS_REGEX};

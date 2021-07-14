@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
@@ -6,12 +6,12 @@ import {useUpdateEffect} from "react-use";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
 import {Entity, EntityGenericActionConfigMany} from "../../../../models/entity";
-import {ModalsContext} from "../../../../managers/ModalManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../../details/api/useCustomActionRequest";
+import useModals from "../../../../managers/modals/hooks/useModals";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -28,7 +28,7 @@ const EntityGenericActionManyDialog = <EntityRO extends BaseJpaRO>({
   customAction,
   refreshItems,
 }: IProps<EntityRO>) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
 
   const methods = useForm();
 

@@ -1,9 +1,9 @@
 import {FormattedMessage, useIntl} from "react-intl";
-import React, {FunctionComponent, useContext} from "react";
+import React, {FunctionComponent} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {Box, Button, Dialog, DialogActions, DialogContent, TextField, Typography} from "@material-ui/core";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
-import {ModalsContext} from "../../managers/ModalManager";
+import useModals from "../../managers/modals/hooks/useModals";
 
 interface IProps {
   modalId: string;
@@ -28,7 +28,7 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
   confirmTextKey,
   onConfirm,
 }) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
+  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const intl = useIntl();
 
   const {
