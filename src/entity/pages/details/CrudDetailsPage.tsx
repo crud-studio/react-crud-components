@@ -30,9 +30,10 @@ import EntityUtils from "../../helpers/EntityUtils";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
+  LoadingComponent?: React.ComponentType;
 }
 
-const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<EntityRO>) => {
+const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, history}: IProps<EntityRO>) => {
   const {showModal, getModalKey} = useContext(ModalsContext);
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
   const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
@@ -187,7 +188,8 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, history}: IProps<E
         />
       )}
 
-      {loading && <LoadingCenter />}
+      {loading && !!LoadingComponent && <LoadingComponent />}
+      {loading && !LoadingComponent && <LoadingCenter />}
 
       {item && (
         <Box sx={{height: "100%", display: "flex", flexDirection: "column"}} key={item.id}>
