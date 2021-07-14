@@ -1,4 +1,4 @@
-import typescript from "rollup-plugin-typescript2";
+import typescript from "@rollup/plugin-typescript";
 
 import pkg from "./package.json";
 
@@ -13,7 +13,7 @@ export default {
       strict: false,
     },
   ],
-  plugins: [typescript({objectHashIgnoreUnknownHack: true})],
+  plugins: [typescript()],
   external: [
     "@crud-studio/react-crud-core",
     "@emotion/react",
