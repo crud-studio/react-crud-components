@@ -16,6 +16,7 @@ import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponen
 import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
+import {LoadingButton} from "@material-ui/lab";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -180,9 +181,9 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
         <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
           <FormattedMessage id="pages.cancel" />
         </Button>{" "}
-        <StatusButton color="primary" onClick={onSubmit} loading={updateState.loading}>
+        <LoadingButton variant="contained" color="primary" onClick={onSubmit} loading={updateState.loading}>
           <FormattedMessage id="pages.submit" />
-        </StatusButton>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

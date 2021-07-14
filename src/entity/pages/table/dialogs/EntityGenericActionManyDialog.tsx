@@ -12,6 +12,7 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../../details/api/useCustomActionRequest";
 import useModals from "../../../../managers/modals/hooks/useModals";
+import {LoadingButton} from "@material-ui/lab";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -112,9 +113,9 @@ const EntityGenericActionManyDialog = <EntityRO extends BaseJpaRO>({
         <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
           <FormattedMessage id="pages.cancel" />
         </Button>{" "}
-        <StatusButton color="primary" onClick={onSubmit} loading={actionState.loading}>
+        <LoadingButton variant="contained" color="primary" onClick={onSubmit} loading={actionState.loading}>
           <FormattedMessage id="pages.submit" />
-        </StatusButton>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

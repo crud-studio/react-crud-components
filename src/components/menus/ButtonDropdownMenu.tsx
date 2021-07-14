@@ -5,6 +5,7 @@ import {Button, ButtonGroup, Menu} from "@material-ui/core";
 import {KeyboardArrowDown} from "@material-ui/icons";
 import MenuActionItems from "./MenuActionItems";
 import {ButtonSize, MenuAction} from "../../models/internal";
+import {LoadingButton} from "@material-ui/lab";
 
 interface IProps {
   dropdownActions: MenuAction[];
@@ -33,9 +34,9 @@ const ButtonDropdownMenu: FunctionComponent<IProps> = ({dropdownActions, actions
   return (
     <>
       <ButtonGroup size={size} variant="contained" disableElevation className={className}>
-        <StatusButton loading={loading} color="primary" onClick={() => actionsHandlerInternal(dropdownActions[0].id)}>
+        <LoadingButton loading={loading} color="primary" onClick={() => actionsHandlerInternal(dropdownActions[0].id)}>
           <FormattedMessage id={dropdownActions[0].labelKey} />
-        </StatusButton>
+        </LoadingButton>
 
         <Button onClick={handleMenu}>
           <KeyboardArrowDown fontSize={size} />

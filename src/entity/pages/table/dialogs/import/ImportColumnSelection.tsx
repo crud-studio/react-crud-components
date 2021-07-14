@@ -15,8 +15,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import {EntityColumn} from "../../../../../models/entity";
-import CardTitle from "../../../../../components/common/CardTitle";
-import CardSubTitle from "../../../../../components/common/CardSubTitle";
+import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
+import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import useEntity from "../../../../hooks/useEntity";
 
 interface IProps {
@@ -105,18 +105,18 @@ const ImportColumnSelection: FunctionComponent<IProps> = ({
   return (
     <>
       <DialogContent sx={{textAlign: "center"}}>
-        <CardTitle sx={{mb: 0}}>
+        <DialogContentTitle sx={{mb: 0}}>
           <FormattedMessage
             id="pages.import-column-selection"
             values={{columnTitle: intl.formatMessage({id: column.titleKey})}}
           />
-        </CardTitle>
-        <CardSubTitle>
+        </DialogContentTitle>
+        <DialogContentSubTitle>
           <FormattedMessage
             id="pages.import-column-selection-explanation"
             values={{columnTitle: intl.formatMessage({id: column.titleKey})}}
           />
-        </CardSubTitle>
+        </DialogContentSubTitle>
 
         {!selectedColumnValid && (
           <Alert severity="warning" sx={{mb: 2}}>

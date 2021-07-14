@@ -15,6 +15,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
+import {LoadingButton} from "@material-ui/lab";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   modalId: string;
@@ -124,9 +125,9 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
         <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
           <FormattedMessage id="pages.cancel" />
         </Button>{" "}
-        <StatusButton color="primary" onClick={onSubmit} loading={actionState.loading}>
+        <LoadingButton variant="contained" color="primary" onClick={onSubmit} loading={actionState.loading}>
           <FormattedMessage id="pages.submit" />
-        </StatusButton>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

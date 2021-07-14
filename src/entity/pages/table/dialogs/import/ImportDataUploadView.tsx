@@ -6,8 +6,8 @@ import _ from "lodash";
 import {BaseJpaRO, useCrudCreateMany} from "@crud-studio/react-crud-core";
 import {Button, DialogActions, DialogContent} from "@material-ui/core";
 import {Entity} from "../../../../../models/entity";
-import CardTitle from "../../../../../components/common/CardTitle";
-import CardSubTitle from "../../../../../components/common/CardSubTitle";
+import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
+import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import {Player} from "@lottiefiles/react-lottie-player";
 import successLottie from "../../../../../data/lotties/successLottie";
 import uploadLottie from "../../../../../data/lotties/uploadLottie";
@@ -49,12 +49,12 @@ const ImportDataUploadView = <EntityRO extends BaseJpaRO>({
       <DialogContent sx={{textAlign: "center"}}>
         {!executed && (
           <>
-            <CardTitle sx={{mb: 0}}>
+            <DialogContentTitle sx={{mb: 0}}>
               <FormattedMessage id="pages.uploading-data-now" />
-            </CardTitle>
-            <CardSubTitle>
+            </DialogContentTitle>
+            <DialogContentSubTitle>
               <FormattedMessage id="pages.process-may-take-several-minutes" />
-            </CardSubTitle>
+            </DialogContentSubTitle>
 
             <Player
               autoplay
@@ -70,7 +70,7 @@ const ImportDataUploadView = <EntityRO extends BaseJpaRO>({
 
         {executed && !!successful?.length && (
           <>
-            <CardTitle sx={{mb: 0}}>
+            <DialogContentTitle sx={{mb: 0}}>
               <FormattedMessage
                 id="pages.data-imported-successfully"
                 values={{
@@ -78,8 +78,8 @@ const ImportDataUploadView = <EntityRO extends BaseJpaRO>({
                   totalCount: successful.length + (failed?.length || 0),
                 }}
               />
-            </CardTitle>
-            <CardSubTitle>&nbsp;</CardSubTitle>
+            </DialogContentTitle>
+            <DialogContentSubTitle>&nbsp;</DialogContentSubTitle>
 
             <Player
               autoplay
@@ -94,9 +94,9 @@ const ImportDataUploadView = <EntityRO extends BaseJpaRO>({
         )}
 
         {executed && !successful?.length && (
-          <CardTitle sx={{mb: 0}}>
+          <DialogContentTitle sx={{mb: 0}}>
             <FormattedMessage id="pages.data-import-failed" />
-          </CardTitle>
+          </DialogContentTitle>
         )}
       </DialogContent>
 

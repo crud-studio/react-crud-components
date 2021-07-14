@@ -7,11 +7,11 @@ interface IProps extends PropsWithChildren<any> {
   sx?: SxProps<Theme>;
 }
 
-const CardTitle: FunctionComponent<IProps> = ({sx, children}) => {
+const DialogContentSubTitle: FunctionComponent<IProps> = ({sx, children}) => {
   return (
-    <Typography component="h3" variant="h3" sx={{mb: 3, ...sx}}>
+    <Typography component="p" variant="body2" sx={{mb: 3, ...sx}}>
       {children}
     </Typography>
   );
 };
-export default CardTitle;
+export default DialogContentSubTitle;

@@ -8,8 +8,8 @@ import {PartialDeep} from "type-fest";
 import {BaseJpaRO, usePagination} from "@crud-studio/react-crud-core";
 import {Box, Button, DialogActions, DialogContent, Pagination} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../../models/entity";
-import CardTitle from "../../../../../components/common/CardTitle";
-import CardSubTitle from "../../../../../components/common/CardSubTitle";
+import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
+import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import EntityUtils from "../../../../helpers/EntityUtils";
 
 interface IProps<EntityRO extends BaseJpaRO> {
@@ -115,12 +115,12 @@ const ImportDataViewer = <EntityRO extends BaseJpaRO>({
   return (
     <>
       <DialogContent sx={{textAlign: "center", pb: 3}}>
-        <CardTitle sx={{mb: 0}}>
+        <DialogContentTitle sx={{mb: 0}}>
           <FormattedMessage id="pages.import-check-information" />
-        </CardTitle>
-        <CardSubTitle>
+        </DialogContentTitle>
+        <DialogContentSubTitle>
           <FormattedMessage id="pages.import-check-information-explanation" />
-        </CardSubTitle>
+        </DialogContentSubTitle>
 
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>

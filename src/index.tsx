@@ -1,4 +1,3 @@
-import StatusButton from "./components/buttons/StatusButton";
 import ActionsDropdownMenu from "./components/menus/ActionsDropdownMenu";
 import ButtonDropdownMenu from "./components/menus/ButtonDropdownMenu";
 import KeyBindingManager from "./managers/KeyBindingManager";
@@ -10,8 +9,8 @@ import FullTime from "./components/time/FullTime";
 import ItemEditTime from "./components/time/ItemEditTime";
 import {DIGITS_REGEX, EMAIL_REGEX, NO_EMOJIS_REGEX, TELEPHONE_PREFIX_REGEX, WEBSITE_REGEX} from "./constants/regex";
 import TabPanel from "./components/layouts/TabPanel";
-import CardSubTitle from "./components/common/CardSubTitle";
-import CardTitle from "./components/common/CardTitle";
+import DialogContentSubTitle from "./components/common/DialogContentSubTitle";
+import DialogContentTitle from "./components/common/DialogContentTitle";
 import ConditionalLink from "./components/common/ConditionalLink";
 import LoadingCenter from "./components/common/LoadingCenter";
 import NotificationContainer from "./components/notifications/NotificationContainer";
@@ -38,8 +37,7 @@ import useEntity from "./entity/hooks/useEntity";
 import useModals from "./managers/modals/hooks/useModals";
 import ModalManager, {ModalsContext} from "./managers/modals/ModalManager";
 
-export {StatusButton};
-export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
+export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};

@@ -1,11 +1,11 @@
 import React, {FunctionComponent, useCallback} from "react";
 import {FileRejection} from "react-dropzone";
 import _ from "lodash";
-import {DialogContent} from "@material-ui/core";
+import {DialogContent, Link} from "@material-ui/core";
 import {FormattedMessage, useIntl} from "react-intl";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
-import CardTitle from "../../../../../components/common/CardTitle";
-import CardSubTitle from "../../../../../components/common/CardSubTitle";
+import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
+import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import FileDropzone from "../../../../../components/inputs/FileDropzone";
 import {getFilesRejectedMessageKey} from "../../../../../helpers/FileUtils";
 import XLSX, {WorkBook, WorkSheet} from "xlsx";
@@ -69,22 +69,23 @@ const ImportFileUpload: FunctionComponent<IProps> = ({onFileSelected}) => {
   return (
     <>
       <DialogContent sx={{textAlign: "center"}}>
-        <CardTitle sx={{mb: 0}}>
+        <DialogContentTitle sx={{mb: 0}}>
           <FormattedMessage id="pages.get-your-sheet-from-excel" />
-        </CardTitle>
-        <CardSubTitle>
+        </DialogContentTitle>
+        <DialogContentSubTitle>
           <FormattedMessage id="pages.you-can-use-any-template" />
           {" ("}
-          <a
+          <Link
             href={`/assets/templates/import-${intl.locale.toLowerCase()}.csv`}
             target="_blank"
             rel="noopener noreferrer"
             download="import.csv"
+            underline="hover"
           >
             <FormattedMessage id="pages.example" />
-          </a>
+          </Link>
           {")"}
-        </CardSubTitle>
+        </DialogContentSubTitle>
 
         <FileDropzone
           accept=".csv, .xls, .xlsx"
