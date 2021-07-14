@@ -1,13 +1,13 @@
-import {useCallback, useContext, useState} from "react";
+import {useCallback, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
-import {EntityContext} from "../managers/EntityManager";
-import {GrantContext} from "../../managers/grants/GrantsManager";
+import useGrants from "../../managers/grants/hooks/useGrants";
+import useEntity from "./useEntity";
 
 const useSearchFilterFields = (entity: Entity<any>, search: string | undefined): FilterField[] => {
-  const {isColumnSearchable, getColumnSearchFilterField, getColumnGrant} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {isColumnSearchable, getColumnSearchFilterField, getColumnGrant} = useEntity();
+  const {hasGrant} = useGrants();
 
   const getFilterFields = useCallback((): FilterField[] => {
     if (search) {

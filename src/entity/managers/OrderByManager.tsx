@@ -4,7 +4,7 @@ import {URL_PARAM_ORDER_BY, urlValuesSeparator} from "../../constants/urlKeys";
 import {OrderDTO, useDebounceFn, useUrlState} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
 
-interface IOrderByContext {
+export interface IOrderByContext {
   contextOrders: OrderDTO[];
   updateContextOrder: (order: OrderDTO) => void;
   removeContextOrder: (orderBy: string) => void;

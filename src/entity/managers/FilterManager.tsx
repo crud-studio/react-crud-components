@@ -5,7 +5,7 @@ import {FilterField, useDebounceFn, useUrlState} from "@crud-studio/react-crud-c
 import {Entity} from "../../models/entity";
 import EntityUtils from "../helpers/EntityUtils";
 
-interface IFiltersContext {
+export interface IFiltersContext {
   contextFilterFields: FilterField[];
   contextFilterFieldsClearedFlag: number;
   updateContextFilterField: (filterField: FilterField, debounced: boolean) => void;

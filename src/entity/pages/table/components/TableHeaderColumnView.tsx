@@ -1,11 +1,11 @@
-import React, {FunctionComponent, useCallback, useContext, useEffect, useState} from "react";
+import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import _ from "lodash";
 import {FormattedMessage} from "react-intl";
-import {OrderByContext} from "../../../managers/OrderByManager";
 import {Box, TableCell} from "@material-ui/core";
 import {TableSortLabel} from "@material-ui/core";
 import {tableCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
+import useOrderBy from "../../../hooks/useOrderBy";
 
 interface IProps {
   column: EntityColumn;
@@ -14,7 +14,7 @@ interface IProps {
 type OrderStatus = undefined | "asc" | "desc";
 
 const TableHeaderColumnView: FunctionComponent<IProps> = ({column}) => {
-  const {contextOrders, updateContextOrder, removeContextOrder} = useContext(OrderByContext);
+  const {contextOrders, updateContextOrder, removeContextOrder} = useOrderBy();
 
   const [orderStatus, setOrderStatus] = useState<OrderStatus>(undefined);
   const [orderNumber, setOrderNumber] = useState<number>(0);

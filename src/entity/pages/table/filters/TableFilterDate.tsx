@@ -1,6 +1,5 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {useEffectOnce, useUpdateEffect} from "react-use";
-import {FiltersContext} from "../../../managers/FilterManager";
 import _ from "lodash";
 import {DateRangePicker} from "@material-ui/lab";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
@@ -9,12 +8,13 @@ import {Clear} from "@material-ui/icons";
 import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import EntityUtils from "../../../helpers/EntityUtils";
+import useFilters from "../../../hooks/useFilters";
 
 const TableFilterDate: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();
 
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
-    useContext(FiltersContext);
+    useFilters();
 
   const [value, setValue] = useState<DateRange<Date>>([null, null]);
 

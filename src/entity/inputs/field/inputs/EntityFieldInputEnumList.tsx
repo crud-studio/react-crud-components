@@ -1,11 +1,11 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import _ from "lodash";
 import {Autocomplete, TextField} from "@material-ui/core";
 import {useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {SelectOption} from "../../../../models/internal";
-import {EntityContext} from "../../../managers/EntityManager";
+import useEntity from "../../../hooks/useEntity";
 
 const EntityFieldInputEnumList: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -16,7 +16,7 @@ const EntityFieldInputEnumList: FunctionComponent<IPropsEntityColumnInputType> =
 }) => {
   const intl = useIntl();
   const methods = useFormContext();
-  const {getEnumSelectOptions, getEnumValuesSelectOptions} = useContext(EntityContext);
+  const {getEnumSelectOptions, getEnumValuesSelectOptions} = useEntity();
 
   const [options] = useState<SelectOption[]>(getEnumSelectOptions(entityField.subtype));
 

@@ -13,8 +13,8 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../api/useCustomActionRequest";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {EntityContext} from "../../../managers/EntityManager";
 import {v4 as uuidv4} from "uuid";
+import useEntity from "../../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   modalId: string;
@@ -35,7 +35,7 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
   ...rest
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
-  const {getEntityTableUrl} = useContext(EntityContext);
+  const {getEntityTableUrl} = useEntity();
 
   const methods = useForm();
 

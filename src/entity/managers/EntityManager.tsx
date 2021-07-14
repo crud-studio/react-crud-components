@@ -6,7 +6,7 @@ import {useIntl} from "react-intl";
 import _ from "lodash";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
-interface IEntityContext {
+export interface IEntityContext {
   getEntity: (entityName?: string) => Entity<any>;
   getEntityEnum: (enumName?: string) => EnumInfoMap<any>;
   getEnumSelectOptions: (enumName?: string) => SelectOption[];

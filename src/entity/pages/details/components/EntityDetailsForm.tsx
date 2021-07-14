@@ -1,4 +1,4 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
@@ -9,9 +9,9 @@ import {Entity, EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
 import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
-import {EntityContext} from "../../../managers/EntityManager";
-import {GrantContext} from "../../../../managers/grants/GrantsManager";
 import {LoadingButton} from "@material-ui/lab";
+import useGrants from "../../../../managers/grants/hooks/useGrants";
+import useEntity from "../../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -21,8 +21,8 @@ interface IProps<EntityRO extends BaseJpaRO> {
 }
 
 const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, updateItem}: IProps<EntityRO>) => {
-  const {getColumnGrant} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {getColumnGrant} = useEntity();
+  const {hasGrant} = useGrants();
 
   const methods = useForm();
 

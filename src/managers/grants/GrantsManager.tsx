@@ -1,6 +1,6 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
 
-interface IGrantContext {
+export interface IGrantContext {
   grants: string[];
   hasGrant: (grant?: string) => boolean;
 }

@@ -34,6 +34,8 @@ import GrantsManager, {GrantContext} from "./managers/grants/GrantsManager";
 import useHasGrant from "./managers/grants/hooks/useHasGrant";
 import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
 import InputUtils from "./helpers/InputUtils";
+import useGrants from "./managers/grants/hooks/useGrants";
+import useEntity from "./entity/hooks/useEntity";
 
 export {StatusButton};
 export {CardSubTitle, CardTitle, ConditionalLink, LoadingCenter};
@@ -47,11 +49,28 @@ export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 export * from "./models/entity";
 export * from "./models/internal";
 export * from "./models/props";
-export {CrudDetailsPage, CrudTablePage, DetailsPageHeading, EntityManager, EntityContext, useHasEntityActionType};
+export {
+  CrudDetailsPage,
+  CrudTablePage,
+  DetailsPageHeading,
+  EntityManager,
+  EntityContext,
+  useEntity,
+  useHasEntityActionType,
+};
 
 export {copyToClipboard, componentLoader, InputUtils};
 export {useScroll, useScrollSync};
 
-export {GrantsManager, GrantContext, useHasGrant, KeyBindingManager, MaintenanceManager, ModalManager, ModalsContext};
+export {
+  GrantsManager,
+  GrantContext,
+  useGrants,
+  useHasGrant,
+  KeyBindingManager,
+  MaintenanceManager,
+  ModalManager,
+  ModalsContext,
+};
 
 export {EMAIL_REGEX, WEBSITE_REGEX, TELEPHONE_PREFIX_REGEX, NO_EMOJIS_REGEX, DIGITS_REGEX};

@@ -17,13 +17,13 @@ import {ModalsContext} from "../../../managers/ModalManager";
 import {MenuAction} from "../../../models/internal";
 import NotificationManager from "../../../components/notifications/NotificationManager";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
-import {EntityContext} from "../../managers/EntityManager";
 import {ActionCreate, ActionDelete, ActionImport, ActionOpenNewTab, ActionUpdate} from "../../../data/menuActions";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
-import {GrantContext} from "../../../managers/grants/GrantsManager";
 import EntityComponentActionManyDialog from "./dialogs/EntityComponentActionManyDialog";
 import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDialog";
 import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
+import useGrants from "../../../managers/grants/hooks/useGrants";
+import useEntity from "../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -39,8 +39,8 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   compact = false,
   history,
 }: IProps<EntityRO>) => {
-  const {getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
+  const {hasGrant} = useGrants();
 
   const {showModal, getModalKey} = useContext(ModalsContext);
   const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));

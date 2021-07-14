@@ -1,20 +1,20 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {useEffectOnce} from "react-use";
-import {FiltersContext} from "../../../managers/FilterManager";
 import _ from "lodash";
 import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {Entity} from "../../../../models/entity";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {useIntl} from "react-intl";
-import {EntityContext} from "../../../managers/EntityManager";
 import EntityUtils from "../../../helpers/EntityUtils";
+import useEntity from "../../../hooks/useEntity";
+import useFilters from "../../../hooks/useFilters";
 
 const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();
 
-  const {getEntity} = useContext(EntityContext);
+  const {getEntity} = useEntity();
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
-    useContext(FiltersContext);
+    useFilters();
 
   const [entity] = useState<Entity<any>>(getEntity(column.subtype));
   const [initialValueIds, setInitialValueIds] = useState<number[] | undefined>(undefined);

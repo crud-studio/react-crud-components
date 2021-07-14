@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import _ from "lodash";
 import {FormattedMessage, useIntl} from "react-intl";
 import {
@@ -17,7 +17,7 @@ import {
 import {EntityColumn} from "../../../../../models/entity";
 import CardTitle from "../../../../../components/common/CardTitle";
 import CardSubTitle from "../../../../../components/common/CardSubTitle";
-import {EntityContext} from "../../../../managers/EntityManager";
+import useEntity from "../../../../hooks/useEntity";
 
 interface IProps {
   column: EntityColumn;
@@ -43,7 +43,7 @@ const ImportColumnSelection: FunctionComponent<IProps> = ({
   const MAX_ROWS_TO_SHOW = 5;
 
   const intl = useIntl();
-  const {isColumnValueValid} = useContext(EntityContext);
+  const {isColumnValueValid} = useEntity();
 
   const head: unknown = _.head(fileData);
   const tail: unknown[] = _.slice(fileData, 1, 1 + MAX_ROWS_TO_SHOW);
