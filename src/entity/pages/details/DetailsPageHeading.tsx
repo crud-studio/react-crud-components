@@ -40,7 +40,7 @@ const DetailsPageHeading: FunctionComponent<IProps> = ({
             component="h2"
             variant="h5"
             noWrap
-            sx={{display: {xs: "block", md: "inline-flex", color: "text.disabled"}, mr: 1}}
+            sx={{display: {xs: "block", md: "inline-flex"}, color: "text.disabled", mr: 1}}
           >
             <FormattedMessage id={headingSubKey} />
           </Typography>

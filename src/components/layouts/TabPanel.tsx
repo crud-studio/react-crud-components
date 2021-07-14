@@ -47,7 +47,7 @@ const TabPanel: FunctionComponent<IProps> = ({
 
   return (
     <Box sx={{width: "100%", ...sx}}>
-      <Box sx={{borderBottom: 1, borderColor: "divider"}}>
+      <Box sx={{mb: 5}}>
         <Tabs value={activeTab} onChange={toggleTab}>
           {tabs.map((tab) => {
             const hasTabCount = tabsCount && _.has(tabsCount, tab.id);

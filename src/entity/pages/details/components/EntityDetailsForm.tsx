@@ -57,7 +57,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
   });
 
   return (
-    <Card sx={{mt: 5}}>
+    <Card>
       <CardHeader title={<FormattedMessage id="pages.details" />} />
       <CardContent>
         <FormProvider {...methods}>

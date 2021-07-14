@@ -16,12 +16,12 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {EntityContext} from "../../../managers/EntityManager";
 import {v4 as uuidv4} from "uuid";
 
-interface IProps<EntityRO> extends RouteComponentProps {
+interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   modalId: string;
   entity: Entity<any>;
   item: EntityRO;
-  customAction: EntityGenericActionConfig<EntityRO>;
-  setItem: (item: EntityRO & {uniqueKey?: string}) => void;
+  customAction: EntityGenericActionConfig<any>;
+  setItem: (item: any & {uniqueKey?: string}) => void;
   refreshItem: () => void;
 }
 

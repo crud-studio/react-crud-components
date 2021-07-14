@@ -15,8 +15,8 @@ function useCustomActionRequest(
 
     if (actionApiConfig.dataLocation === "URL") {
       const params = Object.keys(data)
-        .filter((key) => data[key] !== null)
-        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+        .filter((key) => !!_.get(data, key))
+        .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(_.get(data, key))}`)
         .join("&");
 
       if (params) {
