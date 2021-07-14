@@ -1,14 +1,14 @@
-import {FunctionComponent, memo, useCallback, useContext} from "react";
+import {FunctionComponent, memo, useCallback} from "react";
 import React from "react";
 import TableFilter from "../filters/TableFilter";
-import {FiltersContext} from "../../../managers/FilterManager";
-import {OrderByContext} from "../../../managers/OrderByManager";
 import TableHeaderColumnView from "./TableHeaderColumnView";
 import {Checkbox, IconButton, TableCell, TableHead, TableRow, Tooltip} from "@material-ui/core";
 import {CloseOutlined} from "@material-ui/icons";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import {FormattedMessage} from "react-intl";
+import useFilters from "../../../hooks/useFilters";
+import useOrderBy from "../../../hooks/useOrderBy";
 
 interface IProps {
   columns: EntityColumn[];
@@ -23,8 +23,8 @@ const TableHeaderRowView: FunctionComponent<IProps> = ({
   selectedItemsLength,
   handleChangeSelectAll,
 }) => {
-  const {clearContextFilterFields} = useContext(FiltersContext);
-  const {clearContextOrders} = useContext(OrderByContext);
+  const {clearContextFilterFields} = useFilters();
+  const {clearContextOrders} = useOrderBy();
 
   const clearFiltersAndOrder = useCallback(() => {
     clearContextFilterFields();

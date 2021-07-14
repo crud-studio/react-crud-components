@@ -1,9 +1,9 @@
-import {useContext, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {Entity, EntityActionConfig, EntityActionType} from "../../models/entity";
-import {GrantContext} from "../../managers/grants/GrantsManager";
+import useGrants from "../../managers/grants/hooks/useGrants";
 
 const useHasEntityActionType = (entity: Entity<any>, entityActionType: EntityActionType) => {
-  const {hasGrant} = useContext(GrantContext);
+  const {hasGrant} = useGrants();
   const actionConfig = useMemo<EntityActionConfig | undefined>(
     () => entity.actions.get(entityActionType),
     [entity, entityActionType]

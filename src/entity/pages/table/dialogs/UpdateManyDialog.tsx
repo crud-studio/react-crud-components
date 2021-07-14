@@ -14,8 +14,8 @@ import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
-import {EntityContext} from "../../../managers/EntityManager";
-import {GrantContext} from "../../../../managers/grants/GrantsManager";
+import useGrants from "../../../../managers/grants/hooks/useGrants";
+import useEntity from "../../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -26,8 +26,8 @@ interface IProps<EntityRO extends BaseJpaRO> {
 
 const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, onUpdateSuccess}: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
-  const {getColumnGrant} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {getColumnGrant} = useEntity();
+  const {hasGrant} = useGrants();
 
   const methods = useForm();
 

@@ -1,18 +1,18 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import {useEffectOnce, useUpdateEffect} from "react-use";
 import _ from "lodash";
-import {FiltersContext} from "../../../managers/FilterManager";
 import {Autocomplete, TextField} from "@material-ui/core";
 import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import {SelectOption} from "../../../../models/internal";
 import EntityUtils from "../../../helpers/EntityUtils";
+import useFilters from "../../../hooks/useFilters";
 
 const TableFilterBoolean: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();
 
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
-    useContext(FiltersContext);
+    useFilters();
 
   const [values, setValues] = useState<any[]>([]);
   const [options] = useState<SelectOption[]>([

@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useCallback, useContext, useState} from "react";
+import React, {FunctionComponent, useCallback, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {FormattedMessage, useIntl} from "react-intl";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
@@ -8,8 +8,8 @@ import {OpenInNewOutlined} from "@material-ui/icons";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {Entity} from "../../../../models/entity";
-import {EntityContext} from "../../../managers/EntityManager";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
+import useEntity from "../../../hooks/useEntity";
 
 const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -20,7 +20,7 @@ const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType>
 }) => {
   const intl = useIntl();
   const methods = useFormContext();
-  const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
+  const {getEntity, getEntityDetailsUrl} = useEntity();
 
   const [entity] = useState<Entity<any>>(getEntity(entityField.subtype));
   const [value, setValue] = useState<number[]>(defaultValue);

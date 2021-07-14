@@ -13,8 +13,8 @@ import {ModalsContext} from "../../../../../managers/ModalManager";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
-import {EntityContext} from "../../../../managers/EntityManager";
-import {GrantContext} from "../../../../../managers/grants/GrantsManager";
+import useGrants from "../../../../../managers/grants/hooks/useGrants";
+import useEntity from "../../../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
@@ -30,8 +30,8 @@ const ImportManyDialog = <EntityRO extends BaseJpaRO>({
   onImportSuccess,
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useContext(ModalsContext);
-  const {parseColumnValue, getColumnGrant} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {parseColumnValue, getColumnGrant} = useEntity();
+  const {hasGrant} = useGrants();
 
   const [entityColumns] = useState<EntityColumn[]>(
     entity.columns.filter(

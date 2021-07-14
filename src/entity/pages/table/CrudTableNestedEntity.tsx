@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useState} from "react";
 import CrudTablePage from "./CrudTablePage";
 import {Entity, EntityPredefinedValue, NestedEntity} from "../../../models/entity";
-import {EntityContext} from "../../managers/EntityManager";
+import useEntity from "../../hooks/useEntity";
 
 interface IProps {
   nestedEntity: NestedEntity;
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const CrudTableNestedEntity: FunctionComponent<IProps> = ({nestedEntity, parentId}) => {
-  const {getEntity} = useContext(EntityContext);
+  const {getEntity} = useEntity();
 
   const [entity] = useState<Entity<any>>(getEntity(nestedEntity.entityName));
 

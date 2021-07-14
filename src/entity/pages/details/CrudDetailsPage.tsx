@@ -11,7 +11,6 @@ import {
 } from "../../../models/entity";
 import {MenuAction, TabInfo} from "../../../models/internal";
 import {ActionDelete, ActionSave} from "../../../data/menuActions";
-import {EntityContext} from "../../managers/EntityManager";
 import DetailsPageHeading from "./DetailsPageHeading";
 import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
 import KeyBindingManager from "../../../managers/KeyBindingManager";
@@ -20,13 +19,14 @@ import TabPanel from "../../../components/layouts/TabPanel";
 import {Box} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityDetailsForm from "./components/EntityDetailsForm";
-import {GrantContext} from "../../../managers/grants/GrantsManager";
 import _ from "lodash";
 import {ModalsContext} from "../../../managers/ModalManager";
 import EntityGenericActionDialog from "./dialogs/EntityGenericActionDialog";
 import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
 import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
 import EntityUtils from "../../helpers/EntityUtils";
+import useGrants from "../../../managers/grants/hooks/useGrants";
+import useEntity from "../../hooks/useEntity";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -38,8 +38,8 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
   const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 
-  const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useContext(EntityContext);
-  const {hasGrant} = useContext(GrantContext);
+  const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useEntity();
+  const {hasGrant} = useGrants();
 
   const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
 

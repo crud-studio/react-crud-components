@@ -1,6 +1,5 @@
-import React, {ChangeEvent, FunctionComponent, useContext, useState} from "react";
+import React, {ChangeEvent, FunctionComponent, useState} from "react";
 import {useEffectOnce, useUpdateEffect} from "react-use";
-import {FiltersContext} from "../../../managers/FilterManager";
 import _ from "lodash";
 import {FilterFieldOperation} from "@crud-studio/react-crud-core";
 import {IconButton, InputAdornment, TextField} from "@material-ui/core";
@@ -8,6 +7,7 @@ import {Clear} from "@material-ui/icons";
 import {useIntl} from "react-intl";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
+import useFilters from "../../../hooks/useFilters";
 
 interface IProps {
   column: EntityColumn;
@@ -19,7 +19,7 @@ const TableFilterInput: FunctionComponent<IProps> = ({column, inputType, operati
   const intl = useIntl();
 
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
-    useContext(FiltersContext);
+    useFilters();
 
   const [value, setValue] = useState<string>("");
 

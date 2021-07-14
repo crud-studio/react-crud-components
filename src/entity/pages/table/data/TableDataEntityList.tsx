@@ -1,14 +1,14 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useState} from "react";
 import _ from "lodash";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
-import {EntityContext} from "../../../managers/EntityManager";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
 import {Link} from "@material-ui/core";
+import useEntity from "../../../hooks/useEntity";
 
 const TableDataEntityList = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
-  const {getEntity, getEntityDetailsUrl} = useContext(EntityContext);
+  const {getEntity, getEntityDetailsUrl} = useEntity();
 
   const getData = useCallback((item: EntityRO, column: EntityColumn): string => {
     const displayValue = _.get(item, EntityUtils.getColumnDisplayFieldName(column));
