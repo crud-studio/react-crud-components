@@ -1,7 +1,16 @@
 import {FormattedMessage, useIntl} from "react-intl";
 import React, {FunctionComponent} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {Box, Button, Dialog, DialogActions, DialogContent, TextField, Typography} from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import useModals from "../../managers/modals/hooks/useModals";
 
@@ -66,9 +75,9 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
           <FormattedMessage id={modalTitleKey} values={modalTitleValues || {}} />
         </DialogTitleEnhanced>
         <DialogContent>
-          <Typography component="p" variant="body1">
+          <DialogContentText>
             <FormattedMessage id={modalTextKey} values={modalTextValues || {}} />
-          </Typography>
+          </DialogContentText>
 
           <Box component="form" onSubmit={onSubmit} noValidate sx={{mt: 1}}>
             <Controller
@@ -110,8 +119,8 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
         <DialogActions>
           <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
             <FormattedMessage id="pages.cancel" />
-          </Button>{" "}
-          <Button color="primary" onClick={onSubmit}>
+          </Button>
+          <Button variant="contained" color="primary" onClick={onSubmit}>
             <FormattedMessage id="pages.continue" />
           </Button>
         </DialogActions>

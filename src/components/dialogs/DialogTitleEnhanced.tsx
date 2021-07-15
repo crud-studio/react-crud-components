@@ -11,15 +11,18 @@ interface IProps extends PropsWithChildren<any> {
 
 const DialogTitleEnhanced: FunctionComponent<IProps> = ({onClose, sx, children}) => {
   return (
-    <DialogTitle sx={sx}>
-      {onClose ? (
-        <IconButton aria-label="close" size="small" onClick={onClose} sx={{float: "right"}}>
-          <CloseOutlined />
-        </IconButton>
-      ) : null}
+    <>
+      <DialogTitle sx={sx}>
+        {onClose ? (
+          <IconButton aria-label="close" size="small" onClick={onClose} sx={{float: "right"}}>
+            <CloseOutlined />
+          </IconButton>
+        ) : null}
 
-      {children}
-    </DialogTitle>
+        {children}
+      </DialogTitle>
+      <div />
+    </>
   );
 };
 export default DialogTitleEnhanced;

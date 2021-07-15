@@ -4,7 +4,7 @@ import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, Stack} from "@material-ui/core";
 import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import EntityUtils from "../../../helpers/EntityUtils";
@@ -100,30 +100,31 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
       </DialogTitleEnhanced>
       <DialogContent>
         {customAction.menuAction.descriptionKey && (
-          <Typography component="p" variant="h4" sx={{mb: 2}}>
+          <DialogContentText sx={{mb: 2}}>
             <FormattedMessage id={customAction.menuAction.descriptionKey} />
-          </Typography>
+          </DialogContentText>
         )}
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            {customAction.fields.map((entityField) => (
-              <EntityFieldComponent
-                entityField={entityField}
-                defaultValue={_.get(actionData, entityField.name)}
-                onValueChanged={(value) => {
-                  onValueChanged(value, entityField.name);
-                }}
-                sx={{mb: 2}}
-                key={entityField.name}
-              />
-            ))}
+            <Stack spacing={2}>
+              {customAction.fields.map((entityField) => (
+                <EntityFieldComponent
+                  entityField={entityField}
+                  defaultValue={_.get(actionData, entityField.name)}
+                  onValueChanged={(value) => {
+                    onValueChanged(value, entityField.name);
+                  }}
+                  key={entityField.name}
+                />
+              ))}
+            </Stack>
           </form>
         </FormProvider>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
           <FormattedMessage id="pages.cancel" />
-        </Button>{" "}
+        </Button>
         <LoadingButton variant="contained" color="primary" onClick={onSubmit} loading={actionState.loading}>
           <FormattedMessage id="pages.submit" />
         </LoadingButton>

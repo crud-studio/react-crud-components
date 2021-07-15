@@ -5,7 +5,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
-import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent} from "@material-ui/core";
+import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent, Stack} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
@@ -142,37 +142,39 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
       <DialogContent>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            {entityColumns.map((column) => (
-              <Box sx={{display: "flex", flexDirection: "row", mb: 2}} key={column.name}>
-                <Box sx={{display: "flex", flexDirection: "column"}}>
-                  <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
-                  <Box
-                    sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
-                    onClick={(event) => {
-                      onColumnCheck(column);
-                      event.stopPropagation();
-                    }}
-                  >
-                    <Checkbox
-                      checked={columnNamesToUpdate.includes(column.name)}
-                      size="small"
-                      onChange={() => {}}
-                      sx={{mr: 1}}
+            <Stack spacing={2}>
+              {entityColumns.map((column) => (
+                <Box sx={{display: "flex", flexDirection: "row"}} key={column.name}>
+                  <Box sx={{display: "flex", flexDirection: "column"}}>
+                    <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
+                    <Box
+                      sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
+                      onClick={(event) => {
+                        onColumnCheck(column);
+                        event.stopPropagation();
+                      }}
+                    >
+                      <Checkbox
+                        checked={columnNamesToUpdate.includes(column.name)}
+                        size="small"
+                        onChange={() => {}}
+                        sx={{mr: 1}}
+                      />
+                    </Box>
+                  </Box>
+
+                  <Box sx={{flexGrow: 1}}>
+                    <EntityFieldComponent
+                      entityField={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
+                      defaultValue={_.get(itemData, column.name)}
+                      onValueChanged={(value) => {
+                        onValueChanged(value, column.name);
+                      }}
                     />
                   </Box>
                 </Box>
-
-                <Box sx={{flexGrow: 1}}>
-                  <EntityFieldComponent
-                    entityField={{...column, required: column.required && columnNamesToUpdate.includes(column.name)}}
-                    defaultValue={_.get(itemData, column.name)}
-                    onValueChanged={(value) => {
-                      onValueChanged(value, column.name);
-                    }}
-                  />
-                </Box>
-              </Box>
-            ))}
+              ))}
+            </Stack>
           </form>
         </FormProvider>
       </DialogContent>

@@ -1,6 +1,6 @@
 import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
-import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 import DialogTitleEnhanced from "../../../components/dialogs/DialogTitleEnhanced";
 import useModals from "../../modals/hooks/useModals";
 
@@ -19,9 +19,9 @@ const NetworkDialog: FunctionComponent<IProps> = ({modalId, supportEmail}) => {
           <FormattedMessage id="pages.network-connection-error" />
         </DialogTitleEnhanced>
         <DialogContent>
-          <Typography component="p" variant="body1">
+          <DialogContentText>
             <FormattedMessage id="pages.network-connection-error-explanation" values={{supportEmail: supportEmail}} />
-          </Typography>
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={hideModalWrapper(modalId)}>

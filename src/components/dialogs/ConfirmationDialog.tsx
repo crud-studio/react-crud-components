@@ -1,6 +1,6 @@
 import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
-import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import useModals from "../../managers/modals/hooks/useModals";
 
@@ -36,15 +36,15 @@ const ConfirmationDialog: FunctionComponent<IProps> = ({
         <FormattedMessage id={modalTitleKey} values={modalTitleValues || {}} />
       </DialogTitleEnhanced>
       <DialogContent>
-        <Typography component="p" variant="body1">
+        <DialogContentText>
           <FormattedMessage id={modalTextKey} values={modalTextValues || {}} />
-        </Typography>
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
           <FormattedMessage id="pages.cancel" />
-        </Button>{" "}
-        <Button color="primary" onClick={confirm}>
+        </Button>
+        <Button variant="contained" color="primary" onClick={confirm}>
           <FormattedMessage id={continueTextKey || "pages.continue"} />
         </Button>
       </DialogActions>
