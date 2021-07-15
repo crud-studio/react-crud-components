@@ -129,18 +129,20 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
 
   const tabs = useMemo<TabInfo[]>(
     () => [
-      {id: "details", labelKey: "pages.details"},
+      {id: "details", labelKey: "pages.details", icon: <entity.client.icon fontSize="small" />},
       ...nestedEntities.map((nestedEntity) => {
         const nestedEntityEntity = getEntity(nestedEntity.entityName);
         return {
           id: nestedEntityEntity.name,
           labelKey: nestedEntityEntity.client.titleKey,
+          icon: <nestedEntityEntity.client.icon fontSize="small" />,
           lazy: true,
         };
       }),
       ...customTabs.map<TabInfo>((customTab) => ({
         id: customTab.id,
         labelKey: customTab.labelKey,
+        icon: <customTab.icon fontSize="small" />,
         lazy: true,
       })),
     ],

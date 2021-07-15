@@ -48,7 +48,7 @@ const TabPanel: FunctionComponent<IProps> = ({
   return (
     <Box sx={{width: "100%", ...sx}}>
       <Box sx={{mb: 5}}>
-        <Tabs value={activeTab} onChange={toggleTab}>
+        <Tabs value={activeTab} onChange={toggleTab} scrollButtons={false} variant="scrollable">
           {tabs.map((tab) => {
             const hasTabCount = tabsCount && _.has(tabsCount, tab.id);
             const tabCount = tabsCount && tabsCount[tab.id];
@@ -59,6 +59,7 @@ const TabPanel: FunctionComponent<IProps> = ({
                     <FormattedMessage id={tab.labelKey} />
                   </Badge>
                 }
+                icon={tab.icon}
                 key={tab.id}
               />
             );

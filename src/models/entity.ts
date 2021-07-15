@@ -9,6 +9,7 @@ import {
   IPropsEntityCustomTab,
 } from "./props";
 import {MenuAction} from "./internal";
+import {SvgIconProps} from "@material-ui/core";
 
 export interface EntityField {
   name: string;
@@ -47,7 +48,7 @@ export interface Entity<EntityRO> extends BaseEntity {
   client: {
     titleKey: string;
     titleDetailsKey: string;
-    icon: React.ComponentType;
+    icon: React.ComponentType<SvgIconProps>;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
     customTabs?: EntityCustomTabConfig<EntityRO>[];
@@ -83,6 +84,7 @@ export interface EntityActionConfig {
 export interface EntityCustomTabConfig<EntityRO> {
   id: string;
   labelKey: string;
+  icon: React.ComponentType<SvgIconProps>;
   component: ComponentType<IPropsEntityCustomTab<EntityRO>>;
   grant?: string;
   isActive?: (item: EntityRO) => boolean;

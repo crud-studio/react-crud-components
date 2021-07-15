@@ -76,11 +76,11 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
               ))}
 
               {hasEntityActionUpdate && (
-                <div>
-                  <LoadingButton variant="contained" color="primary" type="submit" size="large" loading={loading}>
+                <Stack direction="row-reverse" spacing={1}>
+                  <LoadingButton variant="contained" color="primary" type="submit" loading={loading}>
                     {item.id > 0 ? <FormattedMessage id="pages.update" /> : <FormattedMessage id="pages.create" />}
                   </LoadingButton>
-                </div>
+                </Stack>
               )}
             </Stack>
           </form>

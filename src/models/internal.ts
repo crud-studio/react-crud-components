@@ -1,5 +1,6 @@
 import {ComponentType, ReactNode} from "react";
 import {SvgIconProps} from "@material-ui/core";
+import * as React from "react";
 
 export interface SelectOption {
   label: string;
@@ -20,6 +21,7 @@ export interface MenuAction {
 export interface TabInfo {
   id: string;
   labelKey: string;
+  icon?: React.ReactElement;
   lazy?: boolean;
   className?: string;
 }
