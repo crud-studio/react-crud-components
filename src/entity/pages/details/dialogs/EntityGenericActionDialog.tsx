@@ -7,7 +7,6 @@ import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, Typography} from "@material-ui/core";
 import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
-import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../api/useCustomActionRequest";

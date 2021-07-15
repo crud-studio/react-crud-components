@@ -9,7 +9,6 @@ import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent} from "@mate
 import {Entity, EntityColumn} from "../../../../models/entity";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
-import StatusButton from "../../../../components/buttons/StatusButton";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";

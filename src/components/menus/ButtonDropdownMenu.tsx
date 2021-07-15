@@ -1,5 +1,4 @@
 import React, {FunctionComponent, useState} from "react";
-import StatusButton from "../buttons/StatusButton";
 import {FormattedMessage} from "react-intl";
 import {Button, ButtonGroup, Menu} from "@material-ui/core";
 import {KeyboardArrowDown} from "@material-ui/icons";
