@@ -7,6 +7,7 @@ import _ from "lodash";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
 export interface IEntityContext {
+  tableRowHeight: number;
   getEntity: (entityName?: string) => Entity<any>;
   getEntityEnum: (enumName?: string) => EnumInfoMap<any>;
   getEnumSelectOptions: (enumName?: string) => SelectOption[];
@@ -27,6 +28,7 @@ export const EntityContext = React.createContext<IEntityContext>(undefined!);
 interface IProps extends PropsWithChildren<any> {
   entityMap: {[key: string]: Entity<any>};
   enumMap: {[key: string]: EnumInfoMap<any>};
+  tableRowHeight: number;
   getEntityTableUrl: (entity: Entity<any>, options?: UrlOptions) => string;
   getEntityCreateUrl: (entity: Entity<any>, options?: UrlOptions) => string;
   getEntityDetailsUrl: (entity: Entity<any>, id?: number, options?: UrlOptions) => string;
@@ -35,6 +37,7 @@ interface IProps extends PropsWithChildren<any> {
 const EntityManager: FunctionComponent<IProps> = ({
   entityMap,
   enumMap,
+  tableRowHeight,
   getEntityTableUrl,
   getEntityCreateUrl,
   getEntityDetailsUrl,
@@ -139,6 +142,7 @@ const EntityManager: FunctionComponent<IProps> = ({
   return (
     <EntityContext.Provider
       value={{
+        tableRowHeight,
         getEntity,
         getEntityEnum,
         getEnumSelectOptions,

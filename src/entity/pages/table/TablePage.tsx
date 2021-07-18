@@ -35,6 +35,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
   filterFields: FilterField[];
   hiddenColumns: string[];
+  rowHeight: number;
   refreshItems: number;
   compact: boolean;
   buttons: MenuAction[];
@@ -48,6 +49,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
   entity,
   filterFields,
   hiddenColumns,
+  rowHeight,
   refreshItems,
   compact,
   buttons,
@@ -276,7 +278,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
                       onContextMenuItem: onContextMenuItem,
                     }}
                     itemCount={items?.length || 0}
-                    itemSize={52}
+                    itemSize={rowHeight}
                     itemKey={(index, data) => data.items[index].id}
                     row={Row}
                     header={<TableAccessibilityHeaderRowView columns={columns} />}

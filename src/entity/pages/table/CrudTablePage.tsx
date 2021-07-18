@@ -39,7 +39,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   compact = false,
   history,
 }: IProps<EntityRO>) => {
-  const {getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
+  const {tableRowHeight, getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
 
   const {showModal, getModalKey} = useModals();
@@ -257,6 +257,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
         entity={entity}
         filterFields={filterFields}
         hiddenColumns={aggregatedHiddenColumns}
+        rowHeight={tableRowHeight}
         refreshItems={refreshItemsState}
         compact={compact}
         buttons={buttons}
