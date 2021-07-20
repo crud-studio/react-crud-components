@@ -2,9 +2,7 @@ import _ from "lodash";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {EntityColumn, EntityColumnTypeConfig} from "../../models/entity";
 import TableFilterText from "../pages/table/filters/TableFilterText";
-import TableDataText from "../pages/table/data/TableDataText";
 import EntityUtils from "../helpers/EntityUtils";
-import EntityFieldInputText from "../inputs/field/inputs/EntityFieldInputText";
 import EntityFieldInputEmail from "../inputs/field/inputs/EntityFieldInputEmail";
 import TableDataEmail from "../pages/table/data/TableDataEmail";
 
