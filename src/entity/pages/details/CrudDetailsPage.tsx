@@ -27,6 +27,7 @@ import EntityUtils from "../../helpers/EntityUtils";
 import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
+import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 
 interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
   entity: Entity<EntityRO>;
@@ -35,6 +36,7 @@ interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
 
 const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, history}: IProps<EntityRO>) => {
   const {showModal, getModalKey} = useModals();
+  const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
   const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 
@@ -96,7 +98,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
         saveItem();
         break;
       case ActionDelete.id:
-        deleteItem();
+        showModal(confirmDeleteModalId);
         break;
       default:
         customActionHandler(actionId);
@@ -167,6 +169,13 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
     <>
       <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
 
+      <ConfirmationDialog
+        modalId={confirmDeleteModalId}
+        modalTitleKey="pages.delete"
+        modalTextKey="pages.confirm-delete-item"
+        onConfirm={deleteItem}
+        key={getModalKey(confirmDeleteModalId)}
+      />
       {!!selectedGenericAction && item && (
         <EntityGenericActionDialog
           modalId={genericActionModalId}
