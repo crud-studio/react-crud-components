@@ -1,6 +1,5 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
-import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
 import {
   Entity,
@@ -28,13 +27,14 @@ import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
+import {useNavigate} from "react-router-dom";
 
-interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
+interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
   LoadingComponent?: React.ComponentType;
 }
 
-const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, history}: IProps<EntityRO>) => {
+const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}: IProps<EntityRO>) => {
   const {showModal, getModalKey} = useModals();
   const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
@@ -42,6 +42,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
 
   const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useEntity();
   const {hasGrant} = useGrants();
+  const navigate = useNavigate();
 
   const hasEntityActionDelete = useHasEntityActionType(entity, "DELETE");
 
@@ -154,14 +155,14 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
   const deleteState = useCrudDelete(entity, itemId);
 
   useUpdateEffect(() => {
-    history.push(getEntityTableUrl(entity));
+    navigate(getEntityTableUrl(entity));
   }, [deleteState.result]);
 
   const deleteItem = useCallback((): void => {
     if (itemId > 0) {
       deleteState.executeRequest();
     } else {
-      history.push(getEntityTableUrl(entity));
+      navigate(getEntityTableUrl(entity));
     }
   }, [itemId, entity]);
 
@@ -248,4 +249,4 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent, 
   );
 };
 
-export default withRouter(CrudDetailsPage);
+export default CrudDetailsPage;

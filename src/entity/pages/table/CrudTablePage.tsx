@@ -5,7 +5,6 @@ import {useUpdateEffect} from "react-use";
 import UpdateManyDialog from "./dialogs/UpdateManyDialog";
 import ImportManyDialog from "./dialogs/import/ImportManyDialog";
 import TablePage from "./TablePage";
-import {RouteComponentProps, withRouter} from "react-router-dom";
 import {BaseJpaRO, FilterField, UpdatePackUtils, useCrudDeleteMany} from "@crud-studio/react-crud-core";
 import {
   Entity,
@@ -24,8 +23,9 @@ import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
 import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
+import {useNavigate} from "react-router-dom";
 
-interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
+interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
   predefinedValues?: EntityPredefinedValue[];
   hiddenColumns?: string[];
@@ -37,10 +37,10 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   predefinedValues,
   hiddenColumns,
   compact = false,
-  history,
 }: IProps<EntityRO>) => {
   const {tableRowHeight, getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
+  const navigate = useNavigate();
 
   const {showModal, getModalKey} = useModals();
   const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));
@@ -173,7 +173,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
       queryStringParams[UpdatePackUtils.getUpdatePackUrlParam()] = updatePackId;
     }
 
-    history.push(
+    navigate(
       getEntityCreateUrl(entity, {
         queryStringParams: queryStringParams,
       })
@@ -206,7 +206,7 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   };
 
   const onClickItem = (item: EntityRO): void => {
-    history.push(getEntityDetailsUrl(entity, item.id));
+    navigate(getEntityDetailsUrl(entity, item.id));
   };
 
   return (
@@ -270,4 +270,4 @@ const CrudTablePage = <EntityRO extends BaseJpaRO>({
   );
 };
 
-export default withRouter(CrudTablePage);
+export default CrudTablePage;

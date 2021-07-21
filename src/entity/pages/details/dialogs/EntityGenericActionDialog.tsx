@@ -10,13 +10,13 @@ import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhan
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../api/useCustomActionRequest";
-import {RouteComponentProps, withRouter} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import {LoadingButton} from "@material-ui/lab";
+import {useNavigate} from "react-router-dom";
 
-interface IProps<EntityRO extends BaseJpaRO> extends RouteComponentProps {
+interface IProps<EntityRO extends BaseJpaRO> {
   modalId: string;
   entity: Entity<any>;
   item: EntityRO;
@@ -36,6 +36,7 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
 }: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {getEntityTableUrl} = useEntity();
+  const navigate = useNavigate();
 
   const methods = useForm();
 
@@ -78,7 +79,7 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
           refreshItem();
           break;
         case "LeaveEntity":
-          rest.history.push(getEntityTableUrl(entity));
+          navigate(getEntityTableUrl(entity));
           break;
         case "None":
         default:
@@ -132,4 +133,4 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
     </Dialog>
   );
 };
-export default withRouter(EntityGenericActionDialog);
+export default EntityGenericActionDialog;
