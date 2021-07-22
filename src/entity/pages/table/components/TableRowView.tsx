@@ -5,10 +5,12 @@ import {Checkbox, TableCell, TableRow} from "@material-ui/core";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import _ from "lodash";
 import {EntityColumn} from "../../../../models/entity";
+import {alpha} from "@material-ui/core/styles";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   columns: EntityColumn[];
   item: EntityRO;
+  index: number;
   isSelect: boolean;
   onClickItem: (event: React.MouseEvent<HTMLElement>, item: any) => void; // We use any because of issue with typescript
   onCheckItem: (event: React.MouseEvent<HTMLElement>, item: any) => void; // We use any because of issue with typescript
@@ -18,6 +20,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
 const TableRowView = <EntityRO extends BaseJpaRO>({
   columns,
   item,
+  index,
   isSelect,
   onClickItem,
   onCheckItem,
@@ -29,7 +32,11 @@ const TableRowView = <EntityRO extends BaseJpaRO>({
       selected={isSelect}
       onClick={(e) => onClickItem(e, item)}
       onContextMenu={(e) => onContextMenuItem(e, item)}
-      sx={{cursor: "pointer"}}
+      sx={{
+        cursor: "pointer",
+        backgroundColor: (theme) =>
+          index % 2 !== 0 ? alpha(theme.palette.action.hover, theme.palette.action.hoverOpacity * 0.5) : "transparent",
+      }}
     >
       <TableCell
         align="center"

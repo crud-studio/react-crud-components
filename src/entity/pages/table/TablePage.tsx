@@ -317,6 +317,7 @@ function Row({index, data}: ListChildComponentProps) {
     <TableRowView
       columns={data.columns}
       item={item}
+      index={index}
       isSelect={data.selectedItemIds.includes(item.id)}
       onClickItem={data.onClickItem}
       onCheckItem={data.onCheckItem}
