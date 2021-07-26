@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useCallback} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {Box, IconButton, OutlinedInput} from "@material-ui/core";
+import {Box, IconButton, TextField} from "@material-ui/core";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {FormattedMessage, useIntl} from "react-intl";
 import {EMAIL_REGEX} from "../../../../constants/regex";
@@ -40,7 +40,7 @@ const EntityFieldInputEmail: FunctionComponent<IPropsEntityColumnInputType> = ({
         defaultValue={defaultValue || null}
         render={({field}) => {
           return (
-            <OutlinedInput
+            <TextField
               type="email"
               defaultValue={defaultValue || ""}
               onChange={(e) => {
@@ -55,6 +55,8 @@ const EntityFieldInputEmail: FunctionComponent<IPropsEntityColumnInputType> = ({
               }}
               ref={field?.ref}
               fullWidth
+              label={<FormattedMessage id={entityField.titleKey} />}
+              required={entityField.required}
             />
           );
         }}

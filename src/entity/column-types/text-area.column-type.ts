@@ -8,6 +8,7 @@ import EntityFieldInputTextArea from "../inputs/field/inputs/EntityFieldInputTex
 
 export const textAreaColumnType: EntityColumnTypeConfig = {
   type: "TextArea",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputTextArea,
   filterComponent: TableFilterText,
   dataComponent: TableDataTextArea,

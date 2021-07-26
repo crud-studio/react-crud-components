@@ -1,12 +1,26 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useMemo} from "react";
 import {FormLabel, FormLabelProps} from "@material-ui/core";
+import {EntityColumnTypeConfig, EntityField} from "../../../models/entity";
+import {FormattedMessage} from "react-intl";
+import {entityColumnTypes} from "../../column-types/entityColumnTypes";
 
-interface IProps extends FormLabelProps {}
+interface IProps extends FormLabelProps {
+  entityField: EntityField;
+}
 
-const EntityFieldComponentLabel: FunctionComponent<IProps> = ({children, sx, ...rest}) => {
+const EntityFieldComponentLabel: FunctionComponent<IProps> = ({entityField, children, sx, ...rest}) => {
+  const entityColumnTypeConfig = useMemo<EntityColumnTypeConfig>(
+    () => entityColumnTypes[entityField.type],
+    [entityField]
+  );
+
+  if (!entityColumnTypeConfig.showComponentLabel) {
+    return null;
+  }
+
   return (
-    <FormLabel sx={{display: "block", mb: 1, ...sx}} {...rest}>
-      {children}
+    <FormLabel required={entityField.required} sx={{display: "block", mb: 1, ...sx}} {...rest}>
+      {children ? children : <FormattedMessage id={entityField.titleKey} />}
     </FormLabel>
   );
 };

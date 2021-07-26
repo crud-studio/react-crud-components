@@ -8,6 +8,7 @@ import TableDataEmail from "../pages/table/data/TableDataEmail";
 
 export const emailColumnType: EntityColumnTypeConfig = {
   type: "Email",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputEmail,
   filterComponent: TableFilterText,
   dataComponent: TableDataEmail,

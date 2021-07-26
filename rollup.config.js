@@ -20,6 +20,7 @@ export default {
     "@emotion/styled",
     "@lottiefiles/react-lottie-player",
     "@material-ui/core",
+    "@material-ui/core/styles",
     "@material-ui/icons",
     "@material-ui/lab",
     "copy-to-clipboard",

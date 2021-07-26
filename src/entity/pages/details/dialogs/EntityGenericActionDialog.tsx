@@ -107,7 +107,7 @@ const EntityGenericActionDialog = <EntityRO extends BaseJpaRO>({
         )}
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={{xs: 2, md: 3}}>
               {customAction.fields.map((entityField) => (
                 <EntityFieldComponent
                   entityField={entityField}

@@ -8,6 +8,7 @@ import EntityFieldInputEnumList from "../inputs/field/inputs/EntityFieldInputEnu
 
 export const enumListColumnType: EntityColumnTypeConfig = {
   type: "EnumList",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputEnumList,
   filterComponent: TableFilterEnum,
   dataComponent: TableDataEnumList,

@@ -74,13 +74,14 @@ const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType>
                 onValueChangedInternal(valueIds);
               }}
               placeholderKey={"pages.select"}
-              size="small"
               multiple={true}
               fullWidth
               isOptionEqualToValue={(option, value) => option.id === value.id}
               innerRef={field?.ref}
               disabled={disabled}
               disableClearable={disabled || entityField.required}
+              fieldLabel={<FormattedMessage id={entityField.titleKey} />}
+              fieldRequired={entityField.required}
               sx={{flexGrow: 1}}
             />
           );

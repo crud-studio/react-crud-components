@@ -9,6 +9,7 @@ import EntityFieldInputDate from "../inputs/field/inputs/EntityFieldInputDate";
 
 export const dateColumnType: EntityColumnTypeConfig = {
   type: "Date",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputDate,
   filterComponent: TableFilterDate,
   dataComponent: TableDataDate,

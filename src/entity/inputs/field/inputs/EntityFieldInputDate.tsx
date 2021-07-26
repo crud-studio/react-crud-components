@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import DatePickerWrapper from "../../../../components/inputs/DatePickerWrapper";
-import {useIntl} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 
 const EntityFieldInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -29,6 +29,8 @@ const EntityFieldInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
             }}
             value={field?.value}
             disabled={disabled}
+            label={<FormattedMessage id={entityField.titleKey} />}
+            required={entityField.required}
             innerRef={field?.ref}
           />
         );

@@ -29,6 +29,8 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   cache = true,
   lazy = false,
   innerRef,
+  fieldLabel,
+  fieldRequired,
   ...rest
 }: IPropsEntitySelect<EntityRO>) => {
   const intl = useIntl();
@@ -269,6 +271,8 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
           {...params}
           placeholder={rest.placeholder || intl.formatMessage({id: placeholderKey || "pages.search"})}
           variant="outlined"
+          label={fieldLabel}
+          required={fieldRequired}
         />
       )}
     />

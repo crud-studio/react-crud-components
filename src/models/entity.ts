@@ -59,6 +59,7 @@ export interface Entity<EntityRO> extends BaseEntity {
 
 export interface EntityColumnTypeConfig {
   type: EntityColumnType;
+  showComponentLabel: boolean;
   inputComponent: React.ComponentType<IPropsEntityColumnInputType>;
   filterComponent: React.ComponentType<IPropsEntityColumnFilter>;
   dataComponent: React.ComponentType<IPropsEntityColumnData<any>>;

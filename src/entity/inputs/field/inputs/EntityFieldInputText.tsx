@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {OutlinedInput} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
-import {useIntl} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 
 const EntityFieldInputText: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -22,7 +22,7 @@ const EntityFieldInputText: FunctionComponent<IPropsEntityColumnInputType> = ({
       defaultValue={defaultValue || null}
       render={({field}) => {
         return (
-          <OutlinedInput
+          <TextField
             type="text"
             defaultValue={defaultValue || ""}
             onChange={(e) => {
@@ -37,6 +37,8 @@ const EntityFieldInputText: FunctionComponent<IPropsEntityColumnInputType> = ({
             }}
             ref={field?.ref}
             fullWidth
+            label={<FormattedMessage id={entityField.titleKey} />}
+            required={entityField.required}
           />
         );
       }}

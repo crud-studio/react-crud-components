@@ -1,4 +1,4 @@
-import React, {FunctionComponent, Ref, useCallback, useState} from "react";
+import React, {FunctionComponent, ReactNode, Ref, useCallback, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {TextField} from "@material-ui/core";
 import {DatePicker} from "@material-ui/lab";
@@ -9,6 +9,8 @@ interface IProps {
   onChange?: (value: number | null) => void;
   disabled?: boolean;
   placeholder?: string;
+  label?: ReactNode | string;
+  required?: boolean;
   innerRef?: Ref<any>;
 }
 
@@ -17,6 +19,8 @@ const DatePickerWrapper: FunctionComponent<IProps> = ({
   onChange,
   disabled,
   placeholder,
+  label,
+  required,
   innerRef,
 }) => {
   const intl = useIntl();
@@ -59,11 +63,11 @@ const DatePickerWrapper: FunctionComponent<IProps> = ({
         return (
           <TextField
             {...params}
-            label=""
+            label={label || ""}
+            required={required}
             helperText=""
             placeholder={placeholder || intl.formatMessage({id: "pages.select"})}
             inputProps={inputProps}
-            size="small"
             fullWidth
             disabled={disabled}
             ref={innerRef}

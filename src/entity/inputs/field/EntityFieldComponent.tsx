@@ -24,10 +24,8 @@ const EntityFieldComponent: FunctionComponent<IProps> = ({entityField, defaultVa
   const hasError = !!error;
 
   return (
-    <FormControl size="small" variant="outlined" error={hasError} sx={{display: "block", ...sx}}>
-      <EntityFieldComponentLabel required={entityField.required}>
-        <FormattedMessage id={entityField.titleKey} />
-      </EntityFieldComponentLabel>
+    <FormControl variant="outlined" error={hasError} sx={{display: "block", ...sx}}>
+      <EntityFieldComponentLabel entityField={entityField} />
 
       <EntityFieldInput
         entityField={entityField}

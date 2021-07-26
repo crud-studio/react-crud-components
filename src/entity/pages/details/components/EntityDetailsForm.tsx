@@ -62,7 +62,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
       <CardContent>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={{xs: 2, md: 3}}>
               {entityColumns.map((column) => (
                 <EntityFieldComponent
                   entityField={column}

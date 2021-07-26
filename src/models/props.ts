@@ -1,4 +1,4 @@
-import {Ref} from "react";
+import {ReactNode, Ref} from "react";
 import {
   Entity,
   EntityColumn,
@@ -28,6 +28,8 @@ export interface IPropsEntitySelect<EntityRO> extends Partial<AutocompleteProps<
   cache?: boolean;
   lazy?: boolean;
   innerRef?: Ref<any>;
+  fieldLabel?: ReactNode | string;
+  fieldRequired?: boolean;
 }
 
 export interface IPropsEntityColumnInputType {

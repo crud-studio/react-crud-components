@@ -2,7 +2,7 @@ import React, {FunctionComponent, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import _ from "lodash";
 import {Autocomplete, TextField} from "@material-ui/core";
-import {useIntl} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {SelectOption} from "../../../../models/internal";
 import useEntity from "../../../hooks/useEntity";
@@ -32,7 +32,13 @@ const EntityFieldInputEnumList: FunctionComponent<IPropsEntityColumnInputType> =
             options={options}
             getOptionLabel={(option: SelectOption) => option?.label}
             renderInput={(params) => (
-              <TextField {...params} placeholder={intl.formatMessage({id: "pages.select"})} variant="outlined" />
+              <TextField
+                {...params}
+                placeholder={intl.formatMessage({id: "pages.select"})}
+                variant="outlined"
+                label={<FormattedMessage id={entityField.titleKey} />}
+                required={entityField.required}
+              />
             )}
             onChange={(e, value, reason, details) => {
               const enumValue = value?.map((option) => option.value);
@@ -44,7 +50,6 @@ const EntityFieldInputEnumList: FunctionComponent<IPropsEntityColumnInputType> =
                 ? []
                 : getEnumValuesSelectOptions(entityField.subtype, defaultValue)
             }
-            size="small"
             multiple={true}
             freeSolo={false}
             fullWidth

@@ -9,6 +9,7 @@ import EntityFieldInputNumber from "../inputs/field/inputs/EntityFieldInputNumbe
 
 export const numberColumnType: EntityColumnTypeConfig = {
   type: "Number",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputNumber,
   filterComponent: TableFilterNumber,
   dataComponent: TableDataNumber,

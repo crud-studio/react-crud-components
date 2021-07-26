@@ -142,11 +142,13 @@ const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, o
       <DialogContent>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={{xs: 2, md: 3}}>
               {entityColumns.map((column) => (
                 <Box sx={{display: "flex", flexDirection: "row"}} key={column.name}>
                   <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <EntityFieldComponentLabel>&nbsp;</EntityFieldComponentLabel>
+                    <EntityFieldComponentLabel entityField={column} required={false}>
+                      &nbsp;
+                    </EntityFieldComponentLabel>
                     <Box
                       sx={{flexGrow: 1, display: "flex", justifyContent: "center"}}
                       onClick={(event) => {

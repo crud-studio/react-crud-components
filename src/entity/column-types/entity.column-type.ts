@@ -9,6 +9,7 @@ import EntityFieldInputEntity from "../inputs/field/inputs/EntityFieldInputEntit
 
 export const entityColumnType: EntityColumnTypeConfig = {
   type: "Entity",
+  showComponentLabel: false,
   inputComponent: EntityFieldInputEntity,
   filterComponent: TableFilterEntity,
   dataComponent: TableDataEntity,

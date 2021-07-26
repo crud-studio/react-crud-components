@@ -8,6 +8,7 @@ import EntityFieldInputBoolean from "../inputs/field/inputs/EntityFieldInputBool
 
 export const booleanColumnType: EntityColumnTypeConfig = {
   type: "Boolean",
+  showComponentLabel: true,
   inputComponent: EntityFieldInputBoolean,
   filterComponent: TableFilterBoolean,
   dataComponent: TableDataBoolean,
