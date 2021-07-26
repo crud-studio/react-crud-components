@@ -4,7 +4,7 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Card, CardContent, CardHeader, Stack} from "@material-ui/core";
+import {Card, CardContent, Stack} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
 import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
@@ -58,7 +58,7 @@ const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, u
 
   return (
     <Card>
-      <CardHeader title={<FormattedMessage id="pages.details" />} />
+      {/*<CardHeader title={<FormattedMessage id="pages.details" />} />*/}
       <CardContent>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
