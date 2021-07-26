@@ -67,17 +67,15 @@ const TabPanel: FunctionComponent<IProps> = ({
         </Tabs>
       </Box>
 
-      {children
-        ?.filter((child: any) => child)
-        .map((child: any, index: number) => {
-          const tab: TabInfo = _.get(tabs, index);
-          const tabLoaded: boolean = !tab || !tab.lazy || activeTab === index || loadedTabs.includes(index);
-          return (
-            <Box sx={{display: activeTab === index ? "block" : "none", ...sxTabContainer}} key={index}>
-              {tabLoaded && child}
-            </Box>
-          );
-        })}
+      {React.Children.map(children, (child: any, index: number) => {
+        const tab: TabInfo = _.get(tabs, index);
+        const tabLoaded: boolean = !tab || !tab.lazy || activeTab === index || loadedTabs.includes(index);
+        return (
+          <Box sx={{display: activeTab === index ? "block" : "none", ...sxTabContainer}} key={index}>
+            {tabLoaded && child}
+          </Box>
+        );
+      })}
     </Box>
   );
 };

@@ -241,7 +241,6 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
                 key={tabConfig.id}
               />
             ))}
-            <div />
           </TabPanel>
         </Box>
       )}
