@@ -17,7 +17,7 @@ import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
 import KeyBindingManager from "../../../managers/KeyBindingManager";
 import LoadingCenter from "../../../components/common/LoadingCenter";
 import TabPanel from "../../../components/layouts/TabPanel";
-import {Box, Stack} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityDetailsForm from "./components/EntityDetailsForm";
 import _ from "lodash";
@@ -146,7 +146,9 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
 
   const tabs = useMemo<TabInfo[]>(
     () => [
-      {id: "details", labelKey: "pages.details", icon: <entity.client.icon fontSize="small" />},
+      ...(entity.client.showDetailsTab
+        ? [{id: "details", labelKey: "pages.details", icon: <entity.client.icon fontSize="small" />}]
+        : []),
       ...nestedEntities.map((nestedEntity) => {
         const nestedEntityEntity = getEntity(nestedEntity.entityName);
         return {
@@ -163,7 +165,7 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
         lazy: true,
       })),
     ],
-    [nestedEntities, customTabs]
+    [entity, nestedEntities, customTabs]
   );
 
   const deleteState = useCrudDelete(entity, itemId);
@@ -246,13 +248,15 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
               </>
             }
           >
-            <EntityDetailsForm
-              entity={entity}
-              item={item}
-              loading={loading}
-              updateItem={updateItem}
-              key={item.uniqueKey}
-            />
+            {entity.client.showDetailsTab && (
+              <EntityDetailsForm
+                entity={entity}
+                item={item}
+                loading={loading}
+                updateItem={updateItem}
+                key={item.uniqueKey}
+              />
+            )}
 
             {nestedEntities.map((nestedEntity) => (
               <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />

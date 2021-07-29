@@ -50,6 +50,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     titleKey: string;
     titleDetailsKey: string;
     icon: React.ComponentType<SvgIconProps>;
+    showDetailsTab: boolean;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
     customSummaries?: (EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>)[];

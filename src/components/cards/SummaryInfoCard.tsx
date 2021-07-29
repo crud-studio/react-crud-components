@@ -35,17 +35,21 @@ const SummaryInfoValue: FunctionComponent<{labelKey: string; value: ReactNode}> 
   }, [valueText]);
 
   return (
-    <Stack width={1} sx={{textAlign: "center", minWidth: 150, px: 2}}>
+    <Stack width={1} sx={{textAlign: "center", alignItems: "center", minWidth: 150, px: 2}}>
       <Typography variant="caption" noWrap sx={{mb: 0.5, color: "text.secondary", display: "block"}}>
         <FormattedMessage id={labelKey} />
       </Typography>
-      <Typography variant="subtitle1" noWrap>
-        <Tooltip title={valueText}>
-          <Box component="span" ref={valueRef} onClick={onValueClick} sx={{cursor: "pointer"}}>
-            {value}
-          </Box>
-        </Tooltip>
-      </Typography>
+      <Tooltip title={valueText}>
+        <Typography
+          variant="subtitle1"
+          ref={valueRef}
+          noWrap
+          onClick={onValueClick}
+          sx={{display: "inline-flex", maxWidth: "100%", cursor: "pointer"}}
+        >
+          {value}
+        </Typography>
+      </Tooltip>
     </Stack>
   );
 };
