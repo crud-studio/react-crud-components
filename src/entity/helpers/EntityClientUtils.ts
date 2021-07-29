@@ -1,11 +1,25 @@
 import {
   EntityComponentActionConfig,
   EntityComponentActionConfigMany,
+  EntityComponentSummaryConfig,
   EntityGenericActionConfig,
   EntityGenericActionConfigMany,
+  EntityGenericSummaryConfig,
 } from "../../models/entity";
 
-const EntityCustomActionUtils = {
+const EntityClientUtils = {
+  isEntityGenericSummaryConfig: function (
+    summaryConfig: EntityGenericSummaryConfig<any> | EntityComponentSummaryConfig<any>
+  ): summaryConfig is EntityGenericSummaryConfig<any> {
+    return "columns" in summaryConfig;
+  },
+
+  isEntityComponentSummaryConfig: function (
+    summaryConfig: EntityGenericSummaryConfig<any> | EntityComponentSummaryConfig<any>
+  ): summaryConfig is EntityComponentSummaryConfig<any> {
+    return "component" in summaryConfig;
+  },
+
   isEntityGenericActionConfig: function (
     actionConfig: EntityGenericActionConfig<any> | EntityComponentActionConfig<any>
   ): actionConfig is EntityGenericActionConfig<any> {
@@ -30,4 +44,4 @@ const EntityCustomActionUtils = {
     return "component" in actionConfig;
   },
 };
-export default EntityCustomActionUtils;
+export default EntityClientUtils;

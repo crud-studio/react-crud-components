@@ -4,8 +4,10 @@ import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-
 import {
   Entity,
   EntityComponentActionConfig,
+  EntityComponentSummaryConfig,
   EntityCustomTabConfig,
   EntityGenericActionConfig,
+  EntityGenericSummaryConfig,
   NestedEntity,
 } from "../../../models/entity";
 import {MenuAction, TabInfo} from "../../../models/internal";
@@ -15,19 +17,20 @@ import CrudTableNestedEntity from "../table/CrudTableNestedEntity";
 import KeyBindingManager from "../../../managers/KeyBindingManager";
 import LoadingCenter from "../../../components/common/LoadingCenter";
 import TabPanel from "../../../components/layouts/TabPanel";
-import {Box} from "@material-ui/core";
+import {Box, Stack} from "@material-ui/core";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityDetailsForm from "./components/EntityDetailsForm";
 import _ from "lodash";
 import EntityGenericActionDialog from "./dialogs/EntityGenericActionDialog";
 import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
-import EntityCustomActionUtils from "../../helpers/EntityCustomActionUtils";
+import EntityClientUtils from "../../helpers/EntityClientUtils";
 import EntityUtils from "../../helpers/EntityUtils";
 import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
+import EntitySummary from "./components/EntitySummary";
 
 interface IProps<EntityRO extends BaseJpaRO> {
   entity: Entity<EntityRO>;
@@ -81,10 +84,10 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
     (id: string): void => {
       const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
-        if (EntityCustomActionUtils.isEntityGenericActionConfig(customAction)) {
+        if (EntityClientUtils.isEntityGenericActionConfig(customAction)) {
           setSelectedGenericAction(customAction);
           showModal(genericActionModalId);
-        } else if (EntityCustomActionUtils.isEntityComponentActionConfig(customAction)) {
+        } else if (EntityClientUtils.isEntityComponentActionConfig(customAction)) {
           setSelectedComponentAction(customAction);
           showModal(componentActionModalId);
         }
@@ -106,6 +109,17 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
         break;
     }
   };
+
+  const customSummaries = useMemo<(EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>)[]>(
+    () =>
+      (!!itemId &&
+        item &&
+        entity.client.customSummaries?.filter(
+          (customSummary) => hasGrant(customSummary.grant) && (!customSummary.isActive || customSummary.isActive(item))
+        )) ||
+      [],
+    [itemId, item, entity]
+  );
 
   const nestedEntities = useMemo<NestedEntity[]>(
     () =>
@@ -218,6 +232,19 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
             tabs={tabs}
             sx={{flexGrow: 1, display: "flex", flexDirection: "column"}}
             sxTabContainer={{flexGrow: 1}}
+            divider={
+              <>
+                {customSummaries.map((summaryConfig) => (
+                  <EntitySummary
+                    summaryConfig={summaryConfig}
+                    entity={entity}
+                    item={item}
+                    refreshItem={refreshItem}
+                    key={summaryConfig.id}
+                  />
+                ))}
+              </>
+            }
           >
             <EntityDetailsForm
               entity={entity}
@@ -247,5 +274,4 @@ const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}:
     </>
   );
 };
-
 export default CrudDetailsPage;

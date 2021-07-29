@@ -263,7 +263,7 @@ const TablePage = <EntityRO extends BaseJpaRO>({
               </Table>
             </TableContainer>
 
-            <TableContainer sx={{flexGrow: 1}}>
+            <TableContainer sx={{flexGrow: 1, minHeight: 100}}>
               <AutoSizer disableWidth={true}>
                 {({height}) => (
                   <VirtualTable

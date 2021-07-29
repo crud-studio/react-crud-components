@@ -49,6 +49,12 @@ export interface IPropsEntityColumnData<EntityRO> {
   item: EntityRO;
 }
 
+export interface IPropsEntityComponentSummary<EntityRO> {
+  entity: Entity<EntityRO>;
+  item: EntityRO;
+  refreshItem: () => void;
+}
+
 export interface IPropsEntityCustomTab<EntityRO> {
   entity: Entity<EntityRO>;
   item: EntityRO;

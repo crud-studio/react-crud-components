@@ -6,6 +6,7 @@ import {
   IPropsEntityColumnInputType,
   IPropsEntityComponentAction,
   IPropsEntityComponentActionMany,
+  IPropsEntityComponentSummary,
   IPropsEntityCustomTab,
 } from "./props";
 import {MenuAction} from "./internal";
@@ -51,6 +52,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     icon: React.ComponentType<SvgIconProps>;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
+    customSummaries?: (EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>)[];
     customTabs?: EntityCustomTabConfig<EntityRO>[];
     customActions?: (EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[];
     customActionsMany?: (EntityGenericActionConfigMany<EntityRO> | EntityComponentActionConfigMany<EntityRO>)[];
@@ -80,6 +82,24 @@ export interface NestedEntity {
 export interface EntityActionConfig {
   active: boolean;
   grant?: string;
+}
+
+export interface EntitySummaryConfig<EntityRO> {
+  id: string;
+  grant?: string;
+  isActive?: (item: EntityRO) => boolean;
+}
+
+export interface EntityGenericSummaryColumnConfig {
+  name: string;
+}
+
+export interface EntityGenericSummaryConfig<EntityRO> extends EntitySummaryConfig<EntityRO> {
+  columns: EntityGenericSummaryColumnConfig[];
+}
+
+export interface EntityComponentSummaryConfig<EntityRO> extends EntitySummaryConfig<EntityRO> {
+  component: ComponentType<IPropsEntityComponentSummary<EntityRO>>;
 }
 
 export interface EntityCustomTabConfig<EntityRO> {

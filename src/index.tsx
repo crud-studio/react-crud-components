@@ -15,7 +15,7 @@ import ConditionalLink from "./components/common/ConditionalLink";
 import LoadingCenter from "./components/common/LoadingCenter";
 import NotificationContainer from "./components/notifications/NotificationContainer";
 import NotificationManager from "./components/notifications/NotificationManager";
-import {copyToClipboard} from "./helpers/ClipboardUtils";
+import {CopyToClipboard} from "./helpers/ClipboardUtils";
 import componentLoader from "./helpers/ComponentLoader";
 import MenuActionItems from "./components/menus/MenuActionItems";
 import MaintenanceManager from "./managers/maintenance/MaintenanceManager";
@@ -38,7 +38,9 @@ import useModals from "./managers/modals/hooks/useModals";
 import ModalManager, {ModalsContext} from "./managers/modals/ModalManager";
 import VirtualTable from "./components/layouts/VirtualTable";
 import EntityFieldComponent from "./entity/inputs/field/EntityFieldComponent";
+import SummaryInfoCard from "./components/cards/SummaryInfoCard";
 
+export {SummaryInfoCard};
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
@@ -61,7 +63,7 @@ export {
   useHasEntityActionType,
 };
 
-export {copyToClipboard, componentLoader, InputUtils};
+export {CopyToClipboard, componentLoader, InputUtils};
 export {useScroll, useScrollSync};
 
 export {

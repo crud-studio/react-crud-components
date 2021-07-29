@@ -1,4 +1,4 @@
-import React, {FunctionComponent, PropsWithChildren, useEffect, useState} from "react";
+import React, {FunctionComponent, PropsWithChildren, ReactNode, useEffect, useState} from "react";
 import _ from "lodash";
 import {URL_PARAM_TAB} from "../../constants/urlKeys";
 import {useUrlState} from "@crud-studio/react-crud-core";
@@ -13,6 +13,7 @@ interface IProps extends PropsWithChildren<any> {
   tabs: TabInfo[];
   tabsCount?: {[index: string]: number};
   saveActiveTab?: boolean;
+  divider?: ReactNode;
   sx?: SxProps<Theme>;
   sxTabContainer?: SxProps<Theme>;
 }
@@ -21,6 +22,7 @@ const TabPanel: FunctionComponent<IProps> = ({
   tabs,
   tabsCount,
   saveActiveTab = true,
+  divider,
   sx,
   sxTabContainer,
   children,
@@ -66,6 +68,8 @@ const TabPanel: FunctionComponent<IProps> = ({
           })}
         </Tabs>
       </Box>
+
+      {divider}
 
       {React.Children.map(children, (child: any, index: number) => {
         const tab: TabInfo = _.get(tabs, index);

@@ -1,7 +1,7 @@
 import React from "react";
 import TableData from "../data/TableData";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
-import {Checkbox, TableCell, TableRow} from "@material-ui/core";
+import {Checkbox, TableCell, TableRow, Typography} from "@material-ui/core";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import _ from "lodash";
 import {EntityColumn} from "../../../../models/entity";
@@ -52,7 +52,9 @@ const TableRowView = <EntityRO extends BaseJpaRO>({
       {columns.map((column) => {
         return (
           <TableCell sx={{minWidth: tableCellWidth, maxWidth: tableCellWidth}} key={column.name}>
-            <TableData column={column} item={item} />
+            <Typography noWrap variant="body2">
+              <TableData column={column} item={item} />
+            </Typography>
           </TableCell>
         );
       })}
