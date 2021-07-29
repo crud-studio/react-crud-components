@@ -36,7 +36,7 @@ const EntityFieldInputEnumList: FunctionComponent<IPropsEntityColumnInputType> =
                 {...params}
                 placeholder={intl.formatMessage({id: "pages.select"})}
                 variant="outlined"
-                label={<FormattedMessage id={entityField.titleKey} />}
+                label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
                 required={entityField.required}
               />
             )}

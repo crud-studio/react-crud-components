@@ -80,7 +80,7 @@ const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType>
               innerRef={field?.ref}
               disabled={disabled}
               disableClearable={disabled || entityField.required}
-              fieldLabel={<FormattedMessage id={entityField.titleKey} />}
+              fieldLabel={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
               fieldRequired={entityField.required}
               sx={{flexGrow: 1}}
             />

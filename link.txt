@@ -11,6 +11,8 @@ cd ../../node_modules/react
 yarn link
 cd ../../node_modules/react-dom
 yarn link
+cd ../../node_modules/react-hook-form
+yarn link
 cd ../../node_modules/react-intl
 yarn link
 cd ../../node_modules/react-router-dom
@@ -44,6 +46,7 @@ yarn link axios
 # yarn link axios-hooks
 yarn link react
 yarn link react-dom
+yarn link react-hook-form
 yarn link react-intl
 yarn link react-router-dom
 yarn link react-router

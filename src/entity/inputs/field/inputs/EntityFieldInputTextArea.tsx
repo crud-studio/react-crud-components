@@ -37,7 +37,7 @@ const EntityFieldInputTextArea: FunctionComponent<IPropsEntityColumnInputType> =
             }}
             ref={field?.ref}
             fullWidth
-            label={<FormattedMessage id={entityField.titleKey} />}
+            label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
             required={entityField.required}
             multiline={true}
             minRows={3}

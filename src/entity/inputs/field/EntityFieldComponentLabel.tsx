@@ -20,7 +20,7 @@ const EntityFieldComponentLabel: FunctionComponent<IProps> = ({entityField, chil
 
   return (
     <FormLabel required={entityField.required} sx={{display: "block", mb: 1, ...sx}} {...rest}>
-      {children ? children : <FormattedMessage id={entityField.titleKey} />}
+      {children ? children : <FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
     </FormLabel>
   );
 };

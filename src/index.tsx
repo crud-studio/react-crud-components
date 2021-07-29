@@ -36,13 +36,15 @@ import useGrants from "./managers/grants/hooks/useGrants";
 import useEntity from "./entity/hooks/useEntity";
 import useModals from "./managers/modals/hooks/useModals";
 import ModalManager, {ModalsContext} from "./managers/modals/ModalManager";
+import VirtualTable from "./components/layouts/VirtualTable";
+import EntityFieldComponent from "./entity/inputs/field/EntityFieldComponent";
 
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {NotificationContainer, NotificationManager};
-export {TabPanel};
+export {TabPanel, VirtualTable};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 
 export * from "./models/entity";
@@ -52,6 +54,7 @@ export {
   CrudDetailsPage,
   CrudTablePage,
   DetailsPageHeading,
+  EntityFieldComponent,
   EntityManager,
   EntityContext,
   useEntity,

@@ -29,7 +29,7 @@ const EntityFieldInputDate: FunctionComponent<IPropsEntityColumnInputType> = ({
             }}
             value={field?.value}
             disabled={disabled}
-            label={<FormattedMessage id={entityField.titleKey} />}
+            label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
             required={entityField.required}
             innerRef={field?.ref}
           />
