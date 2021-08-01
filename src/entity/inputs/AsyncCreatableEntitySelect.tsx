@@ -3,11 +3,19 @@ import _ from "lodash";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO, FilterField, useDebounceFn} from "@crud-studio/react-crud-core";
 import {useCrudSearch} from "@crud-studio/react-crud-core";
-import {Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField} from "@material-ui/core";
+import {
+  Autocomplete,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@material-ui/core";
 import {AutocompleteInputChangeReason} from "@material-ui/core/useAutocomplete/useAutocomplete";
 import {IPropsEntitySelect} from "../../models/props";
 import useSearchFilterFields from "../hooks/useSearchFilterFields";
 import {useIntl} from "react-intl";
+import {ForwardToInbox} from "@material-ui/icons";
 
 const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   id,
@@ -31,6 +39,7 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   innerRef,
   fieldLabel,
   fieldRequired,
+  fieldEndAdornment,
   ...rest
 }: IPropsEntitySelect<EntityRO>) => {
   const intl = useIntl();
@@ -273,6 +282,15 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
           variant="outlined"
           label={fieldLabel}
           required={fieldRequired}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {fieldEndAdornment}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
         />
       )}
     />

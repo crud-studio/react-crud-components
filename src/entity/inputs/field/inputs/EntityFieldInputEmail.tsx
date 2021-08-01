@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useCallback} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {Box, IconButton, TextField} from "@material-ui/core";
+import {Box, IconButton, InputAdornment, TextField} from "@material-ui/core";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {FormattedMessage, useIntl} from "react-intl";
 import {EMAIL_REGEX} from "../../../../constants/regex";
@@ -29,42 +29,46 @@ const EntityFieldInputEmail: FunctionComponent<IPropsEntityColumnInputType> = ({
   }, [name]);
 
   return (
-    <Box sx={{display: "flex", flexDirection: "row"}}>
-      <Controller
-        name={name}
-        rules={{
-          required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false,
-          pattern: {value: EMAIL_REGEX, message: intl.formatMessage({id: "pages.email-invalid"})},
-        }}
-        control={methods.control}
-        defaultValue={defaultValue || null}
-        render={({field}) => {
-          return (
-            <TextField
-              type="email"
-              defaultValue={defaultValue || ""}
-              onChange={(e) => {
-                const inputValue = e.target.value;
-                field?.onChange(inputValue);
-                onValueChanged(inputValue);
-              }}
-              disabled={disabled}
-              autoComplete="off"
-              inputProps={{
-                maxLength: 100,
-              }}
-              ref={field?.ref}
-              fullWidth
-              label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
-              required={entityField.required}
-            />
-          );
-        }}
-      />
-      <IconButton color="primary" size="small" onClick={sendEmail}>
-        <ForwardToInbox />
-      </IconButton>
-    </Box>
+    <Controller
+      name={name}
+      rules={{
+        required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false,
+        pattern: {value: EMAIL_REGEX, message: intl.formatMessage({id: "pages.email-invalid"})},
+      }}
+      control={methods.control}
+      defaultValue={defaultValue || null}
+      render={({field}) => {
+        return (
+          <TextField
+            type="email"
+            defaultValue={defaultValue || ""}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              field?.onChange(inputValue);
+              onValueChanged(inputValue);
+            }}
+            disabled={disabled}
+            autoComplete="off"
+            inputProps={{
+              maxLength: 100,
+            }}
+            ref={field?.ref}
+            fullWidth
+            label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
+            required={entityField.required}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton color="inherit" size="small" onClick={sendEmail}>
+                    <ForwardToInbox fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        );
+      }}
+    />
   );
 };
 export default EntityFieldInputEmail;

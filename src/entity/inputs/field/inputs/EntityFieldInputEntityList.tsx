@@ -3,7 +3,7 @@ import {Controller, useFormContext} from "react-hook-form";
 import {FormattedMessage, useIntl} from "react-intl";
 import {BaseJpaRO} from "@crud-studio/react-crud-core";
 import _ from "lodash";
-import {Box, IconButton} from "@material-ui/core";
+import {IconButton, InputAdornment} from "@material-ui/core";
 import {OpenInNewOutlined} from "@material-ui/icons";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
@@ -55,42 +55,46 @@ const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType>
   }, [value, entity]);
 
   return (
-    <Box sx={{display: "flex", flexDirection: "row"}}>
-      <Controller
-        name={name}
-        rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
-        control={methods.control}
-        defaultValue={defaultValue || null}
-        render={({field}) => {
-          return (
-            <AsyncCreatableEntitySelect
-              entity={entity}
-              initialValueIds={defaultValue}
-              cache={true}
-              lazy={true}
-              onChange={(e, value, reason, details) => {
-                const valueIds = getValueIds(value);
-                field?.onChange(valueIds);
-                onValueChangedInternal(valueIds);
-              }}
-              placeholderKey={"pages.select"}
-              multiple={true}
-              fullWidth
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              innerRef={field?.ref}
-              disabled={disabled}
-              disableClearable={disabled || entityField.required}
-              fieldLabel={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
-              fieldRequired={entityField.required}
-              sx={{flexGrow: 1}}
-            />
-          );
-        }}
-      />
-      <IconButton color="primary" size="small" onClick={openEntityNewTab}>
-        <OpenInNewOutlined />
-      </IconButton>
-    </Box>
+    <Controller
+      name={name}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      control={methods.control}
+      defaultValue={defaultValue || null}
+      render={({field}) => {
+        return (
+          <AsyncCreatableEntitySelect
+            entity={entity}
+            initialValueIds={defaultValue}
+            cache={true}
+            lazy={true}
+            onChange={(e, value, reason, details) => {
+              const valueIds = getValueIds(value);
+              field?.onChange(valueIds);
+              onValueChangedInternal(valueIds);
+            }}
+            placeholderKey={"pages.select"}
+            multiple={true}
+            fullWidth
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            innerRef={field?.ref}
+            disabled={disabled}
+            disableClearable={disabled || entityField.required}
+            fieldLabel={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
+            fieldRequired={entityField.required}
+            fieldEndAdornment={
+              value && !_.isEmpty(value) ? (
+                <InputAdornment position="end">
+                  <IconButton color="inherit" size="small" onClick={openEntityNewTab}>
+                    <OpenInNewOutlined fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ) : undefined
+            }
+            sx={{flexGrow: 1}}
+          />
+        );
+      }}
+    />
   );
 };
 export default EntityFieldInputEntityList;

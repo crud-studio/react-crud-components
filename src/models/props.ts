@@ -30,6 +30,7 @@ export interface IPropsEntitySelect<EntityRO> extends Partial<AutocompleteProps<
   innerRef?: Ref<any>;
   fieldLabel?: ReactNode | string;
   fieldRequired?: boolean;
+  fieldEndAdornment?: ReactNode;
 }
 
 export interface IPropsEntityColumnInputType {
