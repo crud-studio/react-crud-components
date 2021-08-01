@@ -154,7 +154,8 @@ export type EnumInfoMap<T> = Map<T, EnumInfo>;
 export type EntityColumnType =
   | "Text"
   | "TextArea"
-  | "Number"
+  | "Integer"
+  | "Double"
   | "Date"
   | "Boolean"
   | "Enum"

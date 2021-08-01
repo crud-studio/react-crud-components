@@ -10,6 +10,16 @@ const InputUtils = {
     const value = e.target.value;
     e.target.value = value.replace(/[^0-9]/gi, "");
   },
+
+  inputRemoveNonIntegerCharacters: function (e: React.ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    e.target.value = value.replace(/[^0-9+\-]/gi, "");
+  },
+
+  inputRemoveNonFloatCharacters: function (e: React.ChangeEvent<HTMLInputElement>): void {
+    const value = e.target.value;
+    e.target.value = value.replace(/[^0-9+\-.]/gi, "");
+  },
 };
 
 export default InputUtils;

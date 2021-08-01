@@ -13,9 +13,19 @@ interface IProps {
   column: EntityColumn;
   inputType: string;
   operation: FilterFieldOperation;
+  onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isFilterValueValid?: (filterValue: string) => boolean;
+  filterValueTransformer?: (filterValue: string) => any;
 }
 
-const TableFilterInput: FunctionComponent<IProps> = ({column, inputType, operation}) => {
+const TableFilterInput: FunctionComponent<IProps> = ({
+  column,
+  inputType,
+  operation,
+  onInput,
+  isFilterValueValid,
+  filterValueTransformer,
+}) => {
   const intl = useIntl();
 
   const {contextFilterFields, contextFilterFieldsClearedFlag, updateContextFilterField, removeContextFilterField} =
@@ -45,12 +55,13 @@ const TableFilterInput: FunctionComponent<IProps> = ({column, inputType, operati
   const onFilterValueChange = (filterValue: string): void => {
     setValue(filterValue);
 
-    if (filterValue) {
+    if (!isFilterValueValid || isFilterValueValid(filterValue)) {
+      const transformedFilterValue = !!filterValueTransformer ? filterValueTransformer(filterValue) : filterValue;
       updateContextFilterField(
         {
           fieldName: EntityUtils.getColumnFilterFieldName(column),
           operation: operation,
-          values: [filterValue],
+          values: [transformedFilterValue],
         },
         true
       );
@@ -69,6 +80,9 @@ const TableFilterInput: FunctionComponent<IProps> = ({column, inputType, operati
         fullWidth
         size="small"
         autoComplete="off"
+        inputProps={{
+          onInput: onInput,
+        }}
         InputProps={{
           endAdornment: !!value ? (
             <InputAdornment position="end">

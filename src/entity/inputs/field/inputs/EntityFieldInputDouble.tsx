@@ -3,8 +3,10 @@ import {Controller, useFormContext} from "react-hook-form";
 import {TextField} from "@material-ui/core";
 import {FormattedMessage, useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
+import {FLOAT_REGEX} from "../../../../constants/regex";
+import InputUtils from "../../../../helpers/InputUtils";
 
-const EntityFieldInputNumber: FunctionComponent<IPropsEntityColumnInputType> = ({
+const EntityFieldInputDouble: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
   name,
   disabled,
@@ -17,19 +19,25 @@ const EntityFieldInputNumber: FunctionComponent<IPropsEntityColumnInputType> = (
   return (
     <Controller
       name={name}
-      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      rules={{
+        required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false,
+        validate: (value) => (FLOAT_REGEX.test(value) ? undefined : intl.formatMessage({id: "pages.value-invalid"})),
+      }}
       control={methods.control}
       defaultValue={defaultValue || null}
       render={({field}) => {
         return (
           <TextField
-            type="number"
+            type="text"
             defaultValue={defaultValue || ""}
             onChange={(e) => {
               const inputValue = e.target.value;
               field?.onChange(inputValue);
-              onValueChanged(inputValue);
+              if (FLOAT_REGEX.test(inputValue)) {
+                onValueChanged(parseFloat(inputValue));
+              }
             }}
+            onInput={InputUtils.inputRemoveNonFloatCharacters}
             disabled={disabled}
             autoComplete="off"
             inputProps={{
@@ -45,4 +53,4 @@ const EntityFieldInputNumber: FunctionComponent<IPropsEntityColumnInputType> = (
     />
   );
 };
-export default EntityFieldInputNumber;
+export default EntityFieldInputDouble;
