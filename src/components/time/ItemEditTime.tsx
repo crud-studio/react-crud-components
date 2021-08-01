@@ -1,10 +1,10 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
-import {findValues} from "../../helpers/ObjectUtils";
 import _ from "lodash";
 import {Tooltip, Typography} from "@material-ui/core";
 import {DoneOutlined, EditOutlined, PendingOutlined, SaveAltOutlined} from "@material-ui/icons";
 import {FormattedMessage} from "react-intl";
 import FormattedRelativeTimeNow from "./FormattedRelativeTimeNow";
+import {findValues} from "@crud-studio/react-crud-core";
 
 interface IProps {
   item: any;

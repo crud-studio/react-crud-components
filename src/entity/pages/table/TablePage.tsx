@@ -10,7 +10,7 @@ import FilterManager from "../../managers/FilterManager";
 import OrderByManager from "../../managers/OrderByManager";
 import TableHeaderRowView from "./components/TableHeaderRowView";
 import {
-  BaseJpaRO,
+  AbstractJpaRO,
   FilterField,
   LocalStorageWrapper,
   OrderDTO,
@@ -31,7 +31,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import {useScrollSync} from "../../../hooks/useScrollSync";
 import TableAccessibilityHeaderRowView from "./components/TableAccessibilityHeaderRowView";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   filterFields: FilterField[];
   hiddenColumns: string[];
@@ -45,7 +45,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
   onClickItem?: (item: EntityRO) => void;
 }
 
-const TablePage = <EntityRO extends BaseJpaRO>({
+const TablePage = <EntityRO extends AbstractJpaRO>({
   entity,
   filterFields,
   hiddenColumns,

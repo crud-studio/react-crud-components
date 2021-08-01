@@ -1,6 +1,6 @@
 import React from "react";
 import {FormattedMessage} from "react-intl";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@material-ui/core";
 import {Entity, EntityComponentActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
@@ -15,7 +15,7 @@ interface IProps<EntityRO> {
   refreshItem: () => void;
 }
 
-const EntityComponentActionDialog = <EntityRO extends BaseJpaRO>({
+const EntityComponentActionDialog = <EntityRO extends AbstractJpaRO>({
   modalId,
   entity,
   item,

@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useCallback, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import {FormattedMessage, useIntl} from "react-intl";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import _ from "lodash";
 import {IconButton, InputAdornment} from "@material-ui/core";
 import {OpenInNewOutlined} from "@material-ui/icons";
@@ -25,7 +25,7 @@ const EntityFieldInputEntityList: FunctionComponent<IPropsEntityColumnInputType>
   const [entity] = useState<Entity<any>>(getEntity(entityField.subtype));
   const [value, setValue] = useState<number[]>(defaultValue);
 
-  const getValueIds = useCallback((value: BaseJpaRO | BaseJpaRO[] | null): number[] => {
+  const getValueIds = useCallback((value: AbstractJpaRO | AbstractJpaRO[] | null): number[] => {
     if (!value) {
       return [];
     }

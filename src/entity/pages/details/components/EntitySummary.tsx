@@ -1,18 +1,23 @@
 import React, {useMemo} from "react";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Entity, EntityComponentSummaryConfig, EntityGenericSummaryConfig} from "../../../../models/entity";
 import EntityClientUtils from "../../../helpers/EntityClientUtils";
 import EntitySummaryGeneric from "./EntitySummaryGeneric";
 import {Box} from "@material-ui/core";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   summaryConfig: EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>;
   entity: Entity<EntityRO>;
   item: EntityRO;
   refreshItem: () => void;
 }
 
-const EntitySummary = <EntityRO extends BaseJpaRO>({summaryConfig, entity, item, refreshItem}: IProps<EntityRO>) => {
+const EntitySummary = <EntityRO extends AbstractJpaRO>({
+  summaryConfig,
+  entity,
+  item,
+  refreshItem,
+}: IProps<EntityRO>) => {
   const summaryConfigGeneric = useMemo<EntityGenericSummaryConfig<EntityRO> | undefined>(
     () => (EntityClientUtils.isEntityGenericSummaryConfig(summaryConfig) ? summaryConfig : undefined),
     [summaryConfig]

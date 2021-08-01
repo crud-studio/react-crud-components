@@ -6,7 +6,7 @@ import ImportColumnSelectionWizard from "./ImportColumnSelectionWizard";
 import {maxImportRows} from "../../../../../constants/defaultValues";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@material-ui/core";
 import ImportFileUpload from "./ImportFileUpload";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
@@ -16,14 +16,14 @@ import useGrants from "../../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../../hooks/useEntity";
 import useModals from "../../../../../managers/modals/hooks/useModals";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;
   entity: Entity<EntityRO>;
   predefinedValues: EntityPredefinedValue[];
   onImportSuccess?: () => void;
 }
 
-const ImportManyDialog = <EntityRO extends BaseJpaRO>({
+const ImportManyDialog = <EntityRO extends AbstractJpaRO>({
   modalId,
   entity,
   predefinedValues,

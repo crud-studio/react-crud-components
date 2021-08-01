@@ -2,11 +2,11 @@ import React, {useCallback} from "react";
 import {FormattedMessage} from "react-intl";
 import ImportDataTableRow from "./ImportDataTableRow";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {FormLabel, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
 import {EntityColumn} from "../../../../../models/entity";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   columns: EntityColumn[];
   items: (PartialDeep<EntityRO> & {uuid: string})[];
   // updateItem: (item: PartialDeep<EntityRO> & {uuid: string}) => void;
@@ -15,7 +15,12 @@ interface IProps<EntityRO extends BaseJpaRO> {
   deleteItem: (item: any) => void;
 }
 
-const ImportDataTable = <EntityRO extends BaseJpaRO>({columns, items, updateItem, deleteItem}: IProps<EntityRO>) => {
+const ImportDataTable = <EntityRO extends AbstractJpaRO>({
+  columns,
+  items,
+  updateItem,
+  deleteItem,
+}: IProps<EntityRO>) => {
   // const updateItemInternal = useCallback((item: PartialDeep<EntityRO> & {uuid: string}): void => {
   const updateItemInternal = useCallback(
     (item: any): void => {

@@ -1,18 +1,18 @@
 import React, {ReactNode, useMemo} from "react";
 import _ from "lodash";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Entity, EntityGenericSummaryConfig} from "../../../../models/entity";
 import SummaryInfoCard from "../../../../components/cards/SummaryInfoCard";
 import TableData from "../../table/data/TableData";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   summaryConfig: EntityGenericSummaryConfig<EntityRO>;
   entity: Entity<EntityRO>;
   item: EntityRO;
   refreshItem: () => void;
 }
 
-const EntitySummaryGeneric = <EntityRO extends BaseJpaRO>({
+const EntitySummaryGeneric = <EntityRO extends AbstractJpaRO>({
   summaryConfig,
   entity,
   item,

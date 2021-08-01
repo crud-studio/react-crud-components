@@ -1,13 +1,13 @@
 import React from "react";
 import TableData from "../data/TableData";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Checkbox, TableCell, TableRow, Typography} from "@material-ui/core";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import _ from "lodash";
 import {EntityColumn} from "../../../../models/entity";
 import {alpha} from "@material-ui/core/styles";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   columns: EntityColumn[];
   item: EntityRO;
   index: number;
@@ -17,7 +17,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
   onContextMenuItem: (event: React.MouseEvent<HTMLElement>, item: any) => void; // We use any because of issue with typescript
 }
 
-const TableRowView = <EntityRO extends BaseJpaRO>({
+const TableRowView = <EntityRO extends AbstractJpaRO>({
   columns,
   item,
   index,

@@ -30,7 +30,7 @@
     "react-merge-refs": "^1.1.0"
   },
   "peerDependencies": {
-    "@crud-studio/react-crud-core": "^2.0.0",
+    "@crud-studio/react-crud-core": "^3.0.1",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@lottiefiles/react-lottie-player": "^3.3.1",

@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import _ from "lodash";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import EntityUtils from "../../../helpers/EntityUtils";
 import {Link} from "@material-ui/core";
@@ -9,7 +9,7 @@ import {EMAIL_REGEX} from "../../../../constants/regex";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import {FormattedMessage} from "react-intl";
 
-const TableDataEmail = <EntityRO extends BaseJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
+const TableDataEmail = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const [data] = useState<any>(_.get(item, EntityUtils.getColumnDisplayFieldName(column)));
 
   const sendEmail = useCallback(

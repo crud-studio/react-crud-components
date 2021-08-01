@@ -4,7 +4,7 @@ import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
 import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent, Stack} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
@@ -17,14 +17,19 @@ import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import {LoadingButton} from "@material-ui/lab";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;
   entity: Entity<EntityRO>;
   items: EntityRO[];
   onUpdateSuccess?: () => void;
 }
 
-const UpdateManyDialog = <EntityRO extends BaseJpaRO>({modalId, entity, items, onUpdateSuccess}: IProps<EntityRO>) => {
+const UpdateManyDialog = <EntityRO extends AbstractJpaRO>({
+  modalId,
+  entity,
+  items,
+  onUpdateSuccess,
+}: IProps<EntityRO>) => {
   const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();

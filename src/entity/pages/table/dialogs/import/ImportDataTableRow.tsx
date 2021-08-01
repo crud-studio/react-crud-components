@@ -3,7 +3,7 @@ import {useDebounce, useUnmount} from "react-use";
 import {useFormContext} from "react-hook-form";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {FormControl, IconButton, TableCell, TableRow} from "@material-ui/core";
 import {ClearOutlined} from "@material-ui/icons";
 import {EntityColumn} from "../../../../../models/entity";
@@ -11,14 +11,19 @@ import EntityUtils from "../../../../helpers/EntityUtils";
 import EntityFieldInput from "../../../../inputs/field/EntityFieldInput";
 import EntityFieldComponentError from "../../../../inputs/field/EntityFieldComponentError";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   columns: EntityColumn[];
   item: PartialDeep<EntityRO> & {uuid: string};
   updateItem: (item: PartialDeep<EntityRO> & {uuid: string}) => void;
   deleteItem: (item: PartialDeep<EntityRO> & {uuid: string}) => void;
 }
 
-const ImportDataTableRow = <EntityRO extends BaseJpaRO>({columns, item, updateItem, deleteItem}: IProps<EntityRO>) => {
+const ImportDataTableRow = <EntityRO extends AbstractJpaRO>({
+  columns,
+  item,
+  updateItem,
+  deleteItem,
+}: IProps<EntityRO>) => {
   const {
     formState: {errors},
   } = useFormContext();

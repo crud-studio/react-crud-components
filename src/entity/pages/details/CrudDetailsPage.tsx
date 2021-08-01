@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {useUpdateEffect} from "react-use";
-import {BaseJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
 import {
   Entity,
   EntityComponentActionConfig,
@@ -32,12 +32,12 @@ import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
 import EntitySummary from "./components/EntitySummary";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   LoadingComponent?: React.ComponentType;
 }
 
-const CrudDetailsPage = <EntityRO extends BaseJpaRO>({entity, LoadingComponent}: IProps<EntityRO>) => {
+const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingComponent}: IProps<EntityRO>) => {
   const {showModal, getModalKey} = useModals();
   const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
   const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));

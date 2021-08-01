@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import _ from "lodash";
 import {useUpdateEffect} from "react-use";
-import {BaseJpaRO, FilterField, useDebounceFn} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, FilterField, useDebounceFn} from "@crud-studio/react-crud-core";
 import {useCrudSearch} from "@crud-studio/react-crud-core";
 import {Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField} from "@material-ui/core";
 import {AutocompleteInputChangeReason} from "@material-ui/core/useAutocomplete/useAutocomplete";
@@ -9,7 +9,7 @@ import {IPropsEntitySelect} from "../../models/props";
 import useSearchFilterFields from "../hooks/useSearchFilterFields";
 import {useIntl} from "react-intl";
 
-const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
+const AsyncCreatableEntitySelect = <EntityRO extends AbstractJpaRO>({
   id,
   entity,
   orders,

@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, Stack} from "@material-ui/core";
 import {Entity, EntityGenericActionConfigMany} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
@@ -13,7 +13,7 @@ import useCustomActionRequest from "../../details/api/useCustomActionRequest";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import {LoadingButton} from "@material-ui/lab";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;
   entity: Entity<any>;
   items: EntityRO[];
@@ -21,7 +21,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
   refreshItems: () => void;
 }
 
-const EntityGenericActionManyDialog = <EntityRO extends BaseJpaRO>({
+const EntityGenericActionManyDialog = <EntityRO extends AbstractJpaRO>({
   modalId,
   entity,
   items,

@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import {PartialDeep} from "type-fest";
 import {useUpdateEffect} from "react-use";
 import _ from "lodash";
-import {BaseJpaRO, useCrudCreateMany} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, useCrudCreateMany} from "@crud-studio/react-crud-core";
 import {Button, DialogActions, DialogContent} from "@material-ui/core";
 import {Entity} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
@@ -12,14 +12,14 @@ import {Player} from "@lottiefiles/react-lottie-player";
 import successLottie from "../../../../../data/lotties/successLottie";
 import uploadLottie from "../../../../../data/lotties/uploadLottie";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   items: PartialDeep<EntityRO>[];
   onUploadSuccess: (items: EntityRO[]) => void;
   onUploadCompleted: () => void;
 }
 
-const ImportDataUploadView = <EntityRO extends BaseJpaRO>({
+const ImportDataUploadView = <EntityRO extends AbstractJpaRO>({
   entity,
   items,
   onUploadSuccess,

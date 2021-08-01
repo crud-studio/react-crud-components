@@ -2,7 +2,7 @@ import React, {ReactNode, useCallback} from "react";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import PageSize from "./components/PageSize";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Box, Button, Pagination, Typography} from "@material-ui/core";
 import {MenuAction} from "../../../models/internal";
 import ActionsDropdownMenu from "../../../components/menus/ActionsDropdownMenu";
@@ -27,7 +27,7 @@ interface IProps<EntityRO> {
 
 type ActionsMenuType = "None" | "Buttons" | "ButtonDropdownMenu" | "ActionsDropdownMenu";
 
-const TablePageHeading = <EntityRO extends BaseJpaRO>({
+const TablePageHeading = <EntityRO extends AbstractJpaRO>({
   compact,
   currentPage,
   totalPageCount,

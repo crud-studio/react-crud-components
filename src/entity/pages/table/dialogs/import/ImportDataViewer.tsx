@@ -5,14 +5,14 @@ import {FormattedMessage} from "react-intl";
 import {v4 as uuidv4} from "uuid";
 import ImportDataTable from "./ImportDataTable";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO, usePagination} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, usePagination} from "@crud-studio/react-crud-core";
 import {Box, Button, DialogActions, DialogContent, Pagination} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import EntityUtils from "../../../../helpers/EntityUtils";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   columns: EntityColumn[];
   items: PartialDeep<EntityRO>[];
@@ -20,7 +20,7 @@ interface IProps<EntityRO extends BaseJpaRO> {
   onCancel: () => void;
 }
 
-const ImportDataViewer = <EntityRO extends BaseJpaRO>({
+const ImportDataViewer = <EntityRO extends AbstractJpaRO>({
   entity,
   columns,
   items,

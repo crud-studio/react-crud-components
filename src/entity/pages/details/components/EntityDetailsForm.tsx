@@ -3,7 +3,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
-import {BaseJpaRO} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Card, CardContent, Stack} from "@material-ui/core";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
@@ -13,14 +13,14 @@ import {LoadingButton} from "@material-ui/lab";
 import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   item: EntityRO;
   loading: boolean;
   updateItem: (itemData: PartialDeep<EntityRO>, debounced: boolean) => void;
 }
 
-const EntityDetailsForm = <EntityRO extends BaseJpaRO>({entity, item, loading, updateItem}: IProps<EntityRO>) => {
+const EntityDetailsForm = <EntityRO extends AbstractJpaRO>({entity, item, loading, updateItem}: IProps<EntityRO>) => {
   const {getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
 

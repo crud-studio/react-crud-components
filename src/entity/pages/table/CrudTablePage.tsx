@@ -5,7 +5,7 @@ import {useUpdateEffect} from "react-use";
 import UpdateManyDialog from "./dialogs/UpdateManyDialog";
 import ImportManyDialog from "./dialogs/import/ImportManyDialog";
 import TablePage from "./TablePage";
-import {BaseJpaRO, FilterField, UpdatePackUtils, useCrudDeleteMany} from "@crud-studio/react-crud-core";
+import {AbstractJpaRO, FilterField, UpdatePackUtils, useCrudDeleteMany} from "@crud-studio/react-crud-core";
 import {
   Entity,
   EntityComponentActionConfigMany,
@@ -25,14 +25,14 @@ import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
 import {useNavigate} from "react-router-dom";
 
-interface IProps<EntityRO extends BaseJpaRO> {
+interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
   predefinedValues?: EntityPredefinedValue[];
   hiddenColumns?: string[];
   compact?: boolean;
 }
 
-const CrudTablePage = <EntityRO extends BaseJpaRO>({
+const CrudTablePage = <EntityRO extends AbstractJpaRO>({
   entity,
   predefinedValues,
   hiddenColumns,
