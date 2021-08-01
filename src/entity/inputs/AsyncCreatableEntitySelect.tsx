@@ -1,21 +1,13 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import _ from "lodash";
 import {useUpdateEffect} from "react-use";
 import {BaseJpaRO, FilterField, useDebounceFn} from "@crud-studio/react-crud-core";
 import {useCrudSearch} from "@crud-studio/react-crud-core";
-import {
-  Autocomplete,
-  AutocompleteChangeDetails,
-  AutocompleteChangeReason,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@material-ui/core";
+import {Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField} from "@material-ui/core";
 import {AutocompleteInputChangeReason} from "@material-ui/core/useAutocomplete/useAutocomplete";
 import {IPropsEntitySelect} from "../../models/props";
 import useSearchFilterFields from "../hooks/useSearchFilterFields";
 import {useIntl} from "react-intl";
-import {ForwardToInbox} from "@material-ui/icons";
 
 const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   id,
@@ -68,7 +60,7 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   }, [setManual]);
 
   const [allItems, setAllItems] = useState<EntityRO[]>([]);
-  const {result, loading} = useCrudSearch<EntityRO>(
+  const optionsSearchState = useCrudSearch<EntityRO>(
     entity,
     1,
     50,
@@ -84,12 +76,12 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
   );
 
   useUpdateEffect(() => {
-    if (result && _.isEqual(inputChangeSearch.current, loadOptionsSearch.current)) {
-      setAllItems(result);
+    if (optionsSearchState.result && _.isEqual(inputChangeSearch.current, loadOptionsSearch.current)) {
+      setAllItems(optionsSearchState.result);
     } else {
       setSearch(inputChangeSearch.current);
     }
-  }, [result]);
+  }, [optionsSearchState.result]);
 
   const onInputChange = (
     event: React.SyntheticEvent,
@@ -101,7 +93,7 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
     }
 
     inputChangeSearch.current = inputValue;
-    if (!loading) {
+    if (!optionsSearchState.loading) {
       loadOptionsSearch.current = inputValue;
       setSearchDebounced(inputValue);
     }
@@ -255,6 +247,11 @@ const AsyncCreatableEntitySelect = <EntityRO extends BaseJpaRO>({
     }
     return [value];
   };
+
+  const loading = useMemo<boolean>(
+    () => optionsSearchState.loading || initialValueSearchState.loading,
+    [optionsSearchState.loading, initialValueSearchState.loading]
+  );
 
   return (
     <Autocomplete
