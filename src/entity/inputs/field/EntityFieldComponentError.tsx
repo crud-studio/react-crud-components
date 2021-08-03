@@ -33,6 +33,7 @@ const EntityFieldComponentError: FunctionComponent<IProps> = ({error}) => {
             <ErrorOutlined fontSize="small" sx={{mr: 1}} />
             {error}
             <Box
+              component="span"
               sx={{
                 width: 0,
                 height: 0,
