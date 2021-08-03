@@ -19,7 +19,7 @@ const EntityFieldComponentError: FunctionComponent<IProps> = ({error}) => {
               left: "50%",
               transform: "translate(-50%, 0)",
               mx: 0,
-              mt: -1,
+              mt: -2,
               p: 1,
               border: 1,
               borderColor: (theme) => theme.palette.error.main,
