@@ -80,3 +80,10 @@ export interface IPropsEntityComponentActionMany<EntityRO> {
   refreshItems: () => void;
   finishAction: () => void;
 }
+
+export interface IPropsFileViewerDriver {
+  fileType?: string;
+  fileData?: string;
+  width: number;
+  height: number;
+}

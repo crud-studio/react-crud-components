@@ -27,7 +27,8 @@
   "dependencies": {
     "copy-to-clipboard": "^3.3.1",
     "mousetrap": "^1.6.5",
-    "react-merge-refs": "^1.1.0"
+    "react-merge-refs": "^1.1.0",
+    "react-pdf": "^5.3.2"
   },
   "peerDependencies": {
     "@crud-studio/react-crud-core": "^3.0.1",
@@ -35,9 +36,9 @@
     "@emotion/styled": "^11.3.0",
     "@lottiefiles/react-lottie-player": "^3.3.1",
     "@material-ui/core": "^5.0.0-beta.1",
-    "@material-ui/system": "^5.0.0-beta.1",
     "@material-ui/icons": "^5.0.0-beta.1",
     "@material-ui/lab": "^5.0.0-alpha.40",
+    "@material-ui/system": "^5.0.0-beta.1",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -59,6 +60,7 @@
     "@types/node": "^16.3.2",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",
+    "@types/react-pdf": "^5.0.5",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.3",
     "@types/uuid": "^8.3.0",

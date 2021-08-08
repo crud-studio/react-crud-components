@@ -93,7 +93,6 @@ const ConfirmationTypingDialog: FunctionComponent<IProps> = ({
                     }
                     value={field?.value}
                     type="text"
-                    size="small"
                     autoComplete="off"
                     autoFocus
                     onChange={field?.onChange}
