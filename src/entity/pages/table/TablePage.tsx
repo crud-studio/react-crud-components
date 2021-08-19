@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useMemo, useRef, useState} from "react";
 import _ from "lodash";
 import {useUpdateEffect} from "react-use";
 import {URL_PARAM_PAGE} from "../../../constants/urlKeys";
@@ -221,8 +221,15 @@ const TablePage = <EntityRO extends AbstractJpaRO>({
     throttleWaitTime: 25,
   });
 
-  const startIndex = Math.min((currentPage - 1) * pageSize + 1, totalItemCount);
-  const endIndex = Math.min(currentPage * pageSize, totalItemCount);
+  const startIndex = useMemo<number>(
+    () => Math.min((currentPage - 1) * pageSize + 1, totalItemCount),
+    [currentPage, pageSize, totalItemCount]
+  );
+  const endIndex = useMemo<number>(
+    () => Math.min(currentPage * pageSize, totalItemCount),
+    [currentPage, pageSize, totalItemCount]
+  );
+  const itemCount = useMemo<number>(() => items?.length || 0, [items]);
 
   return (
     <FilterManager entity={entity} onContextFilterFieldsUpdated={onContextFilterFieldsUpdated}>
@@ -277,11 +284,11 @@ const TablePage = <EntityRO extends AbstractJpaRO>({
                       onCheckItem: onCheckItem,
                       onContextMenuItem: onContextMenuItem,
                     }}
-                    itemCount={items?.length || 0}
+                    itemCount={itemCount}
                     itemSize={rowHeight}
                     itemKey={(index, data) => data.items[index].id}
                     row={Row}
-                    header={<TableAccessibilityHeaderRowView columns={columns} />}
+                    header={<TableAccessibilityHeaderRowView columns={columns} itemCount={itemCount} />}
                     scrollRef={tableBodyRef}
                   />
                 )}

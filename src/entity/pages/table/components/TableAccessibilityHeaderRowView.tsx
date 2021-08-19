@@ -7,11 +7,12 @@ import {FormattedMessage} from "react-intl";
 
 interface IProps {
   columns: EntityColumn[];
+  itemCount: number;
 }
 
-const TableAccessibilityHeaderRowView: FunctionComponent<IProps> = ({columns}) => {
+const TableAccessibilityHeaderRowView: FunctionComponent<IProps> = ({columns, itemCount}) => {
   return (
-    <TableHead sx={{height: "0px", maxHeight: "0px", overflow: "hidden"}}>
+    <TableHead sx={{height: itemCount ? "0px" : "1px", maxHeight: "0px", overflow: "hidden", visibility: "hidden"}}>
       <TableRow>
         <TableCell
           padding="none"
