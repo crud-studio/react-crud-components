@@ -57,16 +57,19 @@ const PdfViewer: FunctionComponent<IProps> = ({fileData}) => {
       />
 
       <Box>
-        <Pagination
-          page={pageNumber}
-          count={numPages || 0}
-          size="small"
-          variant="outlined"
-          shape="rounded"
-          showFirstButton
-          showLastButton
-          onChange={(event, page) => setPageNumber(page)}
-        />
+        <Box sx={{textAlign: "center", mb: 2}}>
+          <Pagination
+            page={pageNumber}
+            count={numPages || 0}
+            size="large"
+            variant="outlined"
+            shape="rounded"
+            showFirstButton
+            showLastButton
+            onChange={(event, page) => setPageNumber(page)}
+            sx={{display: "inline-block"}}
+          />
+        </Box>
 
         {passwordDismissed && (
           <Typography variant="body2">
