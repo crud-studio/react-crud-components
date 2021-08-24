@@ -6,6 +6,7 @@ import {TableSortLabel} from "@material-ui/core";
 import {tableCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import useOrderBy from "../../../hooks/useOrderBy";
+import EntityUtils from "../../../helpers/EntityUtils";
 
 interface IProps {
   column: EntityColumn;
@@ -20,7 +21,8 @@ const TableHeaderColumnView: FunctionComponent<IProps> = ({column}) => {
   const [orderNumber, setOrderNumber] = useState<number>(0);
 
   useEffect(() => {
-    const index = _.findIndex(contextOrders, (order) => order.by === column.name);
+    const columnOrderFieldName = EntityUtils.getColumnOrderFieldName(column);
+    const index = _.findIndex(contextOrders, (order) => order.by === columnOrderFieldName);
     if (index >= 0) {
       const order = contextOrders[index];
       setOrderNumber(index + 1);
@@ -36,15 +38,16 @@ const TableHeaderColumnView: FunctionComponent<IProps> = ({column}) => {
       return;
     }
 
+    const columnOrderFieldName = EntityUtils.getColumnOrderFieldName(column);
     switch (orderStatus) {
       case undefined:
-        updateContextOrder({by: column.name, descending: false});
+        updateContextOrder({by: columnOrderFieldName, descending: false});
         break;
       case "asc":
-        updateContextOrder({by: column.name, descending: true});
+        updateContextOrder({by: columnOrderFieldName, descending: true});
         break;
       case "desc":
-        removeContextOrder(column.name);
+        removeContextOrder(columnOrderFieldName);
         break;
     }
   }, [column, orderStatus, updateContextOrder, removeContextOrder]);

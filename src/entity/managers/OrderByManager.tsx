@@ -3,6 +3,7 @@ import _ from "lodash";
 import {URL_PARAM_ORDER_BY, urlValuesSeparator} from "../../constants/urlKeys";
 import {OrderDTO, useDebounceFn, useUrlState} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
+import EntityUtils from "../helpers/EntityUtils";
 
 export interface IOrderByContext {
   contextOrders: OrderDTO[];
@@ -33,7 +34,9 @@ const OrderByManager: FunctionComponent<IProps> = ({entity, onContextOrdersUpdat
             return {};
           }
         })
-        .filter((filterField) => entity.columns.some((column) => column.name === filterField.by));
+        .filter((filterField) =>
+          entity.columns.some((column) => EntityUtils.getColumnOrderFieldName(column) === filterField.by)
+        );
     },
     (state) => {
       return state.map<string>((order) => JSON.stringify(order)).join(urlValuesSeparator);

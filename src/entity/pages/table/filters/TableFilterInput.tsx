@@ -55,7 +55,7 @@ const TableFilterInput: FunctionComponent<IProps> = ({
   const onFilterValueChange = (filterValue: string): void => {
     setValue(filterValue);
 
-    if (!isFilterValueValid || isFilterValueValid(filterValue)) {
+    if (!!filterValue && (!isFilterValueValid || isFilterValueValid(filterValue))) {
       const transformedFilterValue = !!filterValueTransformer ? filterValueTransformer(filterValue) : filterValue;
       updateContextFilterField(
         {

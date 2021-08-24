@@ -31,6 +31,10 @@ const EntityUtils = {
     return column.filterName || column.name;
   },
 
+  getColumnOrderFieldName: function (column: EntityColumn): string {
+    return column.filterName || column.name;
+  },
+
   getColumnDisplayFieldName: function (column: EntityColumn): string {
     return column.displayName || column.name;
   },
