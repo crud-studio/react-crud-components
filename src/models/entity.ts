@@ -162,6 +162,7 @@ export type EntityColumnType =
   | "EnumList"
   | "Entity"
   | "EntityList"
-  | "Email";
+  | "Email"
+  | "File";
 
 export type EntityActionType = "CREATE" | "READ" | "UPDATE" | "DELETE";

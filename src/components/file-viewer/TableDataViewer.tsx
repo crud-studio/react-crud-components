@@ -38,7 +38,7 @@ const TableDataViewer: FunctionComponent<IProps> = ({data}) => {
         </TableBody>
       </Table>
 
-      <Typography variant="caption" sx={{color: "text.secondary", display: "block"}}>
+      <Typography variant="body2" sx={{color: "text.secondary", display: "block", mt: 2}}>
         <FormattedMessage
           id="pages.showing-rows-preview"
           values={{

@@ -10,6 +10,7 @@ import {enumListColumnType} from "./enum-list.column-type";
 import {emailColumnType} from "./email.column-type";
 import {integerColumnType} from "./integer.column-type";
 import {doubleColumnType} from "./double.column-type";
+import {fileColumnType} from "./file.column-type";
 
 export const entityColumnTypes: {[key: string]: EntityColumnTypeConfig} = {
   [textColumnType.type]: textColumnType,
@@ -23,4 +24,5 @@ export const entityColumnTypes: {[key: string]: EntityColumnTypeConfig} = {
   [entityColumnType.type]: entityColumnType,
   [entityListColumnType.type]: entityListColumnType,
   [emailColumnType.type]: emailColumnType,
+  [fileColumnType.type]: fileColumnType,
 };
