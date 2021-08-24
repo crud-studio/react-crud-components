@@ -49,7 +49,7 @@ const TabPanel: FunctionComponent<IProps> = ({
 
   return (
     <Box sx={{width: "100%", ...sx}}>
-      <Box sx={{mb: 5}}>
+      <Box sx={{mb: 4}}>
         <Tabs value={activeTab} onChange={toggleTab} scrollButtons={false} variant="scrollable">
           {tabs.map((tab) => {
             const hasTabCount = tabsCount && _.has(tabsCount, tab.id);

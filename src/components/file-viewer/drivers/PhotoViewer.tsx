@@ -1,8 +1,16 @@
 import React, {FunctionComponent} from "react";
-import {Box} from "@material-ui/core";
+import {Box, Paper} from "@material-ui/core";
 import {IPropsFileViewerDriver} from "../../../models/props";
 
 const PhotoViewer: FunctionComponent<IPropsFileViewerDriver> = ({fileData}) => {
-  return <Box>{fileData && <img src={fileData} alt="preview" />}</Box>;
+  return (
+    <Box sx={{textAlign: "center"}}>
+      {fileData && (
+        <Paper variant="outlined" sx={{display: "inline-block", overflow: "hidden"}}>
+          <img src={fileData} alt="preview" />
+        </Paper>
+      )}
+    </Box>
+  );
 };
 export default PhotoViewer;

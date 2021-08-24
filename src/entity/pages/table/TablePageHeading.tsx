@@ -118,7 +118,7 @@ const TablePageHeading = <EntityRO extends AbstractJpaRO>({
   );
 
   return (
-    <Box sx={compact ? {mb: 2, mt: -3} : {mb: 4}}>
+    <Box sx={compact ? {mb: 2, mt: -2} : {mb: 4}}>
       <Box
         sx={
           compact

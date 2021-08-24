@@ -29,7 +29,7 @@ const EntitySummary = <EntityRO extends AbstractJpaRO>({
   );
 
   return (
-    <Box sx={{mb: 3}}>
+    <Box sx={{mb: 4}}>
       {summaryConfigGeneric && (
         <EntitySummaryGeneric
           summaryConfig={summaryConfigGeneric}

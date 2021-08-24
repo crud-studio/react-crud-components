@@ -1,6 +1,5 @@
 import React, {FunctionComponent, useCallback, useRef, useState} from "react";
-import {Document} from "react-pdf/dist/esm/entry.webpack";
-import {Page} from "react-pdf";
+import {Document, Page, pdfjs} from "react-pdf";
 import _ from "lodash";
 import useModals from "../../../managers/modals/hooks/useModals";
 import {IPropsFileViewerDriver} from "../../../models/props";
@@ -8,6 +7,8 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import {FormattedMessage, useIntl} from "react-intl";
 import {Box, Pagination, Typography} from "@material-ui/core";
 import PasswordDialog from "../../dialogs/PasswordDialog";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 interface IProps extends IPropsFileViewerDriver {}
 
@@ -77,7 +78,7 @@ const PdfViewer: FunctionComponent<IProps> = ({fileData}) => {
           <AutoSizer disableHeight={true}>
             {({width}) => (
               <Document
-                file={`data:application/pdf;base64,${fileData.split(";base64,")[1]}`}
+                file={fileData}
                 onLoadSuccess={onDocumentLoadSuccess}
                 onPassword={onPasswordProtected}
                 error={intl.formatMessage({id: "error.failed-load-pdf-file"})}

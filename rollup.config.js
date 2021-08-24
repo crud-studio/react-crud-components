@@ -33,6 +33,7 @@ export default {
     "react-hook-form",
     "react-intl",
     "react-merge-refs",
+    "react-pdf",
     "react-router-dom",
     "react-use",
     "react-virtualized-auto-sizer",
