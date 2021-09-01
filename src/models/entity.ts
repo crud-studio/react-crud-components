@@ -1,5 +1,5 @@
 import React, {ComponentType} from "react";
-import {BaseEntity, FilterField, OrderDTO} from "@crud-studio/react-crud-core";
+import {BaseEntity, FilterField, MediaFileAclMode, OrderDTO} from "@crud-studio/react-crud-core";
 import {
   IPropsEntityColumnData,
   IPropsEntityColumnFilter,
@@ -18,6 +18,37 @@ export interface EntityField {
   subtype?: string;
   titleKey: string;
   required?: boolean;
+  parameters?:
+    | EntityFieldParametersText
+    | EntityFieldParametersTextArea
+    | EntityFieldParametersInteger
+    | EntityFieldParametersDouble
+    | EntityFieldParametersDate
+    | EntityFieldParametersBoolean
+    | EntityFieldParametersEnum
+    | EntityFieldParametersEnumList
+    | EntityFieldParametersEntity
+    | EntityFieldParametersEntityList
+    | EntityFieldParametersEmail
+    | EntityFieldParametersFile;
+}
+
+export interface EntityFieldParametersText {}
+export interface EntityFieldParametersTextArea {}
+export interface EntityFieldParametersInteger {}
+export interface EntityFieldParametersDouble {}
+export interface EntityFieldParametersDate {}
+export interface EntityFieldParametersBoolean {}
+export interface EntityFieldParametersEnum {}
+export interface EntityFieldParametersEnumList {}
+export interface EntityFieldParametersEntity {}
+export interface EntityFieldParametersEntityList {}
+export interface EntityFieldParametersEmail {}
+export interface EntityFieldParametersFile {
+  acl: MediaFileAclMode;
+  extensions?: string[];
+  minSize?: number;
+  maxSize?: number;
 }
 
 export interface EntityColumn extends EntityField {

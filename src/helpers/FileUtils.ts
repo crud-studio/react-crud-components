@@ -31,12 +31,16 @@ export const dataURItoFile = (dataURI: string, fileName: string, fileType: strin
   });
 };
 
-export const getFilesRejectedMessageKey = (fileRejections?: FileRejection[]): string => {
-  if (!fileRejections || _.isEmpty(fileRejections)) {
+export const getFilesRejectedMessageKey = (fileRejections?: FileRejection | FileRejection[]): string => {
+  if (!fileRejections) {
     return "error.invalid-file-upload";
   }
 
-  const fileRejection = fileRejections[0];
+  if (_.isArray(fileRejections) && _.isEmpty(fileRejections)) {
+    return "error.invalid-file-upload";
+  }
+
+  const fileRejection: FileRejection = _.isArray(fileRejections) ? fileRejections[0] : fileRejections;
   const {errors} = fileRejection;
 
   if (!!errors?.length) {
@@ -46,6 +50,12 @@ export const getFilesRejectedMessageKey = (fileRejections?: FileRejection[]): st
     switch (code) {
       case "file-too-large":
         return "error.invalid-file-upload-too-large";
+      case "file-too-small":
+        return "error.invalid-file-upload-too-small";
+      case "too-many-files":
+        return "error.invalid-file-upload-too-many-files";
+      case "file-invalid-type":
+        return "error.invalid-file-upload-invalid-type";
       default:
         return "error.invalid-file-upload";
     }

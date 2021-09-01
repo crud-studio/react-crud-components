@@ -5,11 +5,14 @@ import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {FormattedMessage, useIntl} from "react-intl";
 import {Clear, RemoveRedEye, Upload} from "@material-ui/icons";
 import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
-import {MinimalMediaFileRO, useMediaFileUpload} from "@crud-studio/react-crud-core";
+import {MediaFileAclMode, MinimalMediaFileRO, useMediaFileUpload} from "@crud-studio/react-crud-core";
 import {useUpdateEffect} from "react-use";
 import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileViewerDialog";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import _ from "lodash";
+import {EntityFieldParametersFile} from "../../../../models/entity";
+import NotificationManager from "../../../../components/notifications/NotificationManager";
+import {getFilesRejectedMessageKey} from "../../../../helpers/FileUtils";
 
 const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -27,14 +30,22 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   const [value, setValue] = useState<MinimalMediaFileRO | undefined>(defaultValue || undefined);
   const [file, setFile] = useState<File | undefined>(undefined);
 
+  const parameters = useMemo<EntityFieldParametersFile | undefined>(
+    () => entityField.parameters as EntityFieldParametersFile | undefined,
+    [entityField]
+  );
+  const acl = useMemo<MediaFileAclMode>(() => parameters?.acl || "PRIVATE", [parameters]);
+  const extensions = useMemo<string | undefined>(() => parameters?.extensions?.join(", "), [parameters]);
+  const minSize = useMemo<number | undefined>(() => parameters?.minSize, [parameters]);
+  const maxSize = useMemo<number | undefined>(() => parameters?.maxSize, [parameters]);
+
   useUpdateEffect(() => {
     const formValue = value || {id: null, uuid: null};
     methods.setValue(name, formValue);
     onValueChanged(formValue);
   }, [value]);
 
-  // TODO: ACL should received in config
-  const uploadState = useMediaFileUpload(file, {acl: "PUBLIC"});
+  const uploadState = useMediaFileUpload(file, {acl: acl});
 
   useUpdateEffect(() => {
     if (uploadState.result) {
@@ -55,10 +66,20 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
     if (!_.isEmpty(acceptedFiles)) {
       setFile(acceptedFiles[0]);
     }
-    // TODO: Handle file rejections and show errors
+    if (!_.isEmpty(fileRejections)) {
+      fileRejections.forEach((fileRejection) =>
+        NotificationManager.error(<FormattedMessage id={getFilesRejectedMessageKey(fileRejection)} />)
+      );
+    }
   }, []);
 
-  const {getRootProps, getInputProps, open} = useDropzone({onDrop, multiple: false});
+  const {getRootProps, getInputProps, open} = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: extensions,
+    minSize: minSize,
+    maxSize: maxSize,
+  });
 
   const onUpload = useCallback(() => {
     open();
@@ -79,7 +100,6 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   return (
     <>
       <MediaFileViewerDialog modalId={viewerModalId} mediaFile={value} key={getModalKey(viewerModalId)} />
-      {/* TODO: Show extensions in help text */}
       <Controller
         name={name}
         rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
@@ -90,18 +110,13 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
             <TextField
               type="text"
               value={inputValue}
-              onChange={(e) => {
-                //   const inputValue = e.target.value;
-                //   field?.onChange(inputValue);
-                //   onValueChanged(inputValue);
-              }}
               disabled={disabled}
               autoComplete="off"
               ref={field?.ref}
               fullWidth
               label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
+              helperText={extensions}
               required={entityField.required}
-              // placeholder={intl.formatMessage({id: "pages.drop-files-here-or-click"})}
               inputProps={{...getRootProps()}}
               InputProps={{
                 readOnly: true,
