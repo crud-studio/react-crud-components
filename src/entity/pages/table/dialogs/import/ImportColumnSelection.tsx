@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {EntityColumn} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";

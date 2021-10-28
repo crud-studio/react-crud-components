@@ -7,7 +7,7 @@ import {maxImportRows} from "../../../../../constants/defaultValues";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Dialog} from "@material-ui/core";
+import {Dialog} from "@mui/material";
 import ImportFileUpload from "./ImportFileUpload";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";

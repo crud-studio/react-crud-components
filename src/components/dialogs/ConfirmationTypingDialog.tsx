@@ -1,7 +1,7 @@
 import {FormattedMessage, useIntl} from "react-intl";
 import React, {FunctionComponent} from "react";
 import {Controller, useForm} from "react-hook-form";
-import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, TextField} from "@material-ui/core";
+import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import useModals from "../../managers/modals/hooks/useModals";
 

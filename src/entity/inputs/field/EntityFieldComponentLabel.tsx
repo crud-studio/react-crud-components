@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useMemo} from "react";
-import {FormLabel, FormLabelProps} from "@material-ui/core";
+import {FormLabel, FormLabelProps} from "@mui/material";
 import {EntityColumnTypeConfig, EntityField} from "../../../models/entity";
 import {FormattedMessage} from "react-intl";
 import {entityColumnTypes} from "../../column-types/entityColumnTypes";

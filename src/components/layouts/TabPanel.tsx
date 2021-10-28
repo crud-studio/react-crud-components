@@ -2,12 +2,12 @@ import React, {FunctionComponent, PropsWithChildren, ReactNode, useEffect, useSt
 import _ from "lodash";
 import {URL_PARAM_TAB} from "../../constants/urlKeys";
 import {useUrlState} from "@crud-studio/react-crud-core";
-import {Badge, Box, Tab, Tabs} from "@material-ui/core";
+import {Badge, Box, Tab, Tabs} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 import {TabInfo} from "../../models/internal";
 import {DIGITS_REGEX} from "../../constants/regex";
-import {SxProps} from "@material-ui/system";
-import {Theme} from "@material-ui/core/styles";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 interface IProps extends PropsWithChildren<any> {
   tabs: TabInfo[];

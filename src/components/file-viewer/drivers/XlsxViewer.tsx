@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from "react";
 import XLSX from "xlsx";
 import TableDataViewer from "../TableDataViewer";
 import {IPropsFileViewerDriver} from "../../../models/props";
-import {Box, ToggleButton, ToggleButtonGroup} from "@material-ui/core";
+import {Box, ToggleButton, ToggleButtonGroup} from "@mui/material";
 
 const MAX_SHEETS = 3;
 

@@ -1,6 +1,6 @@
 import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@mui/material";
 import DialogTitleEnhanced from "../../../components/dialogs/DialogTitleEnhanced";
 import useModals from "../../modals/hooks/useModals";
 

@@ -1,8 +1,8 @@
 import React, {FunctionComponent, MouseEventHandler, PropsWithChildren, SyntheticEvent, useCallback} from "react";
 import {NavLink} from "react-router-dom";
-import {Box} from "@material-ui/core";
-import {SxProps} from "@material-ui/system";
-import {Theme} from "@material-ui/core/styles";
+import {Box} from "@mui/material";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 interface IProps extends PropsWithChildren<any> {
   className?: string;

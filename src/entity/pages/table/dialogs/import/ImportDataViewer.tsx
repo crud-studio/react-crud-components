@@ -6,7 +6,7 @@ import {v4 as uuidv4} from "uuid";
 import ImportDataTable from "./ImportDataTable";
 import {PartialDeep} from "type-fest";
 import {AbstractJpaRO, usePagination} from "@crud-studio/react-crud-core";
-import {Box, Button, DialogActions, DialogContent, Pagination} from "@material-ui/core";
+import {Box, Button, DialogActions, DialogContent, Pagination} from "@mui/material";
 import {Entity, EntityColumn} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";

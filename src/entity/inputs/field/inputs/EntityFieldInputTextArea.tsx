@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {TextField} from "@material-ui/core";
+import {TextField} from "@mui/material";
 import {FormattedMessage, useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 

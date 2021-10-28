@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
 import _ from "lodash";
-import {Autocomplete, TextField} from "@material-ui/core";
+import {Autocomplete, TextField} from "@mui/material";
 import {FormattedMessage, useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {SelectOption} from "../../../../models/internal";

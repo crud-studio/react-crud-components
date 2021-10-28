@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import PageSize from "./components/PageSize";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Box, Button, Pagination, Typography} from "@material-ui/core";
+import {Box, Button, Pagination, Typography} from "@mui/material";
 import {MenuAction} from "../../../models/internal";
 import ActionsDropdownMenu from "../../../components/menus/ActionsDropdownMenu";
 import ButtonDropdownMenu from "../../../components/menus/ButtonDropdownMenu";

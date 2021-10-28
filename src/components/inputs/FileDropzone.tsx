@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Typography} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 import {DropzoneProps} from "react-dropzone";
 import Dropzone from "react-dropzone";

@@ -1,10 +1,10 @@
 import React, {FunctionComponent, useState} from "react";
 import {useEffectOnce, useUpdateEffect} from "react-use";
 import _ from "lodash";
-import {DateRangePicker} from "@material-ui/lab";
-import {IconButton, InputAdornment, TextField} from "@material-ui/core";
-import {DateRange} from "@material-ui/lab/DateRangePicker/RangeTypes";
-import {Clear} from "@material-ui/icons";
+import {DateRangePicker} from "@mui/lab";
+import {IconButton, InputAdornment, TextField} from "@mui/material";
+import {DateRange} from "@mui/lab/DateRangePicker/RangeTypes";
+import {Clear} from "@mui/icons-material";
 import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import EntityUtils from "../../../helpers/EntityUtils";

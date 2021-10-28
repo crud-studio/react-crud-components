@@ -1,8 +1,8 @@
 import React, {FunctionComponent, ReactNode, useCallback, useState} from "react";
-import {Box, Card, Divider, Stack, Tooltip, Typography} from "@material-ui/core";
+import {Card, Divider, Stack, Tooltip, Typography} from "@mui/material";
 import {FormattedMessage} from "react-intl";
-import {SxProps} from "@material-ui/system";
-import {Theme} from "@material-ui/core/styles";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 import {CopyToClipboard} from "../../helpers/ClipboardUtils";
 import {useCallbackRef} from "../../hooks/useCallbackRef";
 

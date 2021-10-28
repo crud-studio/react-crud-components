@@ -1,10 +1,10 @@
 import React, {FunctionComponent, useState} from "react";
 import {FormattedMessage} from "react-intl";
-import {Button, ButtonGroup, Menu} from "@material-ui/core";
-import {KeyboardArrowDown} from "@material-ui/icons";
+import {Button, ButtonGroup, Menu} from "@mui/material";
+import {KeyboardArrowDown} from "@mui/icons-material";
 import MenuActionItems from "./MenuActionItems";
 import {ButtonSize, MenuAction} from "../../models/internal";
-import {LoadingButton} from "@material-ui/lab";
+import {LoadingButton} from "@mui/lab";
 
 interface IProps {
   dropdownActions: MenuAction[];

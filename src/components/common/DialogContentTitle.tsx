@@ -1,7 +1,7 @@
 import React, {FunctionComponent, PropsWithChildren} from "react";
-import {Typography} from "@material-ui/core";
-import {SxProps} from "@material-ui/system";
-import {Theme} from "@material-ui/core/styles";
+import {Typography} from "@mui/material";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
 interface IProps extends PropsWithChildren<any> {
   sx?: SxProps<Theme>;

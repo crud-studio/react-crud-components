@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {FormattedMessage} from "react-intl";
-import {Box, TableCell, TableRow, Typography} from "@material-ui/core";
+import {Box, TableCell, TableRow, Typography} from "@mui/material";
 
 const ErrorTableView: FunctionComponent = () => {
   return (

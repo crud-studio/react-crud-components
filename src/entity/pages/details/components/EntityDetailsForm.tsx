@@ -4,12 +4,12 @@ import {FormattedMessage} from "react-intl";
 import _ from "lodash";
 import {PartialDeep} from "type-fest";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Card, CardContent, Stack} from "@material-ui/core";
+import {Card, CardContent, Stack} from "@mui/material";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
 import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
-import {LoadingButton} from "@material-ui/lab";
+import {LoadingButton} from "@mui/lab";
 import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 

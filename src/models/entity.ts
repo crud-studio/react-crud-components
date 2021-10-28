@@ -10,7 +10,7 @@ import {
   IPropsEntityCustomTab,
 } from "./props";
 import {MenuAction} from "./internal";
-import {SvgIconProps} from "@material-ui/core";
+import {SvgIconProps} from "@mui/material";
 
 export interface EntityField {
   name: string;

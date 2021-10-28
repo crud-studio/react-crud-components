@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import ImportDataTableRow from "./ImportDataTableRow";
 import {PartialDeep} from "type-fest";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {FormLabel, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
+import {FormLabel, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {EntityColumn} from "../../../../../models/entity";
 
 interface IProps<EntityRO extends AbstractJpaRO> {

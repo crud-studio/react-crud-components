@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from "react";
 import {FormattedMessage} from "react-intl";
-import {Box, Button, Menu, MenuItem, Typography} from "@material-ui/core";
-import {KeyboardArrowDown} from "@material-ui/icons";
+import {Box, Button, Menu, MenuItem, Typography} from "@mui/material";
+import {KeyboardArrowDown} from "@mui/icons-material";
 import {pageSizes} from "../../../../constants/defaultValues";
 
 interface IProps {

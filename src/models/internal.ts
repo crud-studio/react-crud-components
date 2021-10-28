@@ -1,5 +1,5 @@
 import {ComponentType, ReactNode} from "react";
-import {SvgIconProps} from "@material-ui/core";
+import {SvgIconProps} from "@mui/material";
 import * as React from "react";
 
 export interface SelectOption {

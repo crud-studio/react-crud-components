@@ -6,7 +6,7 @@ import {
   EntityComponentActionConfigMany,
   EntityField,
 } from "./entity";
-import {AutocompleteProps} from "@material-ui/core";
+import {AutocompleteProps} from "@mui/material";
 import {FilterField, OrderDTO} from "@crud-studio/react-crud-core";
 import {PartialDeep} from "type-fest";
 

@@ -1,7 +1,7 @@
 import React, {Ref} from "react";
 import {useState, useRef, useContext} from "react";
 import {FixedSizeList, FixedSizeListProps} from "react-window";
-import {Table, TableBody, useTheme} from "@material-ui/core";
+import {Table, TableBody, useTheme} from "@mui/material";
 import mergeRefs from "react-merge-refs";
 
 /** Context for cross component communication */

@@ -4,7 +4,7 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
-import {Link} from "@material-ui/core";
+import {Link} from "@mui/material";
 import useEntity from "../../../hooks/useEntity";
 
 const TableDataEntityList = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {

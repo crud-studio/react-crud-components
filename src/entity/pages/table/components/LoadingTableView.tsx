@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Box, CircularProgress, TableCell, TableRow} from "@material-ui/core";
+import {Box, CircularProgress, TableCell, TableRow} from "@mui/material";
 
 const LoadingTableView: FunctionComponent = () => {
   return (

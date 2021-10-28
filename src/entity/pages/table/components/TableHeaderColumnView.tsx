@@ -1,8 +1,8 @@
 import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import _ from "lodash";
 import {FormattedMessage} from "react-intl";
-import {Box, TableCell} from "@material-ui/core";
-import {TableSortLabel} from "@material-ui/core";
+import {Box, TableCell} from "@mui/material";
+import {TableSortLabel} from "@mui/material";
 import {tableCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import useOrderBy from "../../../hooks/useOrderBy";

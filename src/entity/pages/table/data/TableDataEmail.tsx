@@ -3,7 +3,7 @@ import _ from "lodash";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import EntityUtils from "../../../helpers/EntityUtils";
-import {Link} from "@material-ui/core";
+import {Link} from "@mui/material";
 import UrlActionUtils from "../../../../helpers/UrlActionUtils";
 import {EMAIL_REGEX} from "../../../../constants/regex";
 import NotificationManager from "../../../../components/notifications/NotificationManager";

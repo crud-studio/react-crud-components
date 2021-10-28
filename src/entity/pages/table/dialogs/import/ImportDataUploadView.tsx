@@ -4,7 +4,7 @@ import {PartialDeep} from "type-fest";
 import {useUpdateEffect} from "react-use";
 import _ from "lodash";
 import {AbstractJpaRO, useCrudCreateMany} from "@crud-studio/react-crud-core";
-import {Button, DialogActions, DialogContent} from "@material-ui/core";
+import {Button, DialogActions, DialogContent} from "@mui/material";
 import {Entity} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";

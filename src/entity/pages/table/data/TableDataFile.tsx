@@ -3,7 +3,7 @@ import _ from "lodash";
 import {AbstractJpaRO, MinimalMediaFileRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import EntityUtils from "../../../helpers/EntityUtils";
-import {Link, Portal} from "@material-ui/core";
+import {Link, Portal} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileViewerDialog";

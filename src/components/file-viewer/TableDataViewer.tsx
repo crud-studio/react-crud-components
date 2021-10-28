@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useMemo} from "react";
 import _ from "lodash";
-import {Box, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@material-ui/core";
+import {Box, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 
 interface IProps {

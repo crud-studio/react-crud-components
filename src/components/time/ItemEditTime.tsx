@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 import _ from "lodash";
-import {Tooltip, Typography} from "@material-ui/core";
-import {DoneOutlined, EditOutlined, PendingOutlined, SaveAltOutlined} from "@material-ui/icons";
+import {Tooltip, Typography} from "@mui/material";
+import {DoneOutlined, EditOutlined, PendingOutlined, SaveAltOutlined} from "@mui/icons-material";
 import {FormattedMessage} from "react-intl";
 import FormattedRelativeTimeNow from "./FormattedRelativeTimeNow";
 import {findValues} from "@crud-studio/react-crud-core";

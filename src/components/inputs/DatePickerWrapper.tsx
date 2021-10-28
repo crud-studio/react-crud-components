@@ -1,7 +1,7 @@
 import React, {FunctionComponent, ReactNode, Ref, useCallback, useState} from "react";
 import {useUpdateEffect} from "react-use";
-import {TextField} from "@material-ui/core";
-import {DatePicker} from "@material-ui/lab";
+import {TextField} from "@mui/material";
+import {DatePicker} from "@mui/lab";
 import {useIntl} from "react-intl";
 
 interface IProps {

@@ -19,23 +19,23 @@ cd ../../node_modules/react-router-dom
 yarn link
 cd ../../node_modules/react-router
 yarn link
-cd ../../node_modules/@material-ui/core
+cd ../../node_modules/@mui/core
 yarn link
-cd ../../../node_modules/@material-ui/lab
+cd ../../../node_modules/@mui/lab
 yarn link
-cd ../../../node_modules/@material-ui/icons
+cd ../../../node_modules/@mui/icons-material
 yarn link
-cd ../../../node_modules/@material-ui/private-theming
+cd ../../../node_modules/@mui/private-theming
 yarn link
-cd ../../../node_modules/@material-ui/styled-engine
+cd ../../../node_modules/@mui/styled-engine
 yarn link
-cd ../../../node_modules/@material-ui/system
+cd ../../../node_modules/@mui/system
 yarn link
-cd ../../../node_modules/@material-ui/types
+cd ../../../node_modules/@mui/types
 yarn link
-cd ../../../node_modules/@material-ui/unstyled
+cd ../../../node_modules/@mui/material
 yarn link
-cd ../../../node_modules/@material-ui/utils
+cd ../../../node_modules/@mui/utils
 yarn link
 cd ../../../
 
@@ -50,13 +50,13 @@ yarn link react-hook-form
 yarn link react-intl
 yarn link react-router-dom
 yarn link react-router
-yarn link @material-ui/core
-yarn link @material-ui/lab
-yarn link @material-ui/icons
-yarn link @material-ui/private-theming
-yarn link @material-ui/styled-engine
-yarn link @material-ui/system
-yarn link @material-ui/types
-yarn link @material-ui/unstyled
-yarn link @material-ui/utils
+yarn link @mui/core
+yarn link @mui/lab
+yarn link @mui/icons-material
+yarn link @mui/private-theming
+yarn link @mui/styled-engine
+yarn link @mui/system
+yarn link @mui/types
+yarn link @mui/material
+yarn link @mui/utils
 

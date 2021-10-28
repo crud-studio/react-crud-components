@@ -1,9 +1,9 @@
 import React, {FunctionComponent, useCallback, useMemo, useState} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {CircularProgress, IconButton, InputAdornment, TextField} from "@material-ui/core";
+import {CircularProgress, IconButton, InputAdornment, TextField} from "@mui/material";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {FormattedMessage, useIntl} from "react-intl";
-import {Clear, RemoveRedEye, Upload} from "@material-ui/icons";
+import {Clear, RemoveRedEye, Upload} from "@mui/icons-material";
 import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
 import {MediaFileAclMode, MinimalMediaFileRO, useMediaFileUpload} from "@crud-studio/react-crud-core";
 import {useUpdateEffect} from "react-use";

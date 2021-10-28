@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Divider, ListItemIcon, ListItemText, MenuItem} from "@material-ui/core";
+import {Divider, ListItemIcon, ListItemText, MenuItem} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 import {MenuAction} from "../../models/internal";
 

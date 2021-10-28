@@ -1,7 +1,7 @@
 import React from "react";
 import {FormattedMessage} from "react-intl";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Dialog} from "@material-ui/core";
+import {Dialog} from "@mui/material";
 import {Entity, EntityComponentActionConfigMany} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import useModals from "../../../../managers/modals/hooks/useModals";

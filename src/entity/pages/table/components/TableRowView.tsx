@@ -1,11 +1,11 @@
 import React from "react";
 import TableData from "../data/TableData";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Checkbox, TableCell, TableRow, Typography} from "@material-ui/core";
+import {Checkbox, TableCell, TableRow, Typography} from "@mui/material";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import _ from "lodash";
 import {EntityColumn} from "../../../../models/entity";
-import {alpha} from "@material-ui/core/styles";
+import {alpha} from "@mui/material/styles";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   columns: EntityColumn[];

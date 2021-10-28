@@ -3,7 +3,7 @@ import FileViewer from "./FileViewer";
 import _ from "lodash";
 import {MinimalMediaFileRO, useMediaFileDownload} from "@crud-studio/react-crud-core";
 import {FormattedMessage} from "react-intl";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Typography} from "@mui/material";
 import LoadingCenter from "../common/LoadingCenter";
 
 interface IProps {

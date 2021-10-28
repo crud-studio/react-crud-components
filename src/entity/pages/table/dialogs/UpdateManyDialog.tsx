@@ -5,7 +5,7 @@ import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {PartialDeep} from "type-fest";
 import {AbstractJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
-import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent, Stack} from "@material-ui/core";
+import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent, Stack} from "@mui/material";
 import {Entity, EntityColumn} from "../../../../models/entity";
 import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
@@ -15,7 +15,7 @@ import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponen
 import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
-import {LoadingButton} from "@material-ui/lab";
+import {LoadingButton} from "@mui/lab";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;

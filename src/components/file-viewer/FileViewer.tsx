@@ -8,7 +8,7 @@ import UnsupportedViewer from "./drivers/UnsupportedViewer";
 import PDFViewer from "./drivers/PdfViewer";
 import {useMeasure} from "react-use";
 import {IPropsFileViewerDriver} from "../../models/props";
-import {Box} from "@material-ui/core";
+import {Box} from "@mui/material";
 
 interface IProps {
   fileType?: string;

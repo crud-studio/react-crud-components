@@ -15,7 +15,7 @@ import {
   SaveOutlined,
   SendOutlined,
   ShareOutlined,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 
 export const ActionSend: MenuAction = {
   id: "send",

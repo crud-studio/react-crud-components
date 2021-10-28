@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from "react";
 import {IPropsFileViewerDriver} from "../../../models/props";
 import {FormattedMessage} from "react-intl";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Typography} from "@mui/material";
 
 const UnsupportedViewer: FunctionComponent<IPropsFileViewerDriver> = ({fileType}) => (
   <Box sx={{textAlign: "center"}}>

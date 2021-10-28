@@ -3,7 +3,7 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Entity, EntityComponentSummaryConfig, EntityGenericSummaryConfig} from "../../../../models/entity";
 import EntityClientUtils from "../../../helpers/EntityClientUtils";
 import EntitySummaryGeneric from "./EntitySummaryGeneric";
-import {Box} from "@material-ui/core";
+import {Box} from "@mui/material";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   summaryConfig: EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>;

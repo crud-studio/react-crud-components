@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useCallback, useState} from "react";
 import {FormattedMessage} from "react-intl";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Typography} from "@mui/material";
 import {IPropsFileViewerDriver} from "../../../models/props";
 
 const AudioViewer: FunctionComponent<IPropsFileViewerDriver> = ({fileType, fileData}) => {

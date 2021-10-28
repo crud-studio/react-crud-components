@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {FormattedMessage} from "react-intl";
-import {Box, Typography} from "@material-ui/core";
+import {Box, Typography} from "@mui/material";
 import {MenuAction} from "../../../models/internal";
 import ItemEditTime from "../../../components/time/ItemEditTime";
 import ActionsDropdownMenu from "../../../components/menus/ActionsDropdownMenu";

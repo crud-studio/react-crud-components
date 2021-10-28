@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useCallback} from "react";
 import {FileRejection} from "react-dropzone";
 import _ from "lodash";
-import {DialogContent, Link} from "@material-ui/core";
+import {DialogContent, Link} from "@mui/material";
 import {FormattedMessage, useIntl} from "react-intl";
 import NotificationManager from "../../../../../components/notifications/NotificationManager";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";

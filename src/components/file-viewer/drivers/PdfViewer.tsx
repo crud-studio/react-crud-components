@@ -5,7 +5,7 @@ import useModals from "../../../managers/modals/hooks/useModals";
 import {IPropsFileViewerDriver} from "../../../models/props";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {FormattedMessage, useIntl} from "react-intl";
-import {Box, Pagination, Typography} from "@material-ui/core";
+import {Box, Pagination, Typography} from "@mui/material";
 import PasswordDialog from "../../dialogs/PasswordDialog";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;

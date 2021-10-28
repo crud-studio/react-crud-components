@@ -17,8 +17,8 @@ import {
   useCrudSearch,
   useUrlState,
 } from "@crud-studio/react-crud-core";
-import {Box, Card, Menu, Table, TableBody, TableContainer} from "@material-ui/core";
-import {PopoverPosition} from "@material-ui/core/Popover/Popover";
+import {Box, Card, Menu, Table, TableBody, TableContainer} from "@mui/material";
+import {PopoverPosition} from "@mui/material/Popover/Popover";
 import {Entity, EntityColumn} from "../../../models/entity";
 import {DIGITS_REGEX} from "../../../constants/regex";
 import MenuActionItems from "../../../components/menus/MenuActionItems";

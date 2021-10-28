@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Box, CircularProgress} from "@material-ui/core";
+import {Box, CircularProgress} from "@mui/material";
 
 const LoadingCenter: FunctionComponent = () => {
   return (

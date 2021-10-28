@@ -4,7 +4,7 @@ import _ from "lodash";
 import {FormProvider, useForm} from "react-hook-form";
 import {useUpdateEffect} from "react-use";
 import {AbstractJpaRO} from "@crud-studio/react-crud-core";
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, Stack} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, Stack} from "@mui/material";
 import {Entity, EntityGenericActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import EntityUtils from "../../../helpers/EntityUtils";
@@ -13,7 +13,7 @@ import useCustomActionRequest from "../api/useCustomActionRequest";
 import {v4 as uuidv4} from "uuid";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
-import {LoadingButton} from "@material-ui/lab";
+import {LoadingButton} from "@mui/lab";
 import {useNavigate} from "react-router-dom";
 
 interface IProps<EntityRO extends AbstractJpaRO> {

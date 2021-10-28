@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useCallback, useState} from "react";
 import NotificationManager from "./NotificationManager";
-import {Alert, Snackbar} from "@material-ui/core";
+import {Alert, Snackbar} from "@mui/material";
 import _ from "lodash";
 import {useEffectOnce, useUpdateEffect} from "react-use";
 import {NotificationInfo} from "../../models/internal";

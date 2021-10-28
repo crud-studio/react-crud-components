@@ -2,7 +2,7 @@ import React, {FunctionComponent} from "react";
 import {FormattedMessage} from "react-intl";
 import {useUpdateEffect} from "react-use";
 import {MinimalMediaFileRO} from "@crud-studio/react-crud-core";
-import {Button, Dialog, DialogActions, DialogContent} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent} from "@mui/material";
 import MediaFileViewer from "./MediaFileViewer";
 import useModals from "../../managers/modals/hooks/useModals";
 import DialogTitleEnhanced from "../dialogs/DialogTitleEnhanced";

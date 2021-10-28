@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
-import {Box, FormHelperText} from "@material-ui/core";
-import {ErrorOutlined} from "@material-ui/icons";
+import {Box, FormHelperText} from "@mui/material";
+import {ErrorOutlined} from "@mui/icons-material";
 
 interface IProps {
   error?: string;

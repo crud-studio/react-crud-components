@@ -1,6 +1,6 @@
 import {FunctionComponent, memo} from "react";
 import React from "react";
-import {TableCell, TableHead, TableRow} from "@material-ui/core";
+import {TableCell, TableHead, TableRow} from "@mui/material";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import {FormattedMessage} from "react-intl";
