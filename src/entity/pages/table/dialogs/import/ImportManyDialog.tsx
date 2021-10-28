@@ -11,10 +11,11 @@ import {Dialog} from "@mui/material";
 import ImportFileUpload from "./ImportFileUpload";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
-import NotificationManager from "../../../../../components/notifications/NotificationManager";
 import useGrants from "../../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../../hooks/useEntity";
 import useModals from "../../../../../managers/modals/hooks/useModals";
+import {useSnackbar} from "notistack";
+import {getFilesRejectedMessageKey} from "../../../../../helpers/FileUtils";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;
@@ -32,6 +33,7 @@ const ImportManyDialog = <EntityRO extends AbstractJpaRO>({
   const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {parseColumnValue, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
+  const {enqueueSnackbar} = useSnackbar();
 
   const [entityColumns] = useState<EntityColumn[]>(
     entity.columns.filter(
@@ -106,7 +108,7 @@ const ImportManyDialog = <EntityRO extends AbstractJpaRO>({
   };
 
   const showNoItemsNotification = () => {
-    NotificationManager.warning(<FormattedMessage id="pages.no-items-to-import" />);
+    enqueueSnackbar(<FormattedMessage id="pages.no-items-to-import" />, {variant: "warning"});
   };
 
   const onUploadSuccess = (items: EntityRO[]) => {

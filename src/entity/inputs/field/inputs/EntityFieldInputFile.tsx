@@ -11,8 +11,8 @@ import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileV
 import useModals from "../../../../managers/modals/hooks/useModals";
 import _ from "lodash";
 import {EntityFieldParametersFile} from "../../../../models/entity";
-import NotificationManager from "../../../../components/notifications/NotificationManager";
 import {getFilesRejectedMessageKey} from "../../../../helpers/FileUtils";
+import {useSnackbar} from "notistack";
 
 const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -26,6 +26,7 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
 
   const intl = useIntl();
   const methods = useFormContext();
+  const {enqueueSnackbar} = useSnackbar();
 
   const [value, setValue] = useState<MinimalMediaFileRO | undefined>(defaultValue || undefined);
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -68,7 +69,7 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
     }
     if (!_.isEmpty(fileRejections)) {
       fileRejections.forEach((fileRejection) =>
-        NotificationManager.error(<FormattedMessage id={getFilesRejectedMessageKey(fileRejection)} />)
+        enqueueSnackbar(<FormattedMessage id={getFilesRejectedMessageKey(fileRejection)} />, {variant: "error"})
       );
     }
   }, []);

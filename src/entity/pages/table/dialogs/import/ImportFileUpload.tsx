@@ -3,12 +3,12 @@ import {FileRejection} from "react-dropzone";
 import _ from "lodash";
 import {DialogContent, Link} from "@mui/material";
 import {FormattedMessage, useIntl} from "react-intl";
-import NotificationManager from "../../../../../components/notifications/NotificationManager";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
 import FileDropzone from "../../../../../components/inputs/FileDropzone";
 import {getFilesRejectedMessageKey} from "../../../../../helpers/FileUtils";
 import XLSX, {WorkBook, WorkSheet} from "xlsx";
+import {useSnackbar} from "notistack";
 
 interface IProps {
   onFileSelected?: (data: any[]) => void;
@@ -16,9 +16,10 @@ interface IProps {
 
 const ImportFileUpload: FunctionComponent<IProps> = ({onFileSelected}) => {
   const intl = useIntl();
+  const {enqueueSnackbar} = useSnackbar();
 
   const onFilesRejected = useCallback((fileRejections?: FileRejection[]): void => {
-    NotificationManager.warning(<FormattedMessage id={getFilesRejectedMessageKey(fileRejections)} />);
+    enqueueSnackbar(<FormattedMessage id={getFilesRejectedMessageKey(fileRejections)} />, {variant: "warning"});
   }, []);
 
   const onFilesAccepted = useCallback(

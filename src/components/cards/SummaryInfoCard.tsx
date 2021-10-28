@@ -5,6 +5,7 @@ import {SxProps} from "@mui/system";
 import {Theme} from "@mui/material/styles";
 import {CopyToClipboard} from "../../helpers/ClipboardUtils";
 import {useCallbackRef} from "../../hooks/useCallbackRef";
+import {useSnackbar} from "notistack";
 
 interface IProps {
   info: {labelKey: string; value: ReactNode}[];
@@ -26,12 +27,17 @@ const SummaryInfoCard: FunctionComponent<IProps> = ({info, sx}) => {
 export default SummaryInfoCard;
 
 const SummaryInfoValue: FunctionComponent<{labelKey: string; value: ReactNode}> = ({labelKey, value}) => {
+  const {enqueueSnackbar} = useSnackbar();
+
   const [valueText, setValueText] = useState<string>("");
 
   const valueRef = useCallbackRef<HTMLElement>(null, (current) => setValueText(current?.innerText || ""));
 
   const onValueClick = useCallback(() => {
-    CopyToClipboard.text(valueText);
+    CopyToClipboard.text(valueText, {
+      onSuccess: () => enqueueSnackbar(<FormattedMessage id="pages.copy-to-clipboard-success" />, {variant: "success"}),
+      onFailure: () => enqueueSnackbar(<FormattedMessage id="pages.copy-to-clipboard-failed" />, {variant: "error"}),
+    });
   }, [valueText]);
 
   return (

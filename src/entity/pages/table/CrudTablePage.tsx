@@ -13,7 +13,6 @@ import {
   EntityPredefinedValue,
 } from "../../../models/entity";
 import {MenuAction} from "../../../models/internal";
-import NotificationManager from "../../../components/notifications/NotificationManager";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {ActionCreate, ActionDelete, ActionImport, ActionOpenNewTab, ActionUpdate} from "../../../data/menuActions";
 import useHasEntityActionType from "../../hooks/useHasEntityActionType";
@@ -24,6 +23,7 @@ import useGrants from "../../../managers/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
 import useModals from "../../../managers/modals/hooks/useModals";
 import {useNavigate} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
@@ -41,6 +41,7 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
   const {tableRowHeight, getEntityCreateUrl, getEntityDetailsUrl, getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
   const navigate = useNavigate();
+  const {enqueueSnackbar} = useSnackbar();
 
   const {showModal, getModalKey} = useModals();
   const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));
@@ -136,7 +137,7 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
 
   const actionsHandler = (selectedItems: EntityRO[], actionId: string): void => {
     if (!selectedItems || !selectedItems.length) {
-      NotificationManager.info(<FormattedMessage id="pages.no-selected-items" />);
+      enqueueSnackbar(<FormattedMessage id="pages.no-selected-items" />, {variant: "info"});
       return;
     }
     setSelectedItems(selectedItems);
@@ -191,9 +192,9 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
     }
     if (deleteState?.failed?.length) {
       if (deleteState?.successful?.length) {
-        NotificationManager.warning(<FormattedMessage id="pages.some-items-failed-to-delete" />);
+        enqueueSnackbar(<FormattedMessage id="pages.some-items-failed-to-delete" />, {variant: "warning"});
       } else {
-        NotificationManager.warning(<FormattedMessage id="pages.all-items-failed-to-delete" />);
+        enqueueSnackbar(<FormattedMessage id="pages.all-items-failed-to-delete" />, {variant: "warning"});
       }
     }
   }, [deleteState.successful, deleteState.failed]);

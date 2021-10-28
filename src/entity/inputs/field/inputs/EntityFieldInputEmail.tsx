@@ -1,12 +1,12 @@
 import React, {FunctionComponent, useCallback} from "react";
 import {Controller, useFormContext} from "react-hook-form";
-import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
+import {IconButton, InputAdornment, TextField} from "@mui/material";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {FormattedMessage, useIntl} from "react-intl";
 import {EMAIL_REGEX} from "../../../../constants/regex";
-import {ForwardToInbox, OpenInNewOutlined} from "@mui/icons-material";
-import NotificationManager from "../../../../components/notifications/NotificationManager";
+import {ForwardToInbox} from "@mui/icons-material";
 import UrlActionUtils from "../../../../helpers/UrlActionUtils";
+import {useSnackbar} from "notistack";
 
 const EntityFieldInputEmail: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -17,11 +17,12 @@ const EntityFieldInputEmail: FunctionComponent<IPropsEntityColumnInputType> = ({
 }) => {
   const intl = useIntl();
   const methods = useFormContext();
+  const {enqueueSnackbar} = useSnackbar();
 
   const sendEmail = useCallback((): void => {
     const email = methods.getValues<string>(name);
     if (!email || !EMAIL_REGEX.test(email)) {
-      NotificationManager.warning(<FormattedMessage id="pages.email-invalid" />);
+      enqueueSnackbar(<FormattedMessage id="pages.email-invalid" />, {variant: "warning"});
       return;
     }
 

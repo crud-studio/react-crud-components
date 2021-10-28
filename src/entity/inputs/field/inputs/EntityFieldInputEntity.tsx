@@ -8,8 +8,8 @@ import {OpenInNewOutlined} from "@mui/icons-material";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {Entity} from "../../../../models/entity";
-import NotificationManager from "../../../../components/notifications/NotificationManager";
 import useEntity from "../../../hooks/useEntity";
+import {useSnackbar} from "notistack";
 
 const EntityFieldInputEntity: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -20,6 +20,7 @@ const EntityFieldInputEntity: FunctionComponent<IPropsEntityColumnInputType> = (
 }) => {
   const intl = useIntl();
   const methods = useFormContext();
+  const {enqueueSnackbar} = useSnackbar();
   const {getEntity, getEntityDetailsUrl} = useEntity();
 
   const [entity] = useState<Entity<any>>(getEntity(entityField.subtype));
@@ -50,7 +51,7 @@ const EntityFieldInputEntity: FunctionComponent<IPropsEntityColumnInputType> = (
     if (value) {
       window.open(getEntityDetailsUrl(entity, value));
     } else {
-      NotificationManager.warning(<FormattedMessage id="pages.no-item-is-selected" />);
+      enqueueSnackbar(<FormattedMessage id="pages.no-item-is-selected" />, {variant: "warning"});
     }
   }, [value, entity]);
 

@@ -7,7 +7,6 @@ import {PartialDeep} from "type-fest";
 import {AbstractJpaRO, useCrudUpdateMany} from "@crud-studio/react-crud-core";
 import {Box, Button, Checkbox, Dialog, DialogActions, DialogContent, Stack} from "@mui/material";
 import {Entity, EntityColumn} from "../../../../models/entity";
-import NotificationManager from "../../../../components/notifications/NotificationManager";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
@@ -16,6 +15,7 @@ import useGrants from "../../../../managers/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 import useModals from "../../../../managers/modals/hooks/useModals";
 import {LoadingButton} from "@mui/lab";
+import {useSnackbar} from "notistack";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;
@@ -33,6 +33,7 @@ const UpdateManyDialog = <EntityRO extends AbstractJpaRO>({
   const {isModalOpen, hideModal, hideModalWrapper} = useModals();
   const {getColumnGrant} = useEntity();
   const {hasGrant} = useGrants();
+  const {enqueueSnackbar} = useSnackbar();
 
   const methods = useForm();
 
@@ -108,9 +109,9 @@ const UpdateManyDialog = <EntityRO extends AbstractJpaRO>({
     }
     if (updateState?.failed?.length) {
       if (updateState?.successful?.length) {
-        NotificationManager.warning(<FormattedMessage id="pages.some-items-failed-to-update" />);
+        enqueueSnackbar(<FormattedMessage id="pages.some-items-failed-to-update" />, {variant: "warning"});
       } else {
-        NotificationManager.warning(<FormattedMessage id="pages.all-items-failed-to-update" />);
+        enqueueSnackbar(<FormattedMessage id="pages.all-items-failed-to-update" />, {variant: "warning"});
       }
     }
   }, [updateState.successful, updateState.failed]);

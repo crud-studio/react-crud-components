@@ -13,8 +13,6 @@ import DialogContentSubTitle from "./components/common/DialogContentSubTitle";
 import DialogContentTitle from "./components/common/DialogContentTitle";
 import ConditionalLink from "./components/common/ConditionalLink";
 import LoadingCenter from "./components/common/LoadingCenter";
-import NotificationContainer from "./components/notifications/NotificationContainer";
-import NotificationManager from "./components/notifications/NotificationManager";
 import {CopyToClipboard} from "./helpers/ClipboardUtils";
 import componentLoader from "./helpers/ComponentLoader";
 import MenuActionItems from "./components/menus/MenuActionItems";
@@ -45,7 +43,6 @@ export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCente
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
-export {NotificationContainer, NotificationManager};
 export {TabPanel, VirtualTable};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 

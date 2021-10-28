@@ -6,10 +6,12 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import {Link} from "@mui/material";
 import UrlActionUtils from "../../../../helpers/UrlActionUtils";
 import {EMAIL_REGEX} from "../../../../constants/regex";
-import NotificationManager from "../../../../components/notifications/NotificationManager";
 import {FormattedMessage} from "react-intl";
+import {useSnackbar} from "notistack";
 
 const TableDataEmail = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
+  const {enqueueSnackbar} = useSnackbar();
+
   const [data] = useState<any>(_.get(item, EntityUtils.getColumnDisplayFieldName(column)));
 
   const sendEmail = useCallback(
@@ -17,7 +19,7 @@ const TableDataEmail = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEn
       e.stopPropagation();
 
       if (!data || !EMAIL_REGEX.test(data)) {
-        NotificationManager.warning(<FormattedMessage id="pages.email-invalid" />);
+        enqueueSnackbar(<FormattedMessage id="pages.email-invalid" />, {variant: "warning"});
         return;
       }
 
