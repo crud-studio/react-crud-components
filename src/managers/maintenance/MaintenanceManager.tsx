@@ -5,7 +5,7 @@ import useNetworkStatus from "./hooks/useNetworkStatus";
 import useSystemStatus from "./hooks/useSystemStatus";
 import NetworkDialog from "./dialogs/NetworkDialog";
 import MaintenanceDialog from "./dialogs/MaintenanceDialog";
-import useModals from "../modals/hooks/useModals";
+import useModals from "../../contexts/modals/hooks/useModals";
 
 interface IProps {
   networkStatusUrl: string;

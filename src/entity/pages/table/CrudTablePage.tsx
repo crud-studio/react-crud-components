@@ -19,9 +19,9 @@ import useHasEntityActionType from "../../hooks/useHasEntityActionType";
 import EntityComponentActionManyDialog from "./dialogs/EntityComponentActionManyDialog";
 import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDialog";
 import EntityClientUtils from "../../helpers/EntityClientUtils";
-import useGrants from "../../../managers/grants/hooks/useGrants";
+import useGrants from "../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
-import useModals from "../../../managers/modals/hooks/useModals";
+import useModals from "../../../contexts/modals/hooks/useModals";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 

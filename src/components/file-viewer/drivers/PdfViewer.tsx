@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useCallback, useRef, useState} from "react";
 import {Document, Page, pdfjs} from "react-pdf";
 import _ from "lodash";
-import useModals from "../../../managers/modals/hooks/useModals";
+import useModals from "../../../contexts/modals/hooks/useModals";
 import {IPropsFileViewerDriver} from "../../../models/props";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {FormattedMessage, useIntl} from "react-intl";

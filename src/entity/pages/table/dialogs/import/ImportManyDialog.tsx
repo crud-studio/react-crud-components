@@ -11,11 +11,10 @@ import {Dialog} from "@mui/material";
 import ImportFileUpload from "./ImportFileUpload";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
-import useGrants from "../../../../../managers/grants/hooks/useGrants";
+import useGrants from "../../../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../../../hooks/useEntity";
-import useModals from "../../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../../contexts/modals/hooks/useModals";
 import {useSnackbar} from "notistack";
-import {getFilesRejectedMessageKey} from "../../../../../helpers/FileUtils";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   modalId: string;

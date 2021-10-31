@@ -5,7 +5,7 @@ import {IPropsEntityColumnData} from "../../../../models/props";
 import EntityUtils from "../../../helpers/EntityUtils";
 import {Link, Portal} from "@mui/material";
 import {FormattedMessage} from "react-intl";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileViewerDialog";
 import PropagationStopper from "../../../../components/common/PropagationStopper";
 

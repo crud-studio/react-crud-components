@@ -4,7 +4,7 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@mui/material";
 import {Entity, EntityComponentActionConfigMany} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 
 interface IProps<EntityRO> {
   modalId: string;

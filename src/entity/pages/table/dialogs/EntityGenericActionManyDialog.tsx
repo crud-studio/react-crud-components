@@ -10,7 +10,7 @@ import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhan
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../../details/api/useCustomActionRequest";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 import {LoadingButton} from "@mui/lab";
 
 interface IProps<EntityRO extends AbstractJpaRO> {

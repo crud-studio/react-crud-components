@@ -2,7 +2,7 @@ import {useCallback, useState} from "react";
 import {useUpdateEffect} from "react-use";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
-import useGrants from "../../managers/grants/hooks/useGrants";
+import useGrants from "../../contexts/grants/hooks/useGrants";
 import useEntity from "./useEntity";
 
 const useSearchFilterFields = (entity: Entity<any>, search: string | undefined): FilterField[] => {

@@ -11,9 +11,9 @@ import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhan
 import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
-import useGrants from "../../../../managers/grants/hooks/useGrants";
+import useGrants from "../../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 import {LoadingButton} from "@mui/lab";
 import {useSnackbar} from "notistack";
 

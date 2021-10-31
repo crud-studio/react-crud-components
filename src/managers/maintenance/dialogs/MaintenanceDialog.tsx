@@ -2,7 +2,7 @@ import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@mui/material";
 import DialogTitleEnhanced from "../../../components/dialogs/DialogTitleEnhanced";
-import useModals from "../../modals/hooks/useModals";
+import useModals from "../../../contexts/modals/hooks/useModals";
 
 interface IProps {
   modalId: string;

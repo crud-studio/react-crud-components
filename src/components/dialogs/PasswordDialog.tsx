@@ -4,7 +4,7 @@ import {useUpdateEffect} from "react-use";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import {FormattedMessage, useIntl} from "react-intl";
-import useModals from "../../managers/modals/hooks/useModals";
+import useModals from "../../contexts/modals/hooks/useModals";
 
 interface IProps {
   modalId: string;

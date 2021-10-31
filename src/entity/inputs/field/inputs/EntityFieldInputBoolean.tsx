@@ -29,7 +29,7 @@ const EntityFieldInputBoolean: FunctionComponent<IPropsEntityColumnInputType> = 
               field?.onChange(e);
               onValueChanged(e);
             }}
-            value={field.value}
+            value={field?.value}
             disabled={disabled}
             innerRef={field?.ref}
           />

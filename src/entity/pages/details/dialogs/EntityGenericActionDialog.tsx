@@ -12,7 +12,7 @@ import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../api/useCustomActionRequest";
 import {v4 as uuidv4} from "uuid";
 import useEntity from "../../../hooks/useEntity";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 import {LoadingButton} from "@mui/lab";
 import {useNavigate} from "react-router-dom";
 

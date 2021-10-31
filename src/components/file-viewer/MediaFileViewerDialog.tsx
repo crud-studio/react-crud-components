@@ -4,7 +4,7 @@ import {useUpdateEffect} from "react-use";
 import {MinimalMediaFileRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent} from "@mui/material";
 import MediaFileViewer from "./MediaFileViewer";
-import useModals from "../../managers/modals/hooks/useModals";
+import useModals from "../../contexts/modals/hooks/useModals";
 import DialogTitleEnhanced from "../dialogs/DialogTitleEnhanced";
 
 interface IProps {

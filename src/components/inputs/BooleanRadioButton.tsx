@@ -4,7 +4,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import {FormattedMessage} from "react-intl";
 
 interface IProps {
-  value?: string;
+  value?: string | null;
   onChange?: (value: string | null) => void;
   disabled?: boolean;
   innerRef?: Ref<any>;

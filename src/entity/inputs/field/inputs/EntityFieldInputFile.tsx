@@ -8,7 +8,7 @@ import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
 import {MediaFileAclMode, MinimalMediaFileRO, useMediaFileUpload} from "@crud-studio/react-crud-core";
 import {useUpdateEffect} from "react-use";
 import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileViewerDialog";
-import useModals from "../../../../managers/modals/hooks/useModals";
+import useModals from "../../../../contexts/modals/hooks/useModals";
 import _ from "lodash";
 import {EntityFieldParametersFile} from "../../../../models/entity";
 import {getFilesRejectedMessageKey} from "../../../../helpers/FileUtils";
