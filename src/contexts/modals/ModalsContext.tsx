@@ -11,11 +11,11 @@ export interface IModalsContext {
   hideModalWrapper: (modalId: string) => () => void;
 }
 
-export const ModalsContext = React.createContext<IModalsContext>(undefined!);
+const ModalsContext = React.createContext<IModalsContext>(undefined!);
 
 interface IProps extends PropsWithChildren<any> {}
 
-const ModalManager: FunctionComponent<IProps> = ({children}) => {
+const ModalsProvider: FunctionComponent<IProps> = ({children}) => {
   const [modalOpenIds, setModalOpenIds] = useState<string[]>([]);
   const [modalKeys, setModalKeys] = useState<{[index: string]: string}>({});
   const [hasOpenModal, setHasOpenModal] = useState<boolean>(false);
@@ -103,4 +103,4 @@ const ModalManager: FunctionComponent<IProps> = ({children}) => {
   );
 };
 
-export default ModalManager;
+export {ModalsContext, ModalsProvider};

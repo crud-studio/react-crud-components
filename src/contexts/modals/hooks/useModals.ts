@@ -1,10 +1,10 @@
 import {useContext} from "react";
-import {ModalsContext} from "../ModalManager";
+import {ModalsContext} from "../ModalsContext";
 
 const useModals = () => {
   const context = useContext(ModalsContext);
 
-  if (!context) throw new Error("Modals context must be use inside ModalManager");
+  if (!context) throw new Error("ModalsContext must be use inside ModalsProvider");
 
   return context;
 };

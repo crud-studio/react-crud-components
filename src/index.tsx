@@ -26,17 +26,17 @@ import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
 import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
 import {useScrollSync} from "./hooks/useScrollSync";
-import GrantsManager, {GrantContext} from "./managers/grants/GrantsManager";
-import useHasGrant from "./managers/grants/hooks/useHasGrant";
 import useHasEntityActionType from "./entity/hooks/useHasEntityActionType";
 import InputUtils from "./helpers/InputUtils";
-import useGrants from "./managers/grants/hooks/useGrants";
 import useEntity from "./entity/hooks/useEntity";
-import useModals from "./managers/modals/hooks/useModals";
-import ModalManager, {ModalsContext} from "./managers/modals/ModalManager";
 import VirtualTable from "./components/layouts/VirtualTable";
 import EntityFieldComponent from "./entity/inputs/field/EntityFieldComponent";
 import SummaryInfoCard from "./components/cards/SummaryInfoCard";
+import {GrantsContext, GrantsProvider} from "./contexts/grants/GrantsContext";
+import useGrants from "./contexts/grants/hooks/useGrants";
+import useHasGrant from "./contexts/grants/hooks/useHasGrant";
+import {ModalsContext, ModalsProvider} from "./contexts/modals/ModalsContext";
+import useModals from "./contexts/modals/hooks/useModals";
 
 export {SummaryInfoCard};
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
@@ -45,6 +45,8 @@ export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {TabPanel, VirtualTable};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
+
+export {GrantsProvider, GrantsContext, useGrants, useHasGrant, ModalsProvider, ModalsContext, useModals};
 
 export * from "./models/entity";
 export * from "./models/internal";
@@ -62,17 +64,6 @@ export {
 
 export {CopyToClipboard, componentLoader, InputUtils};
 export {useScroll, useScrollSync};
-
-export {
-  GrantsManager,
-  GrantContext,
-  useGrants,
-  useHasGrant,
-  KeyBindingManager,
-  MaintenanceManager,
-  ModalManager,
-  ModalsContext,
-  useModals,
-};
+export {KeyBindingManager, MaintenanceManager};
 
 export {EMAIL_REGEX, WEBSITE_REGEX, TELEPHONE_PREFIX_REGEX, NO_EMOJIS_REGEX, DIGITS_REGEX};
