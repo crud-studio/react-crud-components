@@ -8,11 +8,11 @@ import {DropEvent, FileRejection, useDropzone} from "react-dropzone";
 import {MediaFileAclMode, MinimalMediaFileRO, useMediaFileUpload} from "@crud-studio/react-crud-core";
 import {useUpdateEffect} from "react-use";
 import MediaFileViewerDialog from "../../../../components/file-viewer/MediaFileViewerDialog";
-import useModals from "../../../../contexts/modals/hooks/useModals";
 import _ from "lodash";
 import {EntityFieldParametersFile} from "../../../../models/entity";
 import {getFilesRejectedMessageKey} from "../../../../helpers/FileUtils";
 import {useSnackbar} from "notistack";
+import NiceModal from "@ebay/nice-modal-react";
 
 const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,
@@ -21,9 +21,6 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
   defaultValue,
   onValueChanged,
 }) => {
-  const {showModal, getModalKey} = useModals();
-  const [viewerModalId] = useState<string>(_.uniqueId("viewer"));
-
   const intl = useIntl();
   const methods = useFormContext();
   const {enqueueSnackbar} = useSnackbar();
@@ -92,70 +89,69 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
 
   const onPreview = useCallback(() => {
     if (value) {
-      showModal(viewerModalId);
+      NiceModal.show(MediaFileViewerDialog, {
+        mediaFile: value,
+      });
     }
   }, [value]);
 
   const inputValue = useMemo<string>(() => value?.name || "", [value]);
 
   return (
-    <>
-      <MediaFileViewerDialog modalId={viewerModalId} mediaFile={value} key={getModalKey(viewerModalId)} />
-      <Controller
-        name={name}
-        rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
-        control={methods.control}
-        defaultValue={inputValue}
-        render={({field}) => {
-          return (
-            <TextField
-              type="text"
-              value={inputValue}
-              disabled={disabled}
-              autoComplete="off"
-              ref={field?.ref}
-              fullWidth
-              label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
-              helperText={extensions}
-              required={entityField.required}
-              inputProps={{...getRootProps()}}
-              InputProps={{
-                readOnly: true,
-                endAdornment: (
-                  <>
-                    <input {...getInputProps()} />
-                    {uploadState.loading && (
-                      <InputAdornment position="end">
-                        <CircularProgress variant="determinate" value={uploadState.progress} size={16} />
-                      </InputAdornment>
-                    )}
-                    {value && (
-                      <InputAdornment position="end">
-                        <IconButton edge="end" disabled={disabled} onClick={onClear}>
-                          <Clear />
-                        </IconButton>
-                      </InputAdornment>
-                    )}
-                    {value && (
-                      <InputAdornment position="end">
-                        <IconButton edge="end" onClick={onPreview}>
-                          <RemoveRedEye />
-                        </IconButton>
-                      </InputAdornment>
-                    )}
+    <Controller
+      name={name}
+      rules={{required: entityField.required ? intl.formatMessage({id: "pages.required-field"}) : false}}
+      control={methods.control}
+      defaultValue={inputValue}
+      render={({field}) => {
+        return (
+          <TextField
+            type="text"
+            value={inputValue}
+            disabled={disabled}
+            autoComplete="off"
+            ref={field?.ref}
+            fullWidth
+            label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
+            helperText={extensions}
+            required={entityField.required}
+            inputProps={{...getRootProps()}}
+            InputProps={{
+              readOnly: true,
+              endAdornment: (
+                <>
+                  <input {...getInputProps()} />
+                  {uploadState.loading && (
                     <InputAdornment position="end">
-                      <IconButton edge="end" disabled={disabled} onClick={onUpload}>
-                        <Upload />
+                      <CircularProgress variant="determinate" value={uploadState.progress} size={16} />
+                    </InputAdornment>
+                  )}
+                  {value && (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" disabled={disabled} onClick={onClear}>
+                        <Clear />
                       </IconButton>
                     </InputAdornment>
-                  </>
-                ),
-              }}
-            />
-          );
-        }}
-      />
-    </>
+                  )}
+                  {value && (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" onClick={onPreview}>
+                        <RemoveRedEye />
+                      </IconButton>
+                    </InputAdornment>
+                  )}
+                  <InputAdornment position="end">
+                    <IconButton edge="end" disabled={disabled} onClick={onUpload}>
+                      <Upload />
+                    </IconButton>
+                  </InputAdornment>
+                </>
+              ),
+            }}
+          />
+        );
+      }}
+    />
   );
 };
 export default EntityFieldInputFile;

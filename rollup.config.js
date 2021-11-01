@@ -16,6 +16,7 @@ export default {
   plugins: [typescript()],
   external: [
     "@crud-studio/react-crud-core",
+    "@ebay/nice-modal-react",
     "@emotion/react",
     "@emotion/styled",
     "@lottiefiles/react-lottie-player",

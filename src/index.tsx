@@ -35,8 +35,6 @@ import SummaryInfoCard from "./components/cards/SummaryInfoCard";
 import {GrantsContext, GrantsProvider} from "./contexts/grants/GrantsContext";
 import useGrants from "./contexts/grants/hooks/useGrants";
 import useHasGrant from "./contexts/grants/hooks/useHasGrant";
-import {ModalsContext, ModalsProvider} from "./contexts/modals/ModalsContext";
-import useModals from "./contexts/modals/hooks/useModals";
 
 export {SummaryInfoCard};
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
@@ -46,7 +44,7 @@ export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {TabPanel, VirtualTable};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 
-export {GrantsProvider, GrantsContext, useGrants, useHasGrant, ModalsProvider, ModalsContext, useModals};
+export {GrantsProvider, GrantsContext, useGrants, useHasGrant};
 
 export * from "./models/entity";
 export * from "./models/internal";

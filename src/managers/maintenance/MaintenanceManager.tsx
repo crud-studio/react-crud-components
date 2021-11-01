@@ -1,11 +1,10 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
-import _ from "lodash";
+import React, {FunctionComponent, useEffect} from "react";
 import {useUpdateEffect} from "react-use";
 import useNetworkStatus from "./hooks/useNetworkStatus";
 import useSystemStatus from "./hooks/useSystemStatus";
 import NetworkDialog from "./dialogs/NetworkDialog";
 import MaintenanceDialog from "./dialogs/MaintenanceDialog";
-import useModals from "../../contexts/modals/hooks/useModals";
+import {useModal} from "@ebay/nice-modal-react";
 
 interface IProps {
   networkStatusUrl: string;
@@ -13,9 +12,8 @@ interface IProps {
 }
 
 const MaintenanceManager: FunctionComponent<IProps> = ({networkStatusUrl, supportEmail}) => {
-  const {showModal, hideModal} = useModals();
-  const [networkModalId] = useState<string>(_.uniqueId("network_"));
-  const [maintenanceModalId] = useState<string>(_.uniqueId("maintenance_"));
+  const networkModal = useModal(NetworkDialog);
+  const maintenanceModal = useModal(MaintenanceDialog);
 
   const networkStatus = useNetworkStatus(networkStatusUrl);
   const systemStatus = useSystemStatus();
@@ -26,10 +24,10 @@ const MaintenanceManager: FunctionComponent<IProps> = ({networkStatusUrl, suppor
     }
 
     if (networkStatus) {
-      hideModal(networkModalId);
+      networkModal.hide();
     } else {
-      showModal(networkModalId);
-      hideModal(maintenanceModalId);
+      networkModal.show({supportEmail: supportEmail});
+      maintenanceModal.hide();
     }
   }, [networkStatus]);
 
@@ -39,17 +37,12 @@ const MaintenanceManager: FunctionComponent<IProps> = ({networkStatusUrl, suppor
     }
 
     if (systemStatus) {
-      hideModal(maintenanceModalId);
+      maintenanceModal.hide();
     } else if (networkStatus) {
-      showModal(maintenanceModalId);
+      maintenanceModal.show({supportEmail: supportEmail});
     }
   }, [networkStatus, systemStatus]);
 
-  return (
-    <>
-      <NetworkDialog modalId={networkModalId} supportEmail={supportEmail} />
-      <MaintenanceDialog modalId={maintenanceModalId} supportEmail={supportEmail} />
-    </>
-  );
+  return null;
 };
 export default MaintenanceManager;

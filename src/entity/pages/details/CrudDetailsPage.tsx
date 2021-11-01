@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, {useCallback, useMemo} from "react";
 import {useUpdateEffect} from "react-use";
 import {AbstractJpaRO, useCrudDelete, useItemDetailsState} from "@crud-studio/react-crud-core";
 import {
@@ -27,10 +27,10 @@ import EntityClientUtils from "../../helpers/EntityClientUtils";
 import EntityUtils from "../../helpers/EntityUtils";
 import useGrants from "../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
-import useModals from "../../../contexts/modals/hooks/useModals";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
 import EntitySummary from "./components/EntitySummary";
+import NiceModal from "@ebay/nice-modal-react";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
@@ -38,11 +38,6 @@ interface IProps<EntityRO extends AbstractJpaRO> {
 }
 
 const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingComponent}: IProps<EntityRO>) => {
-  const {showModal, getModalKey} = useModals();
-  const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
-  const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
-  const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
-
   const {getEntity, getEntityTableUrl, getEntityDetailsUrl} = useEntity();
   const {hasGrant} = useGrants();
   const navigate = useNavigate();
@@ -53,13 +48,6 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
     useItemDetailsState<EntityRO>(entity, entity.client.generateEmptyEntity, (id?: number) =>
       getEntityDetailsUrl(entity, id)
     );
-
-  const [selectedGenericAction, setSelectedGenericAction] = useState<EntityGenericActionConfig<EntityRO> | undefined>(
-    undefined
-  );
-  const [selectedComponentAction, setSelectedComponentAction] = useState<
-    EntityComponentActionConfig<EntityRO> | undefined
-  >(undefined);
 
   const customActions = useMemo<(EntityGenericActionConfig<EntityRO> | EntityComponentActionConfig<EntityRO>)[]>(
     () =>
@@ -85,11 +73,21 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
       const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
         if (EntityClientUtils.isEntityGenericActionConfig(customAction)) {
-          setSelectedGenericAction(customAction);
-          showModal(genericActionModalId);
+          NiceModal.show(EntityGenericActionDialog, {
+            entity: entity,
+            item: item,
+            customAction: customAction,
+            setItem: setItem,
+            refreshItem: refreshItem,
+          });
         } else if (EntityClientUtils.isEntityComponentActionConfig(customAction)) {
-          setSelectedComponentAction(customAction);
-          showModal(componentActionModalId);
+          NiceModal.show(EntityComponentActionDialog, {
+            entity: entity,
+            item: item,
+            customAction: customAction,
+            setItem: setItem,
+            refreshItem: refreshItem,
+          });
         }
       }
     },
@@ -102,7 +100,11 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
         saveItem();
         break;
       case ActionDelete.id:
-        showModal(confirmDeleteModalId);
+        NiceModal.show(ConfirmationDialog, {
+          modalTitleKey: "pages.delete",
+          modalTextKey: "pages.confirm-delete-item",
+          onConfirm: deleteItem,
+        });
         break;
       default:
         customActionHandler(actionId);
@@ -185,36 +187,6 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
   return (
     <>
       <KeyBindingManager actions={actions} actionsHandler={actionsHandler} />
-
-      <ConfirmationDialog
-        modalId={confirmDeleteModalId}
-        modalTitleKey="pages.delete"
-        modalTextKey="pages.confirm-delete-item"
-        onConfirm={deleteItem}
-        key={getModalKey(confirmDeleteModalId)}
-      />
-      {!!selectedGenericAction && item && (
-        <EntityGenericActionDialog
-          modalId={genericActionModalId}
-          entity={entity}
-          item={item}
-          customAction={selectedGenericAction}
-          setItem={setItem}
-          refreshItem={refreshItem}
-          key={getModalKey(genericActionModalId)}
-        />
-      )}
-      {!!selectedComponentAction && item && (
-        <EntityComponentActionDialog
-          modalId={componentActionModalId}
-          entity={entity}
-          item={item}
-          customAction={selectedComponentAction}
-          setItem={setItem}
-          refreshItem={refreshItem}
-          key={getModalKey(genericActionModalId)}
-        />
-      )}
 
       {loading && !!LoadingComponent && <LoadingComponent />}
       {loading && !LoadingComponent && <LoadingCenter />}

@@ -7,6 +7,8 @@ cd ../../../node_modules/axios
 yarn link
 # cd ../../node_modules/axios-hooks
 # yarn link
+cd ../../node_modules/notistack
+yarn link
 cd ../../node_modules/react
 yarn link
 cd ../../node_modules/react-dom
@@ -19,7 +21,9 @@ cd ../../node_modules/react-router-dom
 yarn link
 cd ../../node_modules/react-router
 yarn link
-cd ../../node_modules/@mui/core
+cd ../../node_modules/@ebay/nice-modal-react
+yarn link
+cd ../../../node_modules/@mui/core
 yarn link
 cd ../../../node_modules/@mui/lab
 yarn link
@@ -44,12 +48,14 @@ yarn link @crud-studio/react-crud-components
 yarn link @crud-studio/react-crud-core
 yarn link axios
 # yarn link axios-hooks
+yarn link notistack
 yarn link react
 yarn link react-dom
 yarn link react-hook-form
 yarn link react-intl
 yarn link react-router-dom
 yarn link react-router
+yarn link @ebay/nice-modal-react
 yarn link @mui/core
 yarn link @mui/lab
 yarn link @mui/icons-material

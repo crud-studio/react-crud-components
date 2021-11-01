@@ -2,38 +2,42 @@ import React, {FunctionComponent} from "react";
 import {FormattedMessage} from "react-intl";
 import {useUpdateEffect} from "react-use";
 import {MinimalMediaFileRO} from "@crud-studio/react-crud-core";
-import {Button, Dialog, DialogActions, DialogContent} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, Portal} from "@mui/material";
 import MediaFileViewer from "./MediaFileViewer";
-import useModals from "../../contexts/modals/hooks/useModals";
 import DialogTitleEnhanced from "../dialogs/DialogTitleEnhanced";
+import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import PropagationStopper from "../common/PropagationStopper";
 
-interface IProps {
-  modalId: string;
+export type MediaFileViewerDialogProps = {
   mediaFile?: MinimalMediaFileRO;
-}
+};
 
-const MediaFileViewerDialog: FunctionComponent<IProps> = ({modalId, mediaFile}) => {
-  const {isModalOpen, hideModal, hideModalWrapper} = useModals();
+const MediaFileViewerDialog: FunctionComponent<MediaFileViewerDialogProps> = NiceModal.create(({mediaFile}) => {
+  const modal = useModal();
 
   useUpdateEffect(() => {
-    if (isModalOpen(modalId) && !mediaFile?.uuid) {
-      hideModal(modalId);
+    if (modal.visible && !mediaFile?.uuid) {
+      modal.hide();
     }
   }, [mediaFile]);
 
   return (
-    <Dialog open={isModalOpen(modalId)} onClose={hideModalWrapper(modalId)} fullWidth maxWidth="md">
-      <DialogTitleEnhanced onClose={hideModalWrapper(modalId)}>
-        <FormattedMessage id="pages.preview" />
-        {mediaFile?.name && `: ${mediaFile.name}`}
-      </DialogTitleEnhanced>
-      <DialogContent>{mediaFile && <MediaFileViewer mediaFile={mediaFile} />}</DialogContent>
-      <DialogActions>
-        <Button variant="outlined" color="primary" onClick={hideModalWrapper(modalId)}>
-          <FormattedMessage id="pages.close" />
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <Portal>
+      <PropagationStopper>
+        <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+          <DialogTitleEnhanced onClose={modal.hide}>
+            <FormattedMessage id="pages.preview" />
+            {mediaFile?.name && `: ${mediaFile.name}`}
+          </DialogTitleEnhanced>
+          <DialogContent>{mediaFile && <MediaFileViewer mediaFile={mediaFile} />}</DialogContent>
+          <DialogActions>
+            <Button variant="outlined" color="primary" onClick={modal.hide}>
+              <FormattedMessage id="pages.close" />
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </PropagationStopper>
+    </Portal>
   );
-};
+});
 export default MediaFileViewerDialog;

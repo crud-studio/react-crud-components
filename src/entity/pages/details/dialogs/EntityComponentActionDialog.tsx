@@ -4,41 +4,40 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@mui/material";
 import {Entity, EntityComponentActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
-import useModals from "../../../../contexts/modals/hooks/useModals";
+import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
 
-interface IProps<EntityRO> {
-  modalId: string;
+export type IProps<EntityRO> = {
   entity: Entity<any>;
   item: EntityRO;
   customAction: EntityComponentActionConfig<EntityRO>;
   setItem: (item: EntityRO & {uniqueKey?: string}) => void;
   refreshItem: () => void;
-}
-
-const EntityComponentActionDialog = <EntityRO extends AbstractJpaRO>({
-  modalId,
-  entity,
-  item,
-  customAction,
-  setItem,
-  refreshItem,
-}: IProps<EntityRO>) => {
-  const {isModalOpen, hideModalWrapper} = useModals();
-
-  return (
-    <Dialog open={isModalOpen(modalId)} onClose={hideModalWrapper(modalId)} fullWidth maxWidth="md">
-      <DialogTitleEnhanced onClose={hideModalWrapper(modalId)}>
-        <FormattedMessage id={customAction.menuAction.labelKey} />
-      </DialogTitleEnhanced>
-      <customAction.component
-        entity={entity}
-        item={item}
-        customAction={customAction}
-        setItem={setItem}
-        refreshItem={refreshItem}
-        finishAction={hideModalWrapper(modalId)}
-      />
-    </Dialog>
-  );
 };
+
+const EntityComponentActionDialog = NiceModal.create(
+  <EntityRO extends AbstractJpaRO>({entity, item, customAction, setItem, refreshItem}: IProps<EntityRO>) => {
+    const modal = useModal();
+
+    const finishHandler = (): void => {
+      modal.resolve();
+      modal.hide();
+    };
+
+    return (
+      <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+        <DialogTitleEnhanced onClose={modal.hide}>
+          <FormattedMessage id={customAction.menuAction.labelKey} />
+        </DialogTitleEnhanced>
+        <customAction.component
+          entity={entity}
+          item={item}
+          customAction={customAction}
+          setItem={setItem}
+          refreshItem={refreshItem}
+          finishAction={finishHandler}
+        />
+      </Dialog>
+    );
+  }
+);
 export default EntityComponentActionDialog;

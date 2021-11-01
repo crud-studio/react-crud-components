@@ -21,9 +21,9 @@ import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDial
 import EntityClientUtils from "../../helpers/EntityClientUtils";
 import useGrants from "../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../hooks/useEntity";
-import useModals from "../../../contexts/modals/hooks/useModals";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
+import NiceModal from "@ebay/nice-modal-react";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
@@ -42,13 +42,6 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
   const {hasGrant} = useGrants();
   const navigate = useNavigate();
   const {enqueueSnackbar} = useSnackbar();
-
-  const {showModal, getModalKey} = useModals();
-  const [updateManyModalId] = useState<string>(_.uniqueId("updateMany_"));
-  const [confirmDeleteModalId] = useState<string>(_.uniqueId("confirmDelete_"));
-  const [importManyModalId] = useState<string>(_.uniqueId("importMany_"));
-  const [genericActionModalId] = useState<string>(_.uniqueId("genericAction_"));
-  const [componentActionModalId] = useState<string>(_.uniqueId("componentAction_"));
 
   const hasEntityActionCreate = useHasEntityActionType(entity, "CREATE");
   const hasEntityActionUpdate = useHasEntityActionType(entity, "UPDATE");
@@ -72,7 +65,11 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
         createItem();
         break;
       case ActionImport.id:
-        showModal(importManyModalId);
+        NiceModal.show(ImportManyDialog, {
+          entity: entity,
+          predefinedValues: predefinedValues || [],
+          onImportSuccess: refreshItems,
+        });
         break;
       default:
         console.log("buttonsHandler no handler for - button id: ", buttonId);
@@ -98,13 +95,6 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
       _.some(entity.columns, (column) => column.updatableMany && hasGrant(getColumnGrant(column)))
   );
 
-  const [selectedGenericAction, setSelectedGenericAction] = useState<
-    EntityGenericActionConfigMany<EntityRO> | undefined
-  >(undefined);
-  const [selectedComponentAction, setSelectedComponentAction] = useState<
-    EntityComponentActionConfigMany<EntityRO> | undefined
-  >(undefined);
-
   const customActions = useMemo<
     (EntityGenericActionConfigMany<EntityRO> | EntityComponentActionConfigMany<EntityRO>)[]
   >(() => entity.client.customActionsMany?.filter((customAction) => hasGrant(customAction.grant)) || [], [entity]);
@@ -124,11 +114,19 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
       const customAction = _.find(customActions, (customAction) => customAction.menuAction.id === id);
       if (customAction) {
         if (EntityClientUtils.isEntityGenericActionConfigMany(customAction)) {
-          setSelectedGenericAction(customAction);
-          showModal(genericActionModalId);
+          NiceModal.show(EntityGenericActionManyDialog, {
+            entity: entity,
+            items: selectedItems,
+            customAction: customAction,
+            refreshItems: refreshItems,
+          });
         } else if (EntityClientUtils.isEntityComponentActionConfigMany(customAction)) {
-          setSelectedComponentAction(customAction);
-          showModal(componentActionModalId);
+          NiceModal.show(EntityComponentActionManyDialog, {
+            entity: entity,
+            items: selectedItems,
+            customAction: customAction,
+            refreshItems: refreshItems,
+          });
         }
       }
     },
@@ -144,10 +142,18 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
 
     switch (actionId) {
       case ActionUpdate.id:
-        showModal(updateManyModalId);
+        NiceModal.show(UpdateManyDialog, {
+          entity: entity,
+          items: selectedItems,
+          onUpdateSuccess: refreshItems,
+        });
         break;
       case ActionDelete.id:
-        showModal(confirmDeleteModalId);
+        NiceModal.show(ConfirmationDialog, {
+          modalTitleKey: "pages.delete",
+          modalTextKey: "pages.confirm-delete-selected-items",
+          onConfirm: deleteSelectedItems,
+        });
         break;
       case ActionOpenNewTab.id:
         selectedItems.forEach((selectedItem) => window.open(getEntityDetailsUrl(entity, selectedItem.id)));
@@ -211,63 +217,19 @@ const CrudTablePage = <EntityRO extends AbstractJpaRO>({
   };
 
   return (
-    <>
-      <UpdateManyDialog
-        modalId={updateManyModalId}
-        entity={entity}
-        items={selectedItems}
-        onUpdateSuccess={refreshItems}
-        key={getModalKey(updateManyModalId)}
-      />
-      <ConfirmationDialog
-        modalId={confirmDeleteModalId}
-        modalTitleKey="pages.delete"
-        modalTextKey="pages.confirm-delete-selected-items"
-        onConfirm={deleteSelectedItems}
-        key={getModalKey(confirmDeleteModalId)}
-      />
-      <ImportManyDialog
-        modalId={importManyModalId}
-        entity={entity}
-        predefinedValues={predefinedValues || []}
-        onImportSuccess={refreshItems}
-        key={getModalKey(importManyModalId)}
-      />
-      {!!selectedGenericAction && (
-        <EntityGenericActionManyDialog
-          modalId={genericActionModalId}
-          entity={entity}
-          items={selectedItems}
-          customAction={selectedGenericAction}
-          refreshItems={refreshItems}
-          key={getModalKey(genericActionModalId)}
-        />
-      )}
-      {!!selectedComponentAction && (
-        <EntityComponentActionManyDialog
-          modalId={componentActionModalId}
-          entity={entity}
-          items={selectedItems}
-          customAction={selectedComponentAction}
-          refreshItems={refreshItems}
-          key={getModalKey(genericActionModalId)}
-        />
-      )}
-
-      <TablePage
-        entity={entity}
-        filterFields={filterFields}
-        hiddenColumns={aggregatedHiddenColumns}
-        rowHeight={tableRowHeight}
-        refreshItems={refreshItemsState}
-        compact={compact}
-        buttons={buttons}
-        buttonsHandler={buttonsHandler}
-        actions={actions}
-        actionsHandler={actionsHandler}
-        onClickItem={onClickItem}
-      />
-    </>
+    <TablePage
+      entity={entity}
+      filterFields={filterFields}
+      hiddenColumns={aggregatedHiddenColumns}
+      rowHeight={tableRowHeight}
+      refreshItems={refreshItemsState}
+      compact={compact}
+      buttons={buttons}
+      buttonsHandler={buttonsHandler}
+      actions={actions}
+      actionsHandler={actionsHandler}
+      onClickItem={onClickItem}
+    />
   );
 };
 

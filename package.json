@@ -32,6 +32,7 @@
   },
   "peerDependencies": {
     "@crud-studio/react-crud-core": "^5.0.0",
+    "@ebay/nice-modal-react": "^1.1.1",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@lottiefiles/react-lottie-player": "^3.4.1",
