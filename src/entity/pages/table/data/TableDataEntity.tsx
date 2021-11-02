@@ -29,7 +29,7 @@ const TableDataEntity = <EntityRO extends AbstractJpaRO>({column, item}: IPropsE
   return (
     <>
       {!!data && (
-        <Link color="primary" underline="hover" onClick={openEntityNewTab}>
+        <Link color="primary" underline="hover" noWrap onClick={openEntityNewTab}>
           {data}
         </Link>
       )}

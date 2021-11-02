@@ -31,7 +31,7 @@ const TableDataEmail = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEn
   return (
     <>
       {!!data && (
-        <Link color="primary" underline="hover" onClick={sendEmail}>
+        <Link color="primary" underline="hover" noWrap onClick={sendEmail}>
           {data}
         </Link>
       )}

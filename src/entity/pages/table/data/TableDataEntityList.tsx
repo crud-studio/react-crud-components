@@ -40,7 +40,7 @@ const TableDataEntityList = <EntityRO extends AbstractJpaRO>({column, item}: IPr
   return (
     <>
       {!!data && (
-        <Link color="primary" underline="hover" onClick={openEntityNewTab}>
+        <Link color="primary" underline="hover" noWrap onClick={openEntityNewTab}>
           {data}
         </Link>
       )}

@@ -29,7 +29,7 @@ const TableDataFile = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEnt
   return (
     <>
       {!!data && (
-        <Link color="primary" underline="hover" onClick={previewFile}>
+        <Link color="primary" underline="hover" noWrap onClick={previewFile}>
           {data.name || <FormattedMessage id="pages.preview" />}
         </Link>
       )}
