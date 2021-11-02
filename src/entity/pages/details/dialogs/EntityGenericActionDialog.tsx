@@ -14,7 +14,7 @@ import {v4 as uuidv4} from "uuid";
 import useEntity from "../../../hooks/useEntity";
 import {LoadingButton} from "@mui/lab";
 import {useNavigate} from "react-router-dom";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type EntityGenericActionDialogProps<EntityRO extends AbstractJpaRO> = {
   entity: Entity<any>;
@@ -94,7 +94,15 @@ const EntityGenericActionDialog = NiceModal.create(
     });
 
     return (
-      <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+        fullWidth
+        maxWidth="md"
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id={customAction.menuAction.labelKey} />
         </DialogTitleEnhanced>

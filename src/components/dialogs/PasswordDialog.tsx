@@ -4,7 +4,7 @@ import {useUpdateEffect} from "react-use";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import {FormattedMessage, useIntl} from "react-intl";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type PasswordDialogProps = {
   modalTitleKey: string;
@@ -53,7 +53,13 @@ const PasswordDialog: FunctionComponent<PasswordDialogProps> = NiceModal.create(
     }, [modal.visible]);
 
     return (
-      <Dialog {...muiDialog(modal)}>
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id={modalTitleKey} values={modalTitleValues || {}} />
         </DialogTitleEnhanced>

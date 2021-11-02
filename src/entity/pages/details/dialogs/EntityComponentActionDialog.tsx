@@ -4,7 +4,7 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {Dialog} from "@mui/material";
 import {Entity, EntityComponentActionConfig} from "../../../../models/entity";
 import DialogTitleEnhanced from "../../../../components/dialogs/DialogTitleEnhanced";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type IProps<EntityRO> = {
   entity: Entity<any>;
@@ -24,7 +24,15 @@ const EntityComponentActionDialog = NiceModal.create(
     };
 
     return (
-      <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+        fullWidth
+        maxWidth="md"
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id={customAction.menuAction.labelKey} />
         </DialogTitleEnhanced>

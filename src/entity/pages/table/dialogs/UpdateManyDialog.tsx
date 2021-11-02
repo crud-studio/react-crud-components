@@ -15,7 +15,7 @@ import useGrants from "../../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../../hooks/useEntity";
 import {LoadingButton} from "@mui/lab";
 import {useSnackbar} from "notistack";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type UpdateManyDialogProps<EntityRO extends AbstractJpaRO> = {
   entity: Entity<EntityRO>;
@@ -136,7 +136,15 @@ const UpdateManyDialog = NiceModal.create(
     });
 
     return (
-      <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+        fullWidth
+        maxWidth="md"
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id="pages.update-selected-items" />
           {` (${items.length})`}

@@ -14,7 +14,7 @@ import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEn
 import useGrants from "../../../../../contexts/grants/hooks/useGrants";
 import useEntity from "../../../../hooks/useEntity";
 import {useSnackbar} from "notistack";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type ImportManyDialogProps<EntityRO extends AbstractJpaRO> = {
   entity: Entity<EntityRO>;
@@ -122,7 +122,15 @@ const ImportManyDialog = NiceModal.create(
     };
 
     return (
-      <Dialog {...muiDialog(modal)} fullWidth maxWidth="lg">
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+        fullWidth
+        maxWidth="lg"
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id="pages.import" />
         </DialogTitleEnhanced>

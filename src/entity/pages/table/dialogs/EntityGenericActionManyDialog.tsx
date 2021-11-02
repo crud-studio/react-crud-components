@@ -11,7 +11,7 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../../details/api/useCustomActionRequest";
 import {LoadingButton} from "@mui/lab";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type EntityGenericActionManyDialogProps<EntityRO extends AbstractJpaRO> = {
   entity: Entity<any>;
@@ -82,7 +82,15 @@ const EntityGenericActionManyDialog = NiceModal.create(
     });
 
     return (
-      <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+        fullWidth
+        maxWidth="md"
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id={customAction.menuAction.labelKey} />
         </DialogTitleEnhanced>

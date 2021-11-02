@@ -3,7 +3,7 @@ import React, {FunctionComponent} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type ConfirmationTypingDialogProps = {
   modalTitleKey: string;
@@ -51,7 +51,13 @@ const ConfirmationTypingDialog: FunctionComponent<ConfirmationTypingDialogProps>
 
     return (
       <>
-        <Dialog {...muiDialog(modal)}>
+        <Dialog
+          open={modal.visible}
+          onClose={() => modal.hide()}
+          TransitionProps={{
+            onExited: () => modal.remove(),
+          }}
+        >
           <DialogTitleEnhanced onClose={modal.hide}>
             <FormattedMessage id={modalTitleKey} values={modalTitleValues || {}} />
           </DialogTitleEnhanced>

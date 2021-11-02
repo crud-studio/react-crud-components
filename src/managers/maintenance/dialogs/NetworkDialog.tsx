@@ -2,7 +2,7 @@ import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@mui/material";
 import DialogTitleEnhanced from "../../../components/dialogs/DialogTitleEnhanced";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type NetworkDialogProps = {
   supportEmail: string;
@@ -12,7 +12,13 @@ const NetworkDialog: FunctionComponent<NetworkDialogProps> = NiceModal.create(({
   const modal = useModal();
 
   return (
-    <Dialog {...muiDialog(modal)}>
+    <Dialog
+      open={modal.visible}
+      onClose={() => modal.hide()}
+      TransitionProps={{
+        onExited: () => modal.remove(),
+      }}
+    >
       <DialogTitleEnhanced toggle={modal.hide}>
         <FormattedMessage id="pages.network-connection-error" />
       </DialogTitleEnhanced>

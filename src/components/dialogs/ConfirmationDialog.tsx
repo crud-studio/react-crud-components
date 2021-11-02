@@ -2,7 +2,7 @@ import {FormattedMessage} from "react-intl";
 import React, {FunctionComponent} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@mui/material";
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
 export type ConfirmationDialogProps = {
   modalTitleKey: string;
@@ -32,7 +32,13 @@ const ConfirmationDialog: FunctionComponent<ConfirmationDialogProps> = NiceModal
     };
 
     return (
-      <Dialog {...muiDialog(modal)}>
+      <Dialog
+        open={modal.visible}
+        onClose={() => modal.hide()}
+        TransitionProps={{
+          onExited: () => modal.remove(),
+        }}
+      >
         <DialogTitleEnhanced onClose={modal.hide}>
           <FormattedMessage id={modalTitleKey} values={modalTitleValues || {}} />
         </DialogTitleEnhanced>

@@ -5,7 +5,7 @@ import {MinimalMediaFileRO} from "@crud-studio/react-crud-core";
 import {Button, Dialog, DialogActions, DialogContent, Portal} from "@mui/material";
 import MediaFileViewer from "./MediaFileViewer";
 import DialogTitleEnhanced from "../dialogs/DialogTitleEnhanced";
-import NiceModal, {muiDialog, useModal} from "@ebay/nice-modal-react";
+import NiceModal, {useModal} from "@ebay/nice-modal-react";
 import PropagationStopper from "../common/PropagationStopper";
 
 export type MediaFileViewerDialogProps = {
@@ -24,7 +24,15 @@ const MediaFileViewerDialog: FunctionComponent<MediaFileViewerDialogProps> = Nic
   return (
     <Portal>
       <PropagationStopper>
-        <Dialog {...muiDialog(modal)} fullWidth maxWidth="md">
+        <Dialog
+          open={modal.visible}
+          onClose={() => modal.hide()}
+          TransitionProps={{
+            onExited: () => modal.remove(),
+          }}
+          fullWidth
+          maxWidth="md"
+        >
           <DialogTitleEnhanced onClose={modal.hide}>
             <FormattedMessage id="pages.preview" />
             {mediaFile?.name && `: ${mediaFile.name}`}
