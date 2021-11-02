@@ -8,7 +8,7 @@ import {useCallbackRef} from "../../hooks/useCallbackRef";
 import {useSnackbar} from "notistack";
 
 interface IProps {
-  info: {labelKey: string; value: ReactNode}[];
+  info: {labelKey: string; value: ReactNode; key: string}[];
   sx?: SxProps<Theme>;
 }
 
@@ -16,8 +16,8 @@ const SummaryInfoCard: FunctionComponent<IProps> = ({info, sx}) => {
   return (
     <Card sx={{overflowX: "auto", py: 3, ...sx}}>
       <Stack direction="row" divider={<Divider orientation="vertical" flexItem />}>
-        {info.map((i, index) => (
-          <SummaryInfoValue labelKey={i.labelKey} value={i.value} key={index} />
+        {info.map((i) => (
+          <SummaryInfoValue labelKey={i.labelKey} value={i.value} key={i.key} />
         ))}
       </Stack>
     </Card>
