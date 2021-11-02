@@ -5,7 +5,7 @@ import {FilterField, useDebounceFn, useUrlState} from "@crud-studio/react-crud-c
 import {Entity} from "../../models/entity";
 import EntityUtils from "../helpers/EntityUtils";
 
-export interface IFiltersContext {
+interface IFiltersContext {
   contextFilterFields: FilterField[];
   contextFilterFieldsClearedFlag: number;
   updateContextFilterField: (filterField: FilterField, debounced: boolean) => void;
@@ -13,14 +13,14 @@ export interface IFiltersContext {
   clearContextFilterFields: () => void;
 }
 
-export const FiltersContext = React.createContext<IFiltersContext>(undefined!);
+const FiltersContext = React.createContext<IFiltersContext>(undefined!);
 
 interface IProps extends PropsWithChildren<any> {
   entity: Entity<any>;
   onContextFilterFieldsUpdated?: (customFilterFields: FilterField[]) => void;
 }
 
-const FilterManager: FunctionComponent<IProps> = ({entity, onContextFilterFieldsUpdated, children}) => {
+const FilterProvider: FunctionComponent<IProps> = ({entity, onContextFilterFieldsUpdated, children}) => {
   const [contextFilterFields, setContextFilterFields] = useUrlState<FilterField[]>(
     URL_PARAM_FILTERS,
     [],
@@ -114,4 +114,4 @@ const FilterManager: FunctionComponent<IProps> = ({entity, onContextFilterFields
   );
 };
 
-export default FilterManager;
+export {IFiltersContext, FiltersContext, FilterProvider};

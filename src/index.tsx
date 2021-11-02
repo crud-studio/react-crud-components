@@ -21,7 +21,6 @@ import {useScroll} from "./hooks/useScroll";
 import BooleanRadioButton from "./components/inputs/BooleanRadioButton";
 import FileDropzone from "./components/inputs/FileDropzone";
 import DatePickerWrapper from "./components/inputs/DatePickerWrapper";
-import EntityManager, {EntityContext} from "./entity/managers/EntityManager";
 import CrudDetailsPage from "./entity/pages/details/CrudDetailsPage";
 import CrudTablePage from "./entity/pages/table/CrudTablePage";
 import DetailsPageHeading from "./entity/pages/details/DetailsPageHeading";
@@ -35,6 +34,7 @@ import SummaryInfoCard from "./components/cards/SummaryInfoCard";
 import {GrantsContext, GrantsProvider} from "./contexts/grants/GrantsContext";
 import useGrants from "./contexts/grants/hooks/useGrants";
 import useHasGrant from "./contexts/grants/hooks/useHasGrant";
+import {EntityContext, EntityProvider} from "./entity/contexts/EntityContext";
 
 export {SummaryInfoCard};
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
@@ -54,8 +54,8 @@ export {
   CrudTablePage,
   DetailsPageHeading,
   EntityFieldComponent,
-  EntityManager,
   EntityContext,
+  EntityProvider,
   useEntity,
   useHasEntityActionType,
 };

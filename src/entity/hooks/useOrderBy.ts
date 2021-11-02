@@ -1,11 +1,10 @@
 import {useContext} from "react";
-import {FiltersContext} from "../managers/FilterManager";
-import {OrderByContext} from "../managers/OrderByManager";
+import {IOrderByContext, OrderByContext} from "../contexts/OrderByContext";
 
-const useOrderBy = () => {
+const useOrderBy = (): IOrderByContext => {
   const context = useContext(OrderByContext);
 
-  if (!context) throw new Error("OrderBy context must be use inside OrderByManager");
+  if (!context) throw new Error("OrderByContext must be used inside OrderByManager");
 
   return context;
 };

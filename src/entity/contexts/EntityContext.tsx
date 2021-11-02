@@ -6,7 +6,7 @@ import {useIntl} from "react-intl";
 import _ from "lodash";
 import {entityColumnTypes} from "../column-types/entityColumnTypes";
 
-export interface IEntityContext {
+interface IEntityContext {
   tableRowHeight: number;
   getEntity: (entityName?: string) => Entity<any>;
   getEntityEnum: (enumName?: string) => EnumInfoMap<any>;
@@ -23,7 +23,7 @@ export interface IEntityContext {
   getColumnGrant: (column: EntityColumn) => string | undefined;
 }
 
-export const EntityContext = React.createContext<IEntityContext>(undefined!);
+const EntityContext = React.createContext<IEntityContext>(undefined!);
 
 interface IProps extends PropsWithChildren<any> {
   entityMap: {[key: string]: Entity<any>};
@@ -34,7 +34,7 @@ interface IProps extends PropsWithChildren<any> {
   getEntityDetailsUrl: (entity: Entity<any>, id?: number, options?: UrlOptions) => string;
 }
 
-const EntityManager: FunctionComponent<IProps> = ({
+const EntityProvider: FunctionComponent<IProps> = ({
   entityMap,
   enumMap,
   tableRowHeight,
@@ -163,4 +163,4 @@ const EntityManager: FunctionComponent<IProps> = ({
   );
 };
 
-export default EntityManager;
+export {IEntityContext, EntityContext, EntityProvider};

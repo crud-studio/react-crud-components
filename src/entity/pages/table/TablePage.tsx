@@ -6,8 +6,6 @@ import TablePageHeading from "./TablePageHeading";
 import LoadingTableView from "./components/LoadingTableView";
 import EmptyTableView from "./components/EmptyTableView";
 import TableRowView from "./components/TableRowView";
-import FilterManager from "../../managers/FilterManager";
-import OrderByManager from "../../managers/OrderByManager";
 import TableHeaderRowView from "./components/TableHeaderRowView";
 import {
   AbstractJpaRO,
@@ -30,6 +28,8 @@ import {ListChildComponentProps} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {useScrollSync} from "../../../hooks/useScrollSync";
 import TableAccessibilityHeaderRowView from "./components/TableAccessibilityHeaderRowView";
+import {FilterProvider} from "../../contexts/FilterContext";
+import {OrderByProvider} from "../../contexts/OrderByContext";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
@@ -232,8 +232,8 @@ const TablePage = <EntityRO extends AbstractJpaRO>({
   const itemCount = useMemo<number>(() => items?.length || 0, [items]);
 
   return (
-    <FilterManager entity={entity} onContextFilterFieldsUpdated={onContextFilterFieldsUpdated}>
-      <OrderByManager entity={entity} onContextOrdersUpdated={onContextOrdersUpdated}>
+    <FilterProvider entity={entity} onContextFilterFieldsUpdated={onContextFilterFieldsUpdated}>
+      <OrderByProvider entity={entity} onContextOrdersUpdated={onContextOrdersUpdated}>
         <Box sx={{height: "100%", display: "flex", flexDirection: "column"}}>
           <TablePageHeading
             compact={compact}
@@ -313,8 +313,8 @@ const TablePage = <EntityRO extends AbstractJpaRO>({
             <MenuActionItems actions={actions} onActionClick={onContextMenuActionClick} />
           </Menu>
         </Box>
-      </OrderByManager>
-    </FilterManager>
+      </OrderByProvider>
+    </FilterProvider>
   );
 };
 

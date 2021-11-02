@@ -1,10 +1,10 @@
 import {useContext} from "react";
-import {EntityContext} from "../managers/EntityManager";
+import {EntityContext, IEntityContext} from "../contexts/EntityContext";
 
-const useEntity = () => {
+const useEntity = (): IEntityContext => {
   const context = useContext(EntityContext);
 
-  if (!context) throw new Error("Entity context must be use inside EntityManager");
+  if (!context) throw new Error("EntityContext must be used inside EntityManager");
 
   return context;
 };

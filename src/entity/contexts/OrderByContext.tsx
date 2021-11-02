@@ -5,21 +5,21 @@ import {OrderDTO, useDebounceFn, useUrlState} from "@crud-studio/react-crud-core
 import {Entity} from "../../models/entity";
 import EntityUtils from "../helpers/EntityUtils";
 
-export interface IOrderByContext {
+interface IOrderByContext {
   contextOrders: OrderDTO[];
   updateContextOrder: (order: OrderDTO) => void;
   removeContextOrder: (orderBy: string) => void;
   clearContextOrders: () => void;
 }
 
-export const OrderByContext = React.createContext<IOrderByContext>(undefined!);
+const OrderByContext = React.createContext<IOrderByContext>(undefined!);
 
 interface IProps extends PropsWithChildren<any> {
   entity: Entity<any>;
   onContextOrdersUpdated?: (contextOrders: OrderDTO[]) => void;
 }
 
-const OrderByManager: FunctionComponent<IProps> = ({entity, onContextOrdersUpdated, children}) => {
+const OrderByProvider: FunctionComponent<IProps> = ({entity, onContextOrdersUpdated, children}) => {
   const [contextOrders, setContextOrders] = useUrlState<OrderDTO[]>(
     URL_PARAM_ORDER_BY,
     [],
@@ -102,4 +102,4 @@ const OrderByManager: FunctionComponent<IProps> = ({entity, onContextOrdersUpdat
   );
 };
 
-export default OrderByManager;
+export {IOrderByContext, OrderByContext, OrderByProvider};

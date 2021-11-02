@@ -1,10 +1,10 @@
 import {useContext} from "react";
-import {FiltersContext} from "../managers/FilterManager";
+import {FiltersContext, IFiltersContext} from "../contexts/FilterContext";
 
-const useFilters = () => {
+const useFilters = (): IFiltersContext => {
   const context = useContext(FiltersContext);
 
-  if (!context) throw new Error("Filters context must be use inside FilterManager");
+  if (!context) throw new Error("FiltersContext must be used inside FilterManager");
 
   return context;
 };
