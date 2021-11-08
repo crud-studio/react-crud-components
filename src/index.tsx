@@ -35,6 +35,8 @@ import {GrantsContext, GrantsProvider} from "./contexts/grants/GrantsContext";
 import useGrants from "./contexts/grants/hooks/useGrants";
 import useHasGrant from "./contexts/grants/hooks/useHasGrant";
 import {EntityContext, EntityProvider} from "./entity/contexts/EntityContext";
+import {TourEvent, TourInfo, ToursContext, ToursProvider, TourStep} from "./contexts/tours/ToursContext";
+import useTours from "./contexts/tours/hooks/useTours";
 
 export {SummaryInfoCard};
 export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
@@ -44,7 +46,18 @@ export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
 export {TabPanel, VirtualTable};
 export {FormattedRelativeTimeNow, FullTime, ItemEditTime};
 
-export {GrantsProvider, GrantsContext, useGrants, useHasGrant};
+export {
+  GrantsContext,
+  GrantsProvider,
+  useGrants,
+  useHasGrant,
+  ToursContext,
+  ToursProvider,
+  useTours,
+  TourInfo,
+  TourStep,
+  TourEvent,
+};
 
 export * from "./models/entity";
 export * from "./models/internal";
