@@ -1,4 +1,4 @@
-import React, {FunctionComponent, PropsWithChildren, useCallback, useEffect, useRef, useState} from "react";
+import React, {FunctionComponent, PropsWithChildren, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {useIntl} from "react-intl";
 import _ from "lodash";
 import {useLocation, useWindowSize} from "react-use";
@@ -35,6 +35,9 @@ export type TourInfo = {
 export type TourRemoteStorageData = boolean;
 
 export type ToursContextProps = {
+  openTourIds: string[] | undefined;
+  completedTourIds: string[] | undefined;
+  getTour: (tourId: string) => TourInfo | undefined;
   startTour: (options?: {event?: string}) => void;
   stopTour: () => void;
 };
@@ -47,20 +50,23 @@ export interface ToursProviderProps extends PropsWithChildren<any> {
   toursMinWidth?: number;
 }
 
-const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, toursMinWidth = 768, children}) => {
+const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, toursMinWidth, children}) => {
   const theme = useTheme();
   const intl = useIntl();
   const location = useLocation();
   const windowSize = useWindowSize();
   const {initialized, getValue, setValue} = useRemoteStorage();
 
-  const [openTourIds, setOpenTourIds] = useState<string[] | null>(null);
+  const [openTourIds, setOpenTourIds] = useState<string[] | undefined>(undefined);
+  const [completedTourIds, setCompletedTourIds] = useState<string[] | undefined>(undefined);
   const [steps, setSteps] = useState<Step[]>([]);
 
-  const [runToursConfig, setRunToursConfig] = useState<{event: string; pathname: string} | null>(null);
+  const [runToursConfig, setRunToursConfig] = useState<{event: string; pathname: string} | undefined>(undefined);
   const [delayFlag, setDelayFlag] = useState<boolean>(true);
 
   const htmlElRef = useRef<HTMLDivElement>(null);
+
+  const aggregatedToursMinWidth = useMemo<number>(() => toursMinWidth || theme.breakpoints.values.md, [toursMinWidth]);
 
   const isTourMatchingUrl = useCallback((tour: TourInfo, pathname: string): boolean => {
     return !tour.urls || _.some(tour.urls, (url) => !!matchPath({path: url}, pathname));
@@ -70,6 +76,13 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
     const tourId = _.isString(tour) ? tour : tour.id;
     return `${remoteStoragePrefix}${tourId}`;
   }, []);
+
+  const getTour = useCallback(
+    (tourId: string): TourInfo | undefined => {
+      return _.find(tours, (tour) => tour.id === tourId);
+    },
+    [tours]
+  );
 
   const getRelevantTours = useCallback(
     (event: string, pathname: string): TourInfo[] => {
@@ -124,7 +137,7 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
         return;
       }
 
-      if (windowSize.width < toursMinWidth) {
+      if (windowSize.width < aggregatedToursMinWidth) {
         return;
       }
 
@@ -147,6 +160,7 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
       initialized,
       openTourIds,
       windowSize.width,
+      aggregatedToursMinWidth,
       getRelevantTours,
       mergeAndProcessToursSteps,
       setSteps,
@@ -160,8 +174,15 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
   }, []);
 
   const stopTour = useCallback((): void => {
-    setOpenTourIds(null);
+    setOpenTourIds(undefined);
   }, [setOpenTourIds]);
+
+  const completeTour = useCallback((): void => {
+    if (openTourIds) {
+      setCompletedTourIds(openTourIds);
+      stopTour();
+    }
+  }, [openTourIds, setCompletedTourIds, stopTour]);
 
   useEffect(() => {
     if (runToursConfig) {
@@ -199,7 +220,7 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
   }, [location, initialized]);
 
   useEffect(() => {
-    if (windowSize.width < toursMinWidth && !!openTourIds) {
+    if (windowSize.width < aggregatedToursMinWidth && !!openTourIds) {
       stopTour();
     }
   }, [windowSize.width]);
@@ -215,7 +236,7 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
   }, [openTourIds]);
 
   return (
-    <ToursContext.Provider value={{startTour, stopTour}}>
+    <ToursContext.Provider value={{openTourIds, completedTourIds, getTour, startTour, stopTour}}>
       <div ref={htmlElRef} id="tours-scroll-lock" />
 
       {delayFlag && (
@@ -229,8 +250,14 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
           scrollToFirstStep={false}
           showSkipButton={true}
           callback={({status}) => {
-            if (status === "finished" || status === "error" || status === "skipped") {
-              stopTour();
+            switch (status) {
+              case "finished":
+              case "skipped":
+                completeTour();
+                break;
+              case "error":
+                stopTour();
+                break;
             }
           }}
           locale={{
