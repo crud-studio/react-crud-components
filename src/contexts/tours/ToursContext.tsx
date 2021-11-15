@@ -226,8 +226,13 @@ const ToursProvider: FunctionComponent<ToursProviderProps> = ({tours, active, to
   }, [windowSize.width]);
 
   useEffect(() => {
-    if (htmlElRef && htmlElRef.current) {
+    if (htmlElRef.current) {
       if (!!openTourIds) {
+        // Fix for bug with modal closing
+        if (document.body.style.overflow === "hidden") {
+          document.body.style.overflow = "";
+        }
+
         disableBodyScroll(htmlElRef.current);
       } else {
         enableBodyScroll(htmlElRef.current);
