@@ -37,9 +37,32 @@ import useHasGrant from "./contexts/grants/hooks/useHasGrant";
 import {EntityContext, EntityProvider} from "./entity/contexts/EntityContext";
 import {TourEvent, TourInfo, ToursContext, ToursProvider, TourStep} from "./contexts/tours/ToursContext";
 import useTours from "./contexts/tours/hooks/useTours";
+import Confetti from "./components/common/Confetti";
+import PropagationStopper from "./components/common/PropagationStopper";
+import Scrollbar from "./components/common/Scrollbar";
+import {
+  WizardConfig,
+  WizardsContext,
+  WizardsProvider,
+  WizardStatus,
+  WizardStepConfig,
+  WizardStepStatus,
+} from "./contexts/wizards/WizardsContext";
+import useWizards from "./contexts/wizards/hooks/useWizards";
+import WizardCard from "./contexts/wizards/components/WizardCard";
+import WizardStatusButton from "./contexts/wizards/components/WizardStatusButton";
+import WizardDialog from "./contexts/wizards/components/WizardDialog";
 
 export {SummaryInfoCard};
-export {ConditionalLink, DialogContentSubTitle, DialogContentTitle, LoadingCenter};
+export {
+  ConditionalLink,
+  Confetti,
+  DialogContentSubTitle,
+  DialogContentTitle,
+  LoadingCenter,
+  PropagationStopper,
+  Scrollbar,
+};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};
@@ -57,6 +80,16 @@ export {
   TourInfo,
   TourStep,
   TourEvent,
+  WizardsContext,
+  WizardsProvider,
+  useWizards,
+  WizardConfig,
+  WizardStepConfig,
+  WizardStatus,
+  WizardStepStatus,
+  WizardCard,
+  WizardDialog,
+  WizardStatusButton,
 };
 
 export * from "./models/entity";
