@@ -1,6 +1,9 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
 
 interface IGrantsContext {
+  loggedIn: boolean;
+  loggedInType: string;
+  loggedInId?: number;
   grants: string[];
   hasGrant: (grant?: string) => boolean;
 }
@@ -8,10 +11,13 @@ interface IGrantsContext {
 const GrantsContext = React.createContext<IGrantsContext>(undefined!);
 
 interface IProps extends PropsWithChildren<any> {
+  loggedIn: boolean;
+  loggedInType: string;
+  loggedInId?: number;
   grants: string[];
 }
 
-const GrantsProvider: FunctionComponent<IProps> = ({grants, children}) => {
+const GrantsProvider: FunctionComponent<IProps> = ({grants, loggedIn, loggedInType, loggedInId, children}) => {
   const hasGrant = useCallback(
     (grant?: string): boolean => {
       return !grant || grants.includes(grant);
@@ -22,6 +28,9 @@ const GrantsProvider: FunctionComponent<IProps> = ({grants, children}) => {
   return (
     <GrantsContext.Provider
       value={{
+        loggedIn,
+        loggedInType,
+        loggedInId,
         grants,
         hasGrant,
       }}

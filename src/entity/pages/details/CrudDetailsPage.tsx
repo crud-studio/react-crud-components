@@ -31,6 +31,8 @@ import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
 import EntitySummary from "./components/EntitySummary";
 import NiceModal from "@ebay/nice-modal-react";
+import {ForumTwoTone} from "@mui/icons-material";
+import EntityNotes from "./components/EntityNotes";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;
@@ -151,6 +153,9 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
       ...(entity.client.showDetailsTab
         ? [{id: "details", labelKey: "pages.details", icon: <entity.client.icon fontSize="small" />}]
         : []),
+      ...(entity.client.showNotesTab
+        ? [{id: "notes", labelKey: "pages.notes", icon: <ForumTwoTone fontSize="small" />}]
+        : []),
       ...nestedEntities.map((nestedEntity) => {
         const nestedEntityEntity = getEntity(nestedEntity.entityName);
         return {
@@ -183,6 +188,9 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
       navigate(getEntityTableUrl(entity));
     }
   }, [itemId, entity]);
+
+  const showDetailsTab = useMemo<boolean>(() => entity.client.showDetailsTab, [entity]);
+  const showNotesTab = useMemo<boolean>(() => !!itemId && !!entity.client.showNotesTab, [itemId, entity]);
 
   return (
     <>
@@ -220,7 +228,7 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
               </>
             }
           >
-            {entity.client.showDetailsTab && (
+            {showDetailsTab && (
               <EntityDetailsForm
                 entity={entity}
                 item={item}
@@ -229,6 +237,8 @@ const CrudDetailsPage = <EntityRO extends AbstractJpaRO>({entity, LoadingCompone
                 key={item.uniqueKey}
               />
             )}
+
+            {showNotesTab && <EntityNotes entity={entity} item={item} key={item.uniqueKey} />}
 
             {nestedEntities.map((nestedEntity) => (
               <CrudTableNestedEntity nestedEntity={nestedEntity} parentId={item.id} key={nestedEntity.entityName} />

@@ -8,7 +8,7 @@ import WizardSteps from "./WizardSteps";
 import {Box, Grid, LinearProgress, Typography} from "@mui/material";
 import {WizardConfig, WizardStepConfig} from "../WizardsContext";
 import useWizards from "../hooks/useWizards";
-import Scrollbar from "../../../components/common/Scrollbar";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface IProps {
   wizardId: string;
@@ -82,13 +82,13 @@ const WizardInfo: FunctionComponent<IProps> = ({wizardId}) => {
         <LinearProgress variant="determinate" value={wizardStatus.percentComplete} sx={{mb: 2}} />
 
         <Box sx={{height: 380}}>
-          <Scrollbar>
+          <PerfectScrollbar options={{suppressScrollX: true, wheelPropagation: true}}>
             <WizardSteps
               steps={wizardConfig.steps}
               selectedStepId={selectedStepId}
               setSelectedStepId={setSelectedStepId}
             />
-          </Scrollbar>
+          </PerfectScrollbar>
         </Box>
       </Grid>
       <Grid item xs={6}>

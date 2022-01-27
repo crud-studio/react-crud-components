@@ -39,7 +39,6 @@ import {TourEvent, TourInfo, ToursContext, ToursProvider, TourStep} from "./cont
 import useTours from "./contexts/tours/hooks/useTours";
 import Confetti from "./components/common/Confetti";
 import PropagationStopper from "./components/common/PropagationStopper";
-import Scrollbar from "./components/common/Scrollbar";
 import {
   WizardConfig,
   WizardsContext,
@@ -54,15 +53,7 @@ import WizardStatusButton from "./contexts/wizards/components/WizardStatusButton
 import WizardDialog from "./contexts/wizards/components/WizardDialog";
 
 export {SummaryInfoCard};
-export {
-  ConditionalLink,
-  Confetti,
-  DialogContentSubTitle,
-  DialogContentTitle,
-  LoadingCenter,
-  PropagationStopper,
-  Scrollbar,
-};
+export {ConditionalLink, Confetti, DialogContentSubTitle, DialogContentTitle, LoadingCenter, PropagationStopper};
 export {ConfirmationDialog, ConfirmationTypingDialog, DialogTitleEnhanced};
 export {BooleanRadioButton, DatePickerWrapper, FileDropzone};
 export {ActionsDropdownMenu, ButtonDropdownMenu, MenuActionItems};

@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect} from "react";
+import {FunctionComponent, useEffect, useState} from "react";
 import _ from "lodash";
 import {MenuAction} from "../models/internal";
 import Mousetrap from "mousetrap";
@@ -9,6 +9,15 @@ interface IProps {
 }
 
 const KeyBindingManager: FunctionComponent<IProps> = ({actions, actionsHandler}) => {
+  const [actionIdToPerform, setActionIdToPerform] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (actionIdToPerform) {
+      actionsHandler(actionIdToPerform);
+      setActionIdToPerform(undefined);
+    }
+  }, [actionIdToPerform]);
+
   useEffect(() => {
     Mousetrap.prototype.stopCallback = () => {
       return false;
@@ -17,7 +26,7 @@ const KeyBindingManager: FunctionComponent<IProps> = ({actions, actionsHandler})
     _.forEach(actions, (a) => {
       if (a.keyBinding) {
         Mousetrap.bind([`ctrl+${a.keyBinding}`, `command+${a.keyBinding}`], () => {
-          actionsHandler(a.id);
+          setActionIdToPerform(a.id);
           return false;
         });
       }

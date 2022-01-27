@@ -4,6 +4,14 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText} from "@
 import DialogTitleEnhanced from "./DialogTitleEnhanced";
 import NiceModal, {useModal} from "@ebay/nice-modal-react";
 
+import {Theme} from "@mui/material/styles/createTheme";
+import {alpha} from "@mui/system/colorManipulator";
+import styled from "@mui/material/styles/styled";
+import useTheme from "@mui/material/styles/useTheme";
+import {SxProps} from "@mui/system/styleFunctionSx/styleFunctionSx";
+import Box from "@mui/material/Box";
+import ChildCare from "@mui/icons-material/ChildCare";
+
 export type ConfirmationDialogProps = {
   modalTitleKey: string;
   modalTitleValues?: any;

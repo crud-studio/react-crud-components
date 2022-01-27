@@ -69,6 +69,7 @@ export interface EntityPredefinedValue {
 export interface Entity<EntityRO> extends BaseEntity {
   name: string;
   api: {
+    type: string;
     path: string;
     cacheName: string;
     defaultOrders: OrderDTO[];
@@ -82,6 +83,7 @@ export interface Entity<EntityRO> extends BaseEntity {
     titleDetailsKey: string;
     icon: React.ComponentType<SvgIconProps>;
     showDetailsTab: boolean;
+    showNotesTab?: boolean;
     generateEmptyEntity: () => EntityRO;
     generateLabel: (item: EntityRO) => string;
     customSummaries?: (EntityGenericSummaryConfig<EntityRO> | EntityComponentSummaryConfig<EntityRO>)[];
