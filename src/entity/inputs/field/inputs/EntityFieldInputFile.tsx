@@ -110,7 +110,7 @@ const EntityFieldInputFile: FunctionComponent<IPropsEntityColumnInputType> = ({
             value={inputValue}
             disabled={disabled}
             autoComplete="off"
-            ref={field?.ref}
+            inputRef={field?.ref}
             fullWidth
             label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
             helperText={extensions}

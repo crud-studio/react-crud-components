@@ -27,11 +27,7 @@ const PasswordDialog: FunctionComponent<PasswordDialogProps> = NiceModal.create(
     const [modalOpened, setModalOpened] = useState<boolean>(false);
     const [password, setPassword] = useState<string | null>(null);
 
-    const {
-      control,
-      handleSubmit,
-      formState: {errors},
-    } = useForm<FormValues>();
+    const {control, handleSubmit} = useForm<FormValues>();
 
     const onSubmit = handleSubmit((data): void => {
       setPassword(data.password);
@@ -76,21 +72,20 @@ const PasswordDialog: FunctionComponent<PasswordDialogProps> = NiceModal.create(
               }}
               control={control}
               defaultValue=""
-              render={({field}) => {
+              render={({field: {ref, ...field}, fieldState: {invalid, error}}) => {
                 return (
                   <TextField
+                    {...field}
+                    inputRef={ref}
                     margin="normal"
                     required
                     fullWidth
                     label={<FormattedMessage id="pages.password" />}
-                    value={field?.value}
                     type="password"
                     autoComplete="off"
                     autoFocus
-                    onChange={field?.onChange}
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
-                    ref={field?.ref}
+                    error={invalid}
+                    helperText={error}
                     sx={{mb: 0}}
                   />
                 );

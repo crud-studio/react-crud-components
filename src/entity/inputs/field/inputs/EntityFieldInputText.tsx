@@ -35,7 +35,7 @@ const EntityFieldInputText: FunctionComponent<IPropsEntityColumnInputType> = ({
             inputProps={{
               maxLength: 255,
             }}
-            ref={field?.ref}
+            inputRef={field?.ref}
             fullWidth
             label={<FormattedMessage id={entityField.titleKey} defaultMessage={entityField.titleKey} />}
             required={entityField.required}

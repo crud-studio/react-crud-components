@@ -23,11 +23,7 @@ const ConfirmationTypingDialog: FunctionComponent<ConfirmationTypingDialogProps>
     const modal = useModal();
     const intl = useIntl();
 
-    const {
-      control,
-      handleSubmit,
-      formState: {errors},
-    } = useForm<FormValues>();
+    const {control, handleSubmit} = useForm<FormValues>();
 
     const onSubmit = handleSubmit((data): void => {
       onConfirm?.();
@@ -75,9 +71,11 @@ const ConfirmationTypingDialog: FunctionComponent<ConfirmationTypingDialogProps>
                 }}
                 control={control}
                 defaultValue=""
-                render={({field}) => {
+                render={({field: {ref, ...field}, fieldState: {invalid, error}}) => {
                   return (
                     <TextField
+                      {...field}
+                      inputRef={ref}
                       margin="normal"
                       required
                       fullWidth
@@ -87,14 +85,11 @@ const ConfirmationTypingDialog: FunctionComponent<ConfirmationTypingDialogProps>
                           values={{confirm: intl.formatMessage({id: confirmTextKey})}}
                         />
                       }
-                      value={field?.value}
                       type="text"
                       autoComplete="off"
                       autoFocus
-                      onChange={field?.onChange}
-                      error={!!errors.confirm}
-                      helperText={errors.confirm?.message}
-                      ref={field?.ref}
+                      error={invalid}
+                      helperText={error}
                       sx={{mb: 0}}
                     />
                   );
