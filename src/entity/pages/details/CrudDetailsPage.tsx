@@ -26,7 +26,7 @@ import EntityComponentActionDialog from "./dialogs/EntityComponentActionDialog";
 import EntityClientUtils from "../../helpers/EntityClientUtils";
 import EntityUtils from "../../helpers/EntityUtils";
 import useGrants from "../../../contexts/grants/hooks/useGrants";
-import useEntity from "../../hooks/useEntity";
+import useEntity from "../../contexts/entity/hooks/useEntity";
 import ConfirmationDialog from "../../../components/dialogs/ConfirmationDialog";
 import {useNavigate} from "react-router-dom";
 import EntitySummary from "./components/EntitySummary";

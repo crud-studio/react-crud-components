@@ -6,8 +6,8 @@ import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import {SelectOption} from "../../../../models/internal";
 import EntityUtils from "../../../helpers/EntityUtils";
-import useEntity from "../../../hooks/useEntity";
-import useFilters from "../../../hooks/useFilters";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
+import useFilters from "../../../contexts/filter/hooks/useFilters";
 
 const TableFilterEnum: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();

@@ -12,7 +12,7 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import EntityFieldComponentLabel from "../../../inputs/field/EntityFieldComponentLabel";
 import useGrants from "../../../../contexts/grants/hooks/useGrants";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 import {LoadingButton} from "@mui/lab";
 import {useSnackbar} from "notistack";
 import NiceModal, {useModal} from "@ebay/nice-modal-react";

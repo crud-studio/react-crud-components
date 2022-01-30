@@ -5,7 +5,7 @@ import {Autocomplete, TextField} from "@mui/material";
 import {FormattedMessage, useIntl} from "react-intl";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import {SelectOption} from "../../../../models/internal";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 
 const EntityFieldInputEnum: FunctionComponent<IPropsEntityColumnInputType> = ({
   entityField,

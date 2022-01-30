@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from "react";
 import CrudTablePage from "./CrudTablePage";
 import {Entity, EntityPredefinedValue, NestedEntity} from "../../../models/entity";
-import useEntity from "../../hooks/useEntity";
+import useEntity from "../../contexts/entity/hooks/useEntity";
 
 interface IProps {
   nestedEntity: NestedEntity;

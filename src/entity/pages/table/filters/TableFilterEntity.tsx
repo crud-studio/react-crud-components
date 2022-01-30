@@ -6,8 +6,8 @@ import {Entity} from "../../../../models/entity";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {useIntl} from "react-intl";
 import EntityUtils from "../../../helpers/EntityUtils";
-import useEntity from "../../../hooks/useEntity";
-import useFilters from "../../../hooks/useFilters";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
+import useFilters from "../../../contexts/filter/hooks/useFilters";
 
 const TableFilterEntity: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();

@@ -7,7 +7,7 @@ import {Clear} from "@mui/icons-material";
 import {useIntl} from "react-intl";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
-import useFilters from "../../../hooks/useFilters";
+import useFilters from "../../../contexts/filter/hooks/useFilters";
 
 interface IProps {
   column: EntityColumn;

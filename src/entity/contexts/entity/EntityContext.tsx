@@ -1,10 +1,10 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback} from "react";
 import {FilterField, UrlOptions} from "@crud-studio/react-crud-core";
-import {Entity, EntityColumn, EnumInfo, EnumInfoMap} from "../../models/entity";
-import {SelectOption} from "../../models/internal";
+import {Entity, EntityColumn, EnumInfo, EnumInfoMap} from "../../../models/entity";
+import {SelectOption} from "../../../models/internal";
 import {useIntl} from "react-intl";
 import _ from "lodash";
-import {entityColumnTypes} from "../column-types/entityColumnTypes";
+import {entityColumnTypes} from "../../column-types/entityColumnTypes";
 
 interface IEntityContext {
   tableRowHeight: number;

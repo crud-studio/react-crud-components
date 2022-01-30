@@ -5,7 +5,7 @@ import {AbstractJpaRO} from "@crud-studio/react-crud-core";
 import {IPropsEntityColumnData} from "../../../../models/props";
 import {EntityColumn} from "../../../../models/entity";
 import EntityUtils from "../../../helpers/EntityUtils";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 
 const TableDataEnumList = <EntityRO extends AbstractJpaRO>({column, item}: IPropsEntityColumnData<EntityRO>) => {
   const intl = useIntl();

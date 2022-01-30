@@ -1,9 +1,9 @@
 import React, {FunctionComponent, PropsWithChildren, useCallback, useEffect, useState} from "react";
 import _ from "lodash";
-import {URL_PARAM_FILTERS, urlValuesSeparator} from "../../constants/urlKeys";
+import {URL_PARAM_FILTERS, urlValuesSeparator} from "../../../constants/urlKeys";
 import {FilterField, useDebounceFn, useUrlState} from "@crud-studio/react-crud-core";
-import {Entity} from "../../models/entity";
-import EntityUtils from "../helpers/EntityUtils";
+import {Entity} from "../../../models/entity";
+import EntityUtils from "../../helpers/EntityUtils";
 
 interface IFiltersContext {
   contextFilterFields: FilterField[];

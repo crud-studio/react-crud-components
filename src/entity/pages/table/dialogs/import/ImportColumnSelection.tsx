@@ -17,7 +17,7 @@ import {
 import {EntityColumn} from "../../../../../models/entity";
 import DialogContentTitle from "../../../../../components/common/DialogContentTitle";
 import DialogContentSubTitle from "../../../../../components/common/DialogContentSubTitle";
-import useEntity from "../../../../hooks/useEntity";
+import useEntity from "../../../../contexts/entity/hooks/useEntity";
 
 interface IProps {
   column: EntityColumn;

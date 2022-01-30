@@ -8,7 +8,7 @@ import {OpenInNewOutlined} from "@mui/icons-material";
 import {IPropsEntityColumnInputType} from "../../../../models/props";
 import AsyncCreatableEntitySelect from "../../../inputs/AsyncCreatableEntitySelect";
 import {Entity} from "../../../../models/entity";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 import {useSnackbar} from "notistack";
 
 const EntityFieldInputEntity: FunctionComponent<IPropsEntityColumnInputType> = ({

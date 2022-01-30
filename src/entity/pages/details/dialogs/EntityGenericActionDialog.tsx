@@ -11,7 +11,7 @@ import EntityUtils from "../../../helpers/EntityUtils";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import useCustomActionRequest from "../api/useCustomActionRequest";
 import {v4 as uuidv4} from "uuid";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 import {LoadingButton} from "@mui/lab";
 import {useNavigate} from "react-router-dom";
 import NiceModal, {useModal} from "@ebay/nice-modal-react";

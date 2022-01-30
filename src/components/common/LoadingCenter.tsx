@@ -1,11 +1,19 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, PropsWithChildren} from "react";
 import {Box, CircularProgress} from "@mui/material";
+import {SxProps} from "@mui/system";
+import {Theme} from "@mui/material/styles";
 
-const LoadingCenter: FunctionComponent = () => {
+interface LoadingCenterProps {
+  position?: "fixed" | "absolute";
+  size?: number | string;
+  sx?: SxProps<Theme>;
+}
+
+const LoadingCenter: FunctionComponent<LoadingCenterProps> = ({position = "fixed", size, sx}) => {
   return (
     <Box
       sx={{
-        position: "fixed",
+        position: position,
         left: 0,
         right: 0,
         top: 0,
@@ -14,9 +22,10 @@ const LoadingCenter: FunctionComponent = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        ...sx
       }}
     >
-      <CircularProgress />
+      <CircularProgress size={size} />
     </Box>
   );
 };

@@ -3,7 +3,7 @@ import {useUpdateEffect} from "react-use";
 import {FilterField} from "@crud-studio/react-crud-core";
 import {Entity} from "../../models/entity";
 import useGrants from "../../contexts/grants/hooks/useGrants";
-import useEntity from "./useEntity";
+import useEntity from "../contexts/entity/hooks/useEntity";
 
 const useSearchFilterFields = (entity: Entity<any>, search: string | undefined): FilterField[] => {
   const {isColumnSearchable, getColumnSearchFilterField, getColumnGrant} = useEntity();

@@ -20,7 +20,7 @@ import EntityComponentActionManyDialog from "./dialogs/EntityComponentActionMany
 import EntityGenericActionManyDialog from "./dialogs/EntityGenericActionManyDialog";
 import EntityClientUtils from "../../helpers/EntityClientUtils";
 import useGrants from "../../../contexts/grants/hooks/useGrants";
-import useEntity from "../../hooks/useEntity";
+import useEntity from "../../contexts/entity/hooks/useEntity";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import NiceModal from "@ebay/nice-modal-react";

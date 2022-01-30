@@ -7,8 +7,8 @@ import {CloseOutlined} from "@mui/icons-material";
 import {tableCellWidth, tableCheckboxCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
 import {FormattedMessage} from "react-intl";
-import useFilters from "../../../hooks/useFilters";
-import useOrderBy from "../../../hooks/useOrderBy";
+import useFilters from "../../../contexts/filter/hooks/useFilters";
+import useOrderBy from "../../../contexts/order-by/hooks/useOrderBy";
 
 interface IProps {
   columns: EntityColumn[];

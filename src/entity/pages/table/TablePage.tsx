@@ -28,8 +28,8 @@ import {ListChildComponentProps} from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {useScrollSync} from "../../../hooks/useScrollSync";
 import TableAccessibilityHeaderRowView from "./components/TableAccessibilityHeaderRowView";
-import {FilterProvider} from "../../contexts/FilterContext";
-import {OrderByProvider} from "../../contexts/OrderByContext";
+import {FilterProvider} from "../../contexts/filter/FilterContext";
+import {OrderByProvider} from "../../contexts/order-by/OrderByContext";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;

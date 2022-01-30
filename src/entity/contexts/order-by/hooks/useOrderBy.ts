@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {IOrderByContext, OrderByContext} from "../contexts/OrderByContext";
+import {IOrderByContext, OrderByContext} from "../OrderByContext";
 
 const useOrderBy = (): IOrderByContext => {
   const context = useContext(OrderByContext);

@@ -11,7 +11,7 @@ import useHasEntityActionType from "../../../hooks/useHasEntityActionType";
 import EntityFieldComponent from "../../../inputs/field/EntityFieldComponent";
 import {LoadingButton} from "@mui/lab";
 import useGrants from "../../../../contexts/grants/hooks/useGrants";
-import useEntity from "../../../hooks/useEntity";
+import useEntity from "../../../contexts/entity/hooks/useEntity";
 
 interface IProps<EntityRO extends AbstractJpaRO> {
   entity: Entity<EntityRO>;

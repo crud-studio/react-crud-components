@@ -12,7 +12,7 @@ import ImportFileUpload from "./ImportFileUpload";
 import {Entity, EntityColumn, EntityPredefinedValue} from "../../../../../models/entity";
 import DialogTitleEnhanced from "../../../../../components/dialogs/DialogTitleEnhanced";
 import useGrants from "../../../../../contexts/grants/hooks/useGrants";
-import useEntity from "../../../../hooks/useEntity";
+import useEntity from "../../../../contexts/entity/hooks/useEntity";
 import {useSnackbar} from "notistack";
 import NiceModal, {useModal} from "@ebay/nice-modal-react";
 

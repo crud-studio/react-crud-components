@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {EntityContext, IEntityContext} from "../contexts/EntityContext";
+import {EntityContext, IEntityContext} from "../EntityContext";
 
 const useEntity = (): IEntityContext => {
   const context = useContext(EntityContext);

@@ -8,7 +8,7 @@ import {Clear} from "@mui/icons-material";
 import {IPropsEntityColumnFilter} from "../../../../models/props";
 import {useIntl} from "react-intl";
 import EntityUtils from "../../../helpers/EntityUtils";
-import useFilters from "../../../hooks/useFilters";
+import useFilters from "../../../contexts/filter/hooks/useFilters";
 
 const TableFilterDate: FunctionComponent<IPropsEntityColumnFilter> = ({column}) => {
   const intl = useIntl();

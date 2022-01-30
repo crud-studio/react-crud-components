@@ -5,7 +5,7 @@ import {Box, TableCell} from "@mui/material";
 import {TableSortLabel} from "@mui/material";
 import {tableCellWidth} from "../../../../constants/defaultValues";
 import {EntityColumn} from "../../../../models/entity";
-import useOrderBy from "../../../hooks/useOrderBy";
+import useOrderBy from "../../../contexts/order-by/hooks/useOrderBy";
 import EntityUtils from "../../../helpers/EntityUtils";
 
 interface IProps {
